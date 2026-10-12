@@ -1,10 +1,32 @@
-// collector.mjs — Collecte les flux RSS côté serveur et écrit articles.json
+// collector.mjs — Collecte les flux RSS côté serveur
 import { readFile, writeFile } from "node:fs/promises";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const USER_AGENT = "Mozilla/5.0 (compatible; VeilleMedia/1.0; +github-actions)";
+
+// ============================================================
+// CONFIGURATION HTTP
+// ============================================================
+// User-Agent Chrome réaliste (contourne les 403 anti-bot)
+const USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36";
+
+// Headers qui imitent un vrai navigateur
+const BROWSER_HEADERS = {
+  "User-Agent": USER_AGENT,
+  "Accept": "application/rss+xml, application/atom+xml, application/xml, text/xml, */*;q=0.9",
+  "Accept-Language": "fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7",
+  "Accept-Encoding": "gzip, deflate, br",
+  "Cache-Control": "no-cache",
+  "Pragma": "no-cache",
+  "Sec-Fetch-Dest": "document",
+  "Sec-Fetch-Mode": "navigate",
+  "Sec-Fetch-Site": "none",
+  "Upgrade-Insecure-Requests": "1",
+};
+
+const TIMEOUT_MS = 25000;
+const MAX_RETRIES = 2;
 
 // ============================================================
 // NETTOYAGE HTML ROBUSTE
@@ -13,14 +35,10 @@ function cleanHtml(input) {
   if (!input) return "";
   let s = String(input);
 
-  // Retire CDATA
   s = s.replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1");
-  // Retire scripts et styles
   s = s.replace(/<script[\s\S]*?<\/script>/gi, "");
   s = s.replace(/<style[\s\S]*?<\/style>/gi, "");
-  // Retire toutes les balises (y compris auto-fermantes)
   s = s.replace(/<[^>]*>/g, " ");
-  // Décode les entités HTML
   s = s
     .replace(/&amp;/g, "&")
     .replace(/&lt;/g, "<")
@@ -31,7 +49,6 @@ function cleanHtml(input) {
     .replace(/&nbsp;/g, " ")
     .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(parseInt(n, 10)))
     .replace(/&#x([0-9a-f]+);/gi, (_, n) => String.fromCharCode(parseInt(n, 16)));
-  // Normalise les espaces
   s = s.replace(/\s+/g, " ").trim();
   return s;
 }
@@ -69,10 +86,8 @@ function parseFeed(xml, source) {
     const title = cleanHtml(rawTitle).slice(0, 220);
     const description = cleanHtml(rawDesc).slice(0, 280);
 
-    // ⚠️ Filtres anti-bruit
     if (!title || title.length < 5) continue;
     if (!link || !/^https?:\/\//i.test(link.trim())) continue;
-    // Rejette les titres génériques ou doublons de la source
     if (title.toLowerCase() === source.nom.toLowerCase()) continue;
 
     const parsed = rawDate ? Date.parse(rawDate) : NaN;
@@ -112,29 +127,69 @@ function detectTheme(title, desc) {
 }
 
 // ============================================================
-// COLLECTE
+// FETCH AVEC RETRY ET TIMEOUT LONG
+// ============================================================
+async function fetchWithRetry(url, attempt = 1) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), TIMEOUT_MS);
+
+  try {
+    const res = await fetch(url, {
+      headers: BROWSER_HEADERS,
+      redirect: "follow",
+      signal: controller.signal,
+    });
+    clearTimeout(timeout);
+
+    if (!res.ok) {
+      // 404 = flux mort, pas la peine de retry
+      if (res.status === 404) {
+        return { ok: false, status: res.status, error: `HTTP 404` };
+      }
+      // 403 = anti-bot, on retry avec un délai
+      if (res.status === 403 && attempt < MAX_RETRIES) {
+        await new Promise(r => setTimeout(r, 2000));
+        return fetchWithRetry(url, attempt + 1);
+      }
+      return { ok: false, status: res.status, error: `HTTP ${res.status}` };
+    }
+
+    const text = await res.text();
+    if (!text || text.length < 200) {
+      return { ok: false, status: 200, error: "Réponse trop courte" };
+    }
+    return { ok: true, text };
+  } catch (err) {
+    clearTimeout(timeout);
+
+    // Timeout ou erreur réseau → retry
+    if (attempt < MAX_RETRIES) {
+      await new Promise(r => setTimeout(r, 1500));
+      return fetchWithRetry(url, attempt + 1);
+    }
+
+    const msg = err.name === "AbortError"
+      ? `Timeout ${TIMEOUT_MS}ms (×${attempt})`
+      : `fetch failed: ${err.message}`;
+    return { ok: false, error: msg };
+  }
+}
+
+// ============================================================
+// COLLECTE D'UNE SOURCE
 // ============================================================
 async function fetchFeed(source) {
   const start = Date.now();
-  try {
-    const res = await fetch(source.url, {
-      headers: {
-        "User-Agent": USER_AGENT,
-        "Accept": "application/rss+xml, application/atom+xml, application/xml, text/xml, */*",
-      },
-      redirect: "follow",
-      signal: AbortSignal.timeout(15000),
-    });
-    if (!res.ok) {
-      return { source, status: "error", code: res.status, ms: Date.now() - start, items: [] };
-    }
-    const xml = await res.text();
-    const items = parseFeed(xml, source);
-    items.forEach(a => { a.themes = detectTheme(a.title, a.description); });
-    return { source, status: "ok", items, ms: Date.now() - start };
-  } catch (err) {
-    return { source, status: "error", error: err.message, ms: Date.now() - start, items: [] };
+  const result = await fetchWithRetry(source.url);
+  const ms = Date.now() - start;
+
+  if (!result.ok) {
+    return { source, status: "error", error: result.error, ms, items: [] };
   }
+
+  const items = parseFeed(result.text, source);
+  items.forEach(a => { a.themes = detectTheme(a.title, a.description); });
+  return { source, status: "ok", items, ms };
 }
 
 // ============================================================
@@ -145,6 +200,8 @@ async function main() {
 
   const sources = JSON.parse(await readFile(resolve(__dirname, "sources.json"), "utf8"));
   console.log(`📋 ${sources.length} sources à tester\n`);
+  console.log(`⚙️  Timeout : ${TIMEOUT_MS}ms · Retries : ${MAX_RETRIES}`);
+  console.log(`🌐 User-Agent : Chrome 131\n`);
 
   const results = await Promise.allSettled(sources.map(fetchFeed));
   const all = [];
@@ -154,19 +211,19 @@ async function main() {
 
   for (const r of results) {
     if (r.status !== "fulfilled") continue;
-    const { source, status, items, ms, code, error } = r.value;
-    feedStatus[source.id] = { status, items: items.length, ms, code, error, nom: source.nom };
+    const { source, status, items, ms, error } = r.value;
+    feedStatus[source.id] = { status, items: items.length, ms, error, nom: source.nom };
     if (status === "ok" && items.length > 0) {
       all.push(...items);
       okList.push(`${source.nom} (${items.length})`);
-      console.log(`✅ ${source.nom.padEnd(30)} ${items.length} art. (${ms}ms)`);
+      console.log(`✅ ${source.nom.padEnd(30)} ${String(items.length).padStart(2)} art. (${ms}ms)`);
     } else {
-      koList.push(`${source.nom} → ${error || "HTTP " + code || "vide"}`);
-      console.log(`❌ ${source.nom.padEnd(30)} ${error || "HTTP " + code || "vide"} (${ms}ms)`);
+      koList.push(`${source.nom} → ${error || "vide"}`);
+      console.log(`❌ ${source.nom.padEnd(30)} ${error || "vide"} (${ms}ms)`);
     }
   }
 
-  // Déduplication par URL ET par titre (pour éviter les quasi-doublons)
+  // Déduplication par URL + par titre
   const seenUrl = new Set();
   const seenTitle = new Set();
   const unique = all.filter(a => {
@@ -194,7 +251,7 @@ async function main() {
 
   await writeFile(resolve(__dirname, "articles.json"), JSON.stringify(output, null, 2), "utf8");
 
-  console.log("\n" + "=".repeat(60));
+  console.log("\n" + "=".repeat(70));
   console.log(`\n📊 BILAN`);
   console.log(`   Sources OK      : ${okCount}`);
   console.log(`   Sources en échec: ${koCount}`);
