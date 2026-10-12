@@ -1,0 +1,35 @@
+name: Collecte des flux RSS
+
+on:
+  schedule:
+    # Toutes les heures (à la minute 0)
+    - cron: '0 * * * *'
+  workflow_dispatch:   # permet de lancer manuellement
+
+permissions:
+  contents: write
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout du dépôt
+        uses: actions/checkout@v4
+
+      - name: Installation de Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Collecte des flux
+        run: node collector.mjs
+
+      - name: Commit et push des résultats
+        run: |
+          git config user.name "veille-bot"
+          git config user.email "veille-bot@users.noreply.github.com"
+          git add articles.json
+          git diff --staged --quiet || git commit -m "Mise à jour articles.json ($(date -u +'%Y-%m-%d %H:%M UTC'))"
+          git push
