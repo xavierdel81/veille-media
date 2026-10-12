@@ -14,10 +14,7 @@
     --sans: -apple-system, "Segoe UI", sans-serif;
     --mono: Consolas, monospace;
   }
-  html, body {
-    overflow-x: hidden;
-    max-width: 100vw;
-  }
+  html, body { overflow-x: hidden; max-width: 100vw; }
   body { background: var(--paper); color: var(--ink); font: 14px/1.45 var(--sans); min-height: 100vh; }
 
   header {
@@ -58,6 +55,7 @@
   .filters .filter-label { font: 11px var(--mono); color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
   .pills { display: flex; gap: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 3px; }
   .pills button { border: 0; padding: 6px 12px; font-size: 12px; background: transparent; border-radius: 4px; }
+  .pills button.active { background: var(--ink); color: white; }
 
   .articles { display: grid; gap: 12px; width: 100%; min-width: 0; }
   .article {
@@ -144,7 +142,7 @@
 <div class="container">
   <div class="intro">
     <h1>Le fil de la veille.</h1>
-    <p>Médias francophones en priorité, puis néerlandophones, puis anglophones. Classés par thème et par bord éditorial.</p>
+    <p>Médias francophones en priorité, puis néerlandophones, puis anglophones.</p>
   </div>
 
   <div class="stats">
@@ -176,13 +174,14 @@
   </div>
 
   <div class="articles" id="articles">
-    <div class="empty">
-      <p>⏳ Chargement des articles…</p>
-    </div>
+    <div class="empty"><p>⏳ Chargement des articles…</p></div>
   </div>
 </div>
 
 <script>
+// ============================================================
+// ÉTAT
+// ============================================================
 let articles = [];
 let activePeriod = 24;
 let activeTheme = "";
@@ -194,11 +193,13 @@ let generatedAt = null;
 let okSources = 0;
 let koSources = 0;
 
+// ============================================================
+// UTILITAIRES
+// ============================================================
 function escapeHtml(s) {
   return String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
-// Priorité linguistique pour le tri
 function languePriority(langue) {
   if (!langue) return 3;
   const l = langue.toLowerCase();
@@ -208,6 +209,9 @@ function languePriority(langue) {
   return 3;
 }
 
+// ============================================================
+// RENDER
+// ============================================================
 function render() {
   const container = document.getElementById("articles");
   const now = Date.now();
@@ -226,7 +230,6 @@ function render() {
     return true;
   });
 
-  // Tri : langue d'abord (FR > NL > EN), puis date
   filtered.sort((a, b) => {
     const lp = languePriority(a.langue) - languePriority(b.langue);
     if (lp !== 0) return lp;
@@ -272,12 +275,10 @@ function render() {
 function updateStats() {
   const themesFound = new Set();
   articles.forEach(a => (a.themes || []).forEach(t => themesFound.add(t)));
-
   document.getElementById("stat-articles").textContent = articles.length;
   document.getElementById("stat-sources").textContent = okSources;
   document.getElementById("stat-ko").textContent = koSources;
   document.getElementById("stat-themes").textContent = themesFound.size;
-
   if (generatedAt) {
     const d = new Date(generatedAt);
     document.getElementById("stat-time").textContent =
@@ -286,6 +287,9 @@ function updateStats() {
   }
 }
 
+// ============================================================
+// CHARGEMENT
+// ============================================================
 async function loadArticles() {
   try {
     const res = await fetch("articles.json?t=" + Date.now());
@@ -304,20 +308,66 @@ async function loadArticles() {
   }
 }
 
-document.getElementById("search").addEventListener("input", e => { searchQuery = e.target.value; render(); });
-document.getElementById("bord-filter").addEventListener("change", e => { activeBord = e.target.value; render(); });
-document.getElementById("pays-filter").addEventListener("change", e => { activePays = e.target.value; render(); });
-document.getElementById("langue-filter").addEventListener("change", e => { activeLangue = e.target.value; render(); });
-document.getElementById("theme-filter").addEventListener("change", e => { activeTheme = e.target.value; render(); });
-document.querySelectorAll("#period-pills button").forEach(btn => {
-  btn.addEventListener("click", () => {
-    document.querySelectorAll("#period-pills button").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-    activePeriod = Number(btn.dataset.period);
+// ============================================================
+// ÉVÉNEMENTS (après définition de toutes les fonctions)
+// ============================================================
+
+const searchInput = document.getElementById("search");
+if (searchInput) {
+  searchInput.addEventListener("input", e => {
+    searchQuery = e.target.value;
     render();
   });
-});
+}
 
+const bordFilter = document.getElementById("bord-filter");
+if (bordFilter) {
+  bordFilter.addEventListener("change", e => {
+    activeBord = e.target.value;
+    render();
+  });
+}
+
+const paysFilter = document.getElementById("pays-filter");
+if (paysFilter) {
+  paysFilter.addEventListener("change", e => {
+    activePays = e.target.value;
+    render();
+  });
+}
+
+const langueFilter = document.getElementById("langue-filter");
+if (langueFilter) {
+  langueFilter.addEventListener("change", e => {
+    activeLangue = e.target.value;
+    render();
+  });
+}
+
+const themeFilter = document.getElementById("theme-filter");
+if (themeFilter) {
+  themeFilter.addEventListener("change", e => {
+    activeTheme = e.target.value;
+    render();
+  });
+}
+
+// Boutons de période : délégation d'événement
+const periodPills = document.getElementById("period-pills");
+if (periodPills) {
+  periodPills.addEventListener("click", (e) => {
+    const btn = e.target.closest("button");
+    if (!btn) return;
+    const period = Number(btn.dataset.period);
+    if (!period) return;
+    periodPills.querySelectorAll("button").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    activePeriod = period;
+    render();
+  });
+}
+
+// Démarrage
 loadArticles();
 setInterval(loadArticles, 10 * 60 * 1000);
 </script>
