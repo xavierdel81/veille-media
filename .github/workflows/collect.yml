@@ -8,6 +8,11 @@ on:
 permissions:
   contents: write
 
+# Empêche 2 workflows de tourner en même temps
+concurrency:
+  group: collect-rss
+  cancel-in-progress: false
+
 jobs:
   collect:
     runs-on: ubuntu-24.04
@@ -16,6 +21,8 @@ jobs:
     steps:
       - name: Checkout du dépôt
         uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
       - name: Installation de Node.js
         uses: actions/setup-node@v5
@@ -30,5 +37,11 @@ jobs:
           git config user.name "veille-bot"
           git config user.email "veille-bot@users.noreply.github.com"
           git add articles.json
-          git diff --staged --quiet || git commit -m "Mise à jour articles.json ($(date -u +'%Y-%m-%d %H:%M UTC'))"
+          if git diff --staged --quiet; then
+            echo "Aucun changement à committer"
+            exit 0
+          fi
+          git commit -m "Mise à jour articles.json ($(date -u +'%Y-%m-%d %H:%M UTC'))"
+          # Récupère les changements distants et rejoue notre commit par-dessus
+          git pull --rebase origin main
           git push
