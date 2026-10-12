@@ -87,30 +87,40 @@ function parseFeed(xml, source) {
 const THEMES_SCORING = {
   "luttes-sociales": {
     weight: 1,
-    kws: ["grève","greve","manifestation","syndicat","mobilisation","protestation","travailleurs","salaires","précarité","precarite","chômage","chomage","logement","pauvreté","pauvrete","inégalités","inegalites","austérité","austerite","retraite","licenciement","plan social","piquet","cortège","cortege","militant","collectif","solidarité","solidarite","revendication","débrayage","debrayage"]
+    kws: ["grève","greve","manifestation","syndicat","mobilisation","protestation","travailleurs","salaires","précarité","precarite","chômage","chomage","logement","pauvreté","pauvrete","inégalités","inegalites","austérité","austerite","retraite","licenciement","plan social","piquet","cortège","cortege","militant","collectif","solidarité","solidarite","revendication","débrayage","debrayage","précarisation","precarisation","exploitation","temps de travail","conditions de travail","accident du travail"]
   },
   "corruption": {
     weight: 1.5,
-    kws: ["corruption","détournement","detournement","fraude","conflit d'intérêts","conflit d’intérêts","pot-de-vin","trafic d'influence","trafic d’influence","malversation","opacité","opacite","clientélisme","clientelisme","népotisme","nepotisme","favoritisme","commission occulte","dessous de table","enrichissement","abus de biens","abus de confiance","prise illégale","prise illegale","faux et usage","corrompu","corrompue","pots-de-vin"]
+    kws: ["corruption","détournement","detournement","fraude","conflit d'intérêts","conflit d’intérêts","pot-de-vin","trafic d'influence","trafic d’influence","malversation","opacité","opacite","clientélisme","clientelisme","népotisme","nepotisme","favoritisme","commission occulte","dessous de table","enrichissement","abus de biens","abus de confiance","prise illégale","prise illegale","faux et usage","corrompu","corrompue","pots-de-vin","pantouflage","rémunération","remuneration","notes de frais","déclaration de patrimoine","declaration de patrimoine","enrichissement illicite"]
   },
   "transparence": {
-    weight: 1.3,
-    kws: ["transparence","lanceur d'alerte","lanceur d’alerte","accès aux documents","acces aux documents","redevabilité","redevabilite","open data","cada","secret d'état","secret d’état","enquête publique","enquete publique","whistleblower","liberté d'information","liberte d'information","accès à l'information","acces a l'information"]
+    weight: 1.4,
+    kws: [
+      // Organismes et contrôle
+      "transparence","lanceur d'alerte","lanceur d’alerte","whistleblower","alerte","signalement","cour des comptes","haute autorité","haute autorite","organisme de contrôle","organisme de controle","autorité indépendante","autorite independante","rapport public","recommandation",
+      // Financement et patrimoine
+      "comptes de campagne","comptes de campagne","financement politique","financement de la vie politique","dons aux partis","subventions publiques","patrimoine des élus","patrimoine des elus","déclaration d'intérêts","declaration d'interets","déclaration d'activités","situation patrimoniale","enrichissement",
+      // Influence
+      "lobbying","lobbyiste","registre des lobbyistes","groupe d'intérêt","groupe d’intérêt","groupe de pression","agenda public","rendez-vous officiel","pantouflage","traçabilité","tracabilite","scrutin public","vote public","commission d'enquête","commission d’enquête",
+      // Argent public
+      "marché public","marche public","marchés publics","marches publics","appel d'offres","appel d’offres","partenariat public-privé","partenariat public-prive","attribution de contrat","bénéficiaire effectif","beneficiaire effectif","subvention","aide publique","fonds public","collaborateur parlementaire","cabinet ministériel","cabinet ministeriel",
+      // Open data
+      "open data","données ouvertes","donnees ouvertes","accès aux documents","acces aux documents","accès à l'information","acces a l'information","liberté d'information","liberte d'information","cada","archives publiques","algorithme public","parcoursup","gouvernement ouvert"
+    ]
   },
   "democratie": {
     weight: 1,
-    kws: ["démocratie","democratie","élection","election","parlement","citoyen","débat public","debat public","libertés","libertes","droits","constitution","vote","pluralisme","état de droit","etat de droit","référendum","referendum","suffrage","assemblée","assemblee","scrutin","député","depute","sénateur","senateur","gouvernement"]
+    kws: ["démocratie","democratie","élection","election","parlement","citoyen","débat public","debat public","libertés","libertes","droits","constitution","vote","pluralisme","état de droit","etat de droit","référendum","referendum","suffrage","assemblée","assemblee","scrutin","député","depute","sénateur","senateur","gouvernement","participation citoyenne","démocratie locale","democratie locale","démocratie participative","democratie participative"]
   },
   "auto-defense": {
     weight: 1.3,
-    kws: ["zététique","zetetique","esprit critique","sophisme","manipulation","fact-check","fact check","fake news","désinformation","desinformation","propagande","rumeur","novlangue","vérification","verification","décodage","decodage","démystification","demystification","complotisme","théorie du complot","theorie du complot"]
+    kws: ["zététique","zetetique","esprit critique","sophisme","manipulation","fact-check","fact check","fake news","désinformation","desinformation","propagande","rumeur","novlangue","vérification","verification","décodage","decodage","démystification","demystification","complotisme","théorie du complot","theorie du complot","pensée critique","pensee critique","rhétorique","rhetorique","argumentation","biais cognitif"]
   },
   "international": {
     weight: 0.7,
     kws: ["international","monde","guerre","conflit","diplomatie","géopolitique","geopolitique","étranger","etranger","union européenne","union europeenne","onu","otan","gaza","ukraine","israël","israel","palestine","moyen-orient","afrique","asie","amérique","amerique"]
   },
 };
-
 function escapeRegex(str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
