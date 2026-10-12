@@ -1,6 +1,4 @@
 // collector.mjs — Collecte les flux RSS côté serveur et écrit articles.json
-// Tourne via GitHub Actions, pas dans le navigateur.
-
 import { readFile, writeFile } from "node:fs/promises";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -9,16 +7,38 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const USER_AGENT = "Mozilla/5.0 (compatible; VeilleMedia/1.0; +github-actions)";
 
 // ============================================================
-// PARSING RSS (regex simple, sans dépendance)
+// NETTOYAGE HTML ROBUSTE
 // ============================================================
-function stripTags(s) { return String(s || "").replace(/<[^>]*>/g, " "); }
-function decodeHtml(s) {
-  return String(s || "")
-    .replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">")
-    .replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&apos;/g, "'")
+function cleanHtml(input) {
+  if (!input) return "";
+  let s = String(input);
+
+  // Retire CDATA
+  s = s.replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1");
+  // Retire scripts et styles
+  s = s.replace(/<script[\s\S]*?<\/script>/gi, "");
+  s = s.replace(/<style[\s\S]*?<\/style>/gi, "");
+  // Retire toutes les balises (y compris auto-fermantes)
+  s = s.replace(/<[^>]*>/g, " ");
+  // Décode les entités HTML
+  s = s
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&apos;/g, "'")
+    .replace(/&nbsp;/g, " ")
     .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(parseInt(n, 10)))
-    .replace(/&nbsp;/g, " ");
+    .replace(/&#x([0-9a-f]+);/gi, (_, n) => String.fromCharCode(parseInt(n, 16)));
+  // Normalise les espaces
+  s = s.replace(/\s+/g, " ").trim();
+  return s;
 }
+
+// ============================================================
+// PARSING RSS
+// ============================================================
 function extractTag(block, tag) {
   const cdataRe = new RegExp(`<${tag}[^>]*><!\\[CDATA\\[([\\s\\S]*?)\\]\\]><\\/${tag}>`, "i");
   const cm = block.match(cdataRe);
@@ -39,17 +59,27 @@ function parseFeed(xml, source) {
   const itemRegex = isAtom ? /<entry[\s>][\s\S]*?<\/entry>/gi : /<item[\s>][\s\S]*?<\/item>/gi;
   const blocks = xml.match(itemRegex) || [];
   const result = [];
+
   for (const block of blocks.slice(0, 20)) {
-    const title = extractTag(block, "title");
+    const rawTitle = extractTag(block, "title");
     const link = isAtom ? extractAtomLink(block) : (extractTag(block, "link") || extractTag(block, "guid"));
-    if (!title || !link) continue;
-    const desc = extractTag(block, "description") || extractTag(block, "summary") || extractTag(block, "content");
-    const pubDate = extractTag(block, "pubDate") || extractTag(block, "published") || extractTag(block, "updated") || extractTag(block, "dc:date");
-    const parsed = pubDate ? Date.parse(pubDate) : NaN;
+    const rawDesc = extractTag(block, "description") || extractTag(block, "summary") || extractTag(block, "content");
+    const rawDate = extractTag(block, "pubDate") || extractTag(block, "published") || extractTag(block, "updated") || extractTag(block, "dc:date");
+
+    const title = cleanHtml(rawTitle).slice(0, 220);
+    const description = cleanHtml(rawDesc).slice(0, 280);
+
+    // ⚠️ Filtres anti-bruit
+    if (!title || title.length < 5) continue;
+    if (!link || !/^https?:\/\//i.test(link.trim())) continue;
+    // Rejette les titres génériques ou doublons de la source
+    if (title.toLowerCase() === source.nom.toLowerCase()) continue;
+
+    const parsed = rawDate ? Date.parse(rawDate) : NaN;
     result.push({
-      title: decodeHtml(stripTags(title)).trim().slice(0, 220),
+      title,
       link: link.trim(),
-      description: decodeHtml(stripTags(desc)).replace(/\s+/g, " ").trim().slice(0, 240),
+      description,
       pubDate: Number.isFinite(parsed) ? parsed : Date.now(),
       sourceId: source.id,
       source: source.nom,
@@ -65,12 +95,12 @@ function parseFeed(xml, source) {
 // DÉTECTION DE THÈME
 // ============================================================
 const THEMES_KEYWORDS = {
-  "luttes-sociales": ["grève", "manifestation", "syndicat", "mobilisation", "protestation", "social", "travailleurs", "salaires", "précarité", "chômage", "logement", "pauvreté", "inégalités", "austérité"],
-  "corruption": ["corruption", "détournement", "fraude", "conflit d'intérêts", "pot-de-vin", "trafic d'influence", "malversation", "opacité", "clientélisme", "népotisme"],
-  "transparence": ["transparence", "lanceur d'alerte", "accès aux documents", "publicité", "redevabilité", "open data", "cada", "secret d'état"],
-  "democratie": ["démocratie", "élection", "parlement", "citoyen", "débat public", "libertés", "droits", "constitution", "vote", "pluralisme", "état de droit"],
-  "auto-defense": ["zététique", "esprit critique", "sophisme", "manipulation", "fact-check", "fake news", "désinformation", "propagande", "rumeur", "novlangue"],
-  "international": ["international", "monde", "guerre", "conflit", "diplomatie", "géopolitique", "étranger", "union européenne"],
+  "luttes-sociales": ["grève","manifestation","syndicat","mobilisation","protestation","travailleurs","salaires","précarité","chômage","logement","pauvreté","inégalités","austérité","retraite"],
+  "corruption": ["corruption","détournement","fraude","conflit d'intérêts","pot-de-vin","trafic d'influence","malversation","opacité","clientélisme","népotisme","favoritisme"],
+  "transparence": ["transparence","lanceur d'alerte","accès aux documents","redevabilité","open data","cada","secret d'état","enquête publique"],
+  "democratie": ["démocratie","élection","parlement","citoyen","débat public","libertés","droits","constitution","vote","pluralisme","état de droit","référendum"],
+  "auto-defense": ["zététique","esprit critique","sophisme","manipulation","fact-check","fake news","désinformation","propagande","rumeur","novlangue","vérification"],
+  "international": ["international","monde","guerre","conflit","diplomatie","géopolitique","étranger","union européenne","onu","otan"],
 };
 function detectTheme(title, desc) {
   const text = (title + " " + desc).toLowerCase();
@@ -107,40 +137,50 @@ async function fetchFeed(source) {
   }
 }
 
+// ============================================================
+// MAIN
+// ============================================================
 async function main() {
   console.log("🚀 Démarrage de la collecte…\n");
 
-  const sourcesPath = resolve(__dirname, "sources.json");
-  const sources = JSON.parse(await readFile(sourcesPath, "utf8"));
+  const sources = JSON.parse(await readFile(resolve(__dirname, "sources.json"), "utf8"));
   console.log(`📋 ${sources.length} sources à tester\n`);
 
   const results = await Promise.allSettled(sources.map(fetchFeed));
   const all = [];
   const feedStatus = {};
+  const okList = [];
+  const koList = [];
 
   for (const r of results) {
     if (r.status !== "fulfilled") continue;
     const { source, status, items, ms, code, error } = r.value;
     feedStatus[source.id] = { status, items: items.length, ms, code, error, nom: source.nom };
-    if (status === "ok") {
+    if (status === "ok" && items.length > 0) {
       all.push(...items);
-      console.log(`✅ ${source.nom.padEnd(28)} ${items.length} art. (${ms}ms)`);
+      okList.push(`${source.nom} (${items.length})`);
+      console.log(`✅ ${source.nom.padEnd(30)} ${items.length} art. (${ms}ms)`);
     } else {
-      console.log(`❌ ${source.nom.padEnd(28)} ${error || "HTTP " + code} (${ms}ms)`);
+      koList.push(`${source.nom} → ${error || "HTTP " + code || "vide"}`);
+      console.log(`❌ ${source.nom.padEnd(30)} ${error || "HTTP " + code || "vide"} (${ms}ms)`);
     }
   }
 
-  // Déduplication
-  const seen = new Set();
+  // Déduplication par URL ET par titre (pour éviter les quasi-doublons)
+  const seenUrl = new Set();
+  const seenTitle = new Set();
   const unique = all.filter(a => {
-    if (seen.has(a.link)) return false;
-    seen.add(a.link);
+    if (seenUrl.has(a.link)) return false;
+    const titleKey = a.title.toLowerCase().slice(0, 60);
+    if (seenTitle.has(titleKey)) return false;
+    seenUrl.add(a.link);
+    seenTitle.add(titleKey);
     return true;
   });
   unique.sort((a, b) => b.pubDate - a.pubDate);
 
-  const okCount = Object.values(feedStatus).filter(s => s.status === "ok").length;
-  const koCount = Object.values(feedStatus).filter(s => s.status === "error").length;
+  const okCount = okList.length;
+  const koCount = koList.length;
 
   const output = {
     generatedAt: new Date().toISOString(),
@@ -159,7 +199,11 @@ async function main() {
   console.log(`   Sources OK      : ${okCount}`);
   console.log(`   Sources en échec: ${koCount}`);
   console.log(`   Articles uniques: ${unique.length}`);
-  console.log(`\n💾 articles.json écrit avec succès\n`);
+  if (koCount > 0) {
+    console.log(`\n❌ SOURCES EN ÉCHEC :`);
+    koList.forEach(s => console.log(`   • ${s}`));
+  }
+  console.log(`\n💾 articles.json écrit\n`);
 }
 
 main().catch(err => {
