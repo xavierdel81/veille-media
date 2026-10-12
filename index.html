@@ -142,7 +142,7 @@
 <div class="container">
   <div class="intro">
     <h1>Le fil de la veille.</h1>
-    <p>Médias francophones en priorité, puis néerlandophones, puis anglophones.</p>
+    <p>Médias francophones en priorité, puis néerlandophones, puis anglophones. Fenêtre de 14 jours.</p>
   </div>
 
   <div class="stats">
@@ -157,9 +157,9 @@
     <span class="filter-label">Période</span>
     <div class="pills" id="period-pills">
       <button data-period="24" class="active">24 h</button>
+      <button data-period="72">3 j</button>
       <button data-period="168">7 j</button>
-      <button data-period="720">30 j</button>
-      <button data-period="99999">Tout</button>
+      <button data-period="336">14 j</button>
     </div>
     <span class="filter-label" style="margin-left:auto">Thème</span>
     <select id="theme-filter">
@@ -209,6 +209,16 @@ function languePriority(langue) {
   return 3;
 }
 
+// Nettoyage des URLs Google News côté affichage (au cas où le collector n'aurait pas tout traité)
+function cleanUrl(url) {
+  if (!url) return url;
+  if (url.includes("news.google.com/rss/articles/")) {
+    // Fallback : afficher l'URL Google News si pas décodable
+    return url;
+  }
+  return url;
+}
+
 // ============================================================
 // RENDER
 // ============================================================
@@ -254,6 +264,7 @@ function render() {
     const flag = a.pays === "BE" ? "🇧🇪" : a.pays === "FR" ? "🇫🇷" : "🌍";
     const desc = a.description ? `<p class="article-desc">${escapeHtml(a.description)}</p>` : "";
     const themes = (a.themes || []).map(t => `<span>· ${escapeHtml(t)}</span>`).join("");
+    const link = cleanUrl(a.link);
     return `
       <article class="article ${escapeHtml(a.bord || "neutre")}">
         <div class="article-head">
@@ -261,10 +272,10 @@ function render() {
           <span class="badge ${escapeHtml(a.bord || "neutre")}">${escapeHtml(bordLabel)}</span>
           <span style="margin-left:auto;white-space:nowrap">${dateStr}</span>
         </div>
-        <a class="article-title" href="${escapeHtml(a.link)}" target="_blank" rel="noreferrer">${escapeHtml(a.title)}</a>
+        <a class="article-title" href="${escapeHtml(link)}" target="_blank" rel="noreferrer">${escapeHtml(a.title)}</a>
         ${desc}
         <div class="article-foot">
-          <a href="${escapeHtml(a.link)}" target="_blank" rel="noreferrer">Ouvrir la source ↗</a>
+          <a href="${escapeHtml(link)}" target="_blank" rel="noreferrer">Ouvrir la source ↗</a>
           ${themes}
         </div>
       </article>
@@ -309,9 +320,8 @@ async function loadArticles() {
 }
 
 // ============================================================
-// ÉVÉNEMENTS (après définition de toutes les fonctions)
+// ÉVÉNEMENTS
 // ============================================================
-
 const searchInput = document.getElementById("search");
 if (searchInput) {
   searchInput.addEventListener("input", e => {
@@ -352,7 +362,6 @@ if (themeFilter) {
   });
 }
 
-// Boutons de période : délégation d'événement
 const periodPills = document.getElementById("period-pills");
 if (periodPills) {
   periodPills.addEventListener("click", (e) => {
@@ -367,7 +376,6 @@ if (periodPills) {
   });
 }
 
-// Démarrage
 loadArticles();
 setInterval(loadArticles, 10 * 60 * 1000);
 </script>
