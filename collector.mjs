@@ -1,13 +1,19 @@
-// collector.mjs — Version STABLE (39 sources, 617 articles)
+// collector.mjs — Collecte les flux RSS avec fallback proxy
 import { readFile, writeFile } from "node:fs/promises";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-// ⚠️ NE PAS MODIFIER : ces en-têtes minimaux fonctionnent
 const USER_AGENT = "Mozilla/5.0 (compatible; VeilleMedia/1.0; +github-actions)";
 const TIMEOUT_MS = 15000;
+
+// Proxies publics pour les sites qui bloquent les IP de datacenters
+const CORS_PROXIES = [
+  (url) => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+  (url) => `https://corsproxy.io/?url=${encodeURIComponent(url)}`,
+  (url) => `https://api.codetabs.com/v1/proxy/?quest=${encodeURIComponent(url)}`,
+];
 
 // ============================================================
 // NETTOYAGE HTML
@@ -103,29 +109,55 @@ function detectTheme(title, desc) {
 }
 
 // ============================================================
-// COLLECTE
+// FETCH AVEC RETRY + FALLBACK PROXY
 // ============================================================
-async function fetchFeed(source) {
-  const start = Date.now();
+async function tryFetch(url, timeoutMs = TIMEOUT_MS) {
   try {
-    const res = await fetch(source.url, {
+    const res = await fetch(url, {
       headers: {
         "User-Agent": USER_AGENT,
         "Accept": "application/rss+xml, application/atom+xml, application/xml, text/xml, */*",
       },
       redirect: "follow",
-      signal: AbortSignal.timeout(TIMEOUT_MS),
+      signal: AbortSignal.timeout(timeoutMs),
     });
-    if (!res.ok) {
-      return { source, status: "error", code: res.status, ms: Date.now() - start, items: [] };
+    if (!res.ok) return { ok: false, error: `HTTP ${res.status}`, status: res.status };
+    const text = await res.text();
+    if (text.length < 200) return { ok: false, error: "Réponse trop courte" };
+    if (!text.includes("<rss") && !text.includes("<feed") && !text.includes("<channel")) {
+      return { ok: false, error: "Pas du XML RSS" };
     }
-    const xml = await res.text();
-    const items = parseFeed(xml, source);
-    items.forEach(a => { a.themes = detectTheme(a.title, a.description); });
-    return { source, status: "ok", items, ms: Date.now() - start };
+    return { ok: true, text };
   } catch (err) {
-    return { source, status: "error", error: err.message, ms: Date.now() - start, items: [] };
+    const msg = err.name === "AbortError" ? `Timeout ${timeoutMs}ms` : `fetch failed: ${err.message}`;
+    return { ok: false, error: msg };
   }
+}
+
+async function fetchFeed(source) {
+  const start = Date.now();
+
+  // 1️⃣ Tentative directe
+  const direct = await tryFetch(source.url);
+  if (direct.ok) {
+    const items = parseFeed(direct.text, source);
+    items.forEach(a => { a.themes = detectTheme(a.title, a.description); });
+    return { source, status: "ok", items, ms: Date.now() - start, via: "direct" };
+  }
+
+  // 2️⃣ Si échec, on tente les proxies en cascade
+  for (const proxyFn of CORS_PROXIES) {
+    const proxyUrl = proxyFn(source.url);
+    const proxied = await tryFetch(proxyUrl, 20000);
+    if (proxied.ok) {
+      const items = parseFeed(proxied.text, source);
+      items.forEach(a => { a.themes = detectTheme(a.title, a.description); });
+      return { source, status: "ok", items, ms: Date.now() - start, via: "proxy" };
+    }
+  }
+
+  // 3️⃣ Tout a échoué
+  return { source, status: "error", error: direct.error, ms: Date.now() - start, items: [] };
 }
 
 // ============================================================
@@ -145,18 +177,20 @@ async function main() {
 
   for (const r of results) {
     if (r.status !== "fulfilled") continue;
-    const { source, status, items, ms, code, error } = r.value;
-    feedStatus[source.id] = { status, items: items.length, ms, code, error, nom: source.nom };
+    const { source, status, items, ms, error, via } = r.value;
+    feedStatus[source.id] = { status, items: items.length, ms, error, nom: source.nom, via };
     if (status === "ok" && items.length > 0) {
       all.push(...items);
-      okList.push(`${source.nom} (${items.length})`);
-      console.log(`✅ ${source.nom.padEnd(30)} ${String(items.length).padStart(2)} art. (${ms}ms)`);
+      const tag = via === "proxy" ? " ⚠️" : "";
+      okList.push(`${source.nom}${tag} (${items.length})`);
+      console.log(`✅ ${source.nom.padEnd(30)} ${String(items.length).padStart(2)} art. (${ms}ms)${tag}`);
     } else {
-      koList.push(`${source.nom} → ${error || "HTTP " + code || "vide"}`);
-      console.log(`❌ ${source.nom.padEnd(30)} ${error || "HTTP " + code || "vide"} (${ms}ms)`);
+      koList.push(`${source.nom} → ${error || "vide"}`);
+      console.log(`❌ ${source.nom.padEnd(30)} ${error || "vide"} (${ms}ms)`);
     }
   }
 
+  // Déduplication
   const seenUrl = new Set();
   const seenTitle = new Set();
   const unique = all.filter(a => {
@@ -169,11 +203,16 @@ async function main() {
   });
   unique.sort((a, b) => b.pubDate - a.pubDate);
 
+  const okDirect = Object.values(feedStatus).filter(s => s.status === "ok" && s.via === "direct").length;
+  const okProxy = Object.values(feedStatus).filter(s => s.status === "ok" && s.via === "proxy").length;
+
   const output = {
     generatedAt: new Date().toISOString(),
     totalSources: sources.length,
     okSources: okList.length,
     koSources: koList.length,
+    okDirect,
+    okProxy,
     totalArticles: unique.length,
     articles: unique,
     feedStatus,
@@ -183,9 +222,10 @@ async function main() {
 
   console.log("\n" + "=".repeat(70));
   console.log(`\n📊 BILAN`);
-  console.log(`   Sources OK      : ${okList.length}`);
-  console.log(`   Sources en échec: ${koList.length}`);
-  console.log(`   Articles uniques: ${unique.length}`);
+  console.log(`   Sources OK (direct) : ${okDirect}`);
+  console.log(`   Sources OK (proxy)  : ${okProxy}`);
+  console.log(`   Sources en échec    : ${koList.length}`);
+  console.log(`   Articles uniques    : ${unique.length}`);
   if (koList.length > 0) {
     console.log(`\n❌ SOURCES EN ÉCHEC :`);
     koList.forEach(s => console.log(`   • ${s}`));
