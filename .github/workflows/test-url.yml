@@ -1,0 +1,57 @@
+name: Test URL manuelle
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: 'URL du flux RSS à tester'
+        required: true
+        type: string
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 2
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+
+      - name: Test de l'URL
+        env:
+          TEST_URL: ${{ inputs.url }}
+        run: |
+          node --input-type=module -e "
+          const url = process.env.TEST_URL;
+          console.log('🧪 Test :', url);
+          console.log('');
+          try {
+            const res = await fetch(url, {
+              headers: {
+                'User-Agent': 'Mozilla/5.0 (compatible; VeilleMedia/1.0)',
+                'Accept': 'application/rss+xml, application/atom+xml, application/xml, text/xml, */*',
+              },
+              redirect: 'follow',
+              signal: AbortSignal.timeout(15000),
+            });
+            console.log('📡 HTTP', res.status, res.statusText);
+            console.log('📦 Content-Type :', res.headers.get('content-type'));
+            const text = await res.text();
+            console.log('📏 Taille :', text.length, 'octets');
+            console.log('');
+            if (text.includes('<rss') || text.includes('<feed') || text.includes('<channel')) {
+              const itemCount = (text.match(/<item[\s>]/g) || []).length || (text.match(/<entry[\s>]/g) || []).length;
+              console.log('✅ C\\'est un flux RSS valide avec', itemCount, 'articles');
+            } else {
+              console.log('❌ Ce n\\'est PAS un flux RSS. Début du contenu :');
+              console.log(text.slice(0, 500));
+            }
+          } catch (err) {
+            console.log('❌ Erreur :', err.message);
+          }
+          "
