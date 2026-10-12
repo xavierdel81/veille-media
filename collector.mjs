@@ -1,4 +1,4 @@
-// collector.mjs — Collecte les flux RSS avec fallback proxy
+// collector.mjs — Collecte les flux RSS avec scoring thématique
 import { readFile, writeFile } from "node:fs/promises";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -7,13 +7,6 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const USER_AGENT = "Mozilla/5.0 (compatible; VeilleMedia/1.0; +github-actions)";
 const TIMEOUT_MS = 15000;
-
-// Proxies publics pour les sites qui bloquent les IP de datacenters
-const CORS_PROXIES = [
-  (url) => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
-  (url) => `https://corsproxy.io/?url=${encodeURIComponent(url)}`,
-  (url) => `https://api.codetabs.com/v1/proxy/?quest=${encodeURIComponent(url)}`,
-];
 
 // ============================================================
 // NETTOYAGE HTML
@@ -89,27 +82,67 @@ function parseFeed(xml, source) {
 }
 
 // ============================================================
-// DÉTECTION DE THÈME
+// DÉTECTION DE THÈME PAR SCORE
 // ============================================================
-const THEMES_KEYWORDS = {
-  "luttes-sociales": ["grève","manifestation","syndicat","mobilisation","protestation","travailleurs","salaires","précarité","chômage","logement","pauvreté","inégalités","austérité","retraite"],
-  "corruption": ["corruption","détournement","fraude","conflit d'intérêts","pot-de-vin","trafic d'influence","malversation","opacité","clientélisme","népotisme","favoritisme"],
-  "transparence": ["transparence","lanceur d'alerte","accès aux documents","redevabilité","open data","cada","secret d'état","enquête publique"],
-  "democratie": ["démocratie","élection","parlement","citoyen","débat public","libertés","droits","constitution","vote","pluralisme","état de droit","référendum"],
-  "auto-defense": ["zététique","esprit critique","sophisme","manipulation","fact-check","fake news","désinformation","propagande","rumeur","novlangue","vérification"],
-  "international": ["international","monde","guerre","conflit","diplomatie","géopolitique","étranger","union européenne","onu","otan"],
+const THEMES_SCORING = {
+  "luttes-sociales": {
+    weight: 1,
+    kws: ["grève","greve","manifestation","syndicat","mobilisation","protestation","travailleurs","salaires","précarité","precarite","chômage","chomage","logement","pauvreté","pauvrete","inégalités","inegalites","austérité","austerite","retraite","licenciement","plan social","piquet","cortège","cortege","militant","collectif","solidarité","solidarite","revendication","débrayage","debrayage"]
+  },
+  "corruption": {
+    weight: 1.5,
+    kws: ["corruption","détournement","detournement","fraude","conflit d'intérêts","conflit d’intérêts","pot-de-vin","trafic d'influence","trafic d’influence","malversation","opacité","opacite","clientélisme","clientelisme","népotisme","nepotisme","favoritisme","commission occulte","dessous de table","enrichissement","abus de biens","abus de confiance","prise illégale","prise illegale","faux et usage","corrompu","corrompue","pots-de-vin"]
+  },
+  "transparence": {
+    weight: 1.3,
+    kws: ["transparence","lanceur d'alerte","lanceur d’alerte","accès aux documents","acces aux documents","redevabilité","redevabilite","open data","cada","secret d'état","secret d’état","enquête publique","enquete publique","whistleblower","liberté d'information","liberte d'information","accès à l'information","acces a l'information"]
+  },
+  "democratie": {
+    weight: 1,
+    kws: ["démocratie","democratie","élection","election","parlement","citoyen","débat public","debat public","libertés","libertes","droits","constitution","vote","pluralisme","état de droit","etat de droit","référendum","referendum","suffrage","assemblée","assemblee","scrutin","député","depute","sénateur","senateur","gouvernement"]
+  },
+  "auto-defense": {
+    weight: 1.3,
+    kws: ["zététique","zetetique","esprit critique","sophisme","manipulation","fact-check","fact check","fake news","désinformation","desinformation","propagande","rumeur","novlangue","vérification","verification","décodage","decodage","démystification","demystification","complotisme","théorie du complot","theorie du complot"]
+  },
+  "international": {
+    weight: 0.7,
+    kws: ["international","monde","guerre","conflit","diplomatie","géopolitique","geopolitique","étranger","etranger","union européenne","union europeenne","onu","otan","gaza","ukraine","israël","israel","palestine","moyen-orient","afrique","asie","amérique","amerique"]
+  },
 };
+
+function escapeRegex(str) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 function detectTheme(title, desc) {
   const text = (title + " " + desc).toLowerCase();
-  const found = [];
-  for (const [theme, kws] of Object.entries(THEMES_KEYWORDS)) {
-    if (kws.some(kw => text.includes(kw))) found.push(theme);
+  const scores = {};
+
+  for (const [theme, { weight, kws }] of Object.entries(THEMES_SCORING)) {
+    let score = 0;
+    for (const kw of kws) {
+      const regex = new RegExp("\\b" + escapeRegex(kw) + "\\b", "gi");
+      const matches = text.match(regex);
+      if (matches) score += matches.length * weight;
+    }
+    if (score > 0) scores[theme] = score;
   }
-  return found;
+
+  const values = Object.values(scores);
+  if (!values.length) return [];
+  const maxScore = Math.max(...values);
+  if (maxScore === 0) return [];
+
+  const threshold = maxScore * 0.3;
+  return Object.entries(scores)
+    .filter(([, score]) => score >= threshold)
+    .sort(([, a], [, b]) => b - a)
+    .map(([theme]) => theme);
 }
 
 // ============================================================
-// FETCH AVEC RETRY + FALLBACK PROXY
+// FETCH AVEC RETRY
 // ============================================================
 async function tryFetch(url, timeoutMs = TIMEOUT_MS) {
   try {
@@ -121,7 +154,7 @@ async function tryFetch(url, timeoutMs = TIMEOUT_MS) {
       redirect: "follow",
       signal: AbortSignal.timeout(timeoutMs),
     });
-    if (!res.ok) return { ok: false, error: `HTTP ${res.status}`, status: res.status };
+    if (!res.ok) return { ok: false, error: `HTTP ${res.status}` };
     const text = await res.text();
     if (text.length < 200) return { ok: false, error: "Réponse trop courte" };
     if (!text.includes("<rss") && !text.includes("<feed") && !text.includes("<channel")) {
@@ -136,28 +169,16 @@ async function tryFetch(url, timeoutMs = TIMEOUT_MS) {
 
 async function fetchFeed(source) {
   const start = Date.now();
+  const result = await tryFetch(source.url);
+  const ms = Date.now() - start;
 
-  // 1️⃣ Tentative directe
-  const direct = await tryFetch(source.url);
-  if (direct.ok) {
-    const items = parseFeed(direct.text, source);
-    items.forEach(a => { a.themes = detectTheme(a.title, a.description); });
-    return { source, status: "ok", items, ms: Date.now() - start, via: "direct" };
+  if (!result.ok) {
+    return { source, status: "error", error: result.error, ms, items: [] };
   }
 
-  // 2️⃣ Si échec, on tente les proxies en cascade
-  for (const proxyFn of CORS_PROXIES) {
-    const proxyUrl = proxyFn(source.url);
-    const proxied = await tryFetch(proxyUrl, 20000);
-    if (proxied.ok) {
-      const items = parseFeed(proxied.text, source);
-      items.forEach(a => { a.themes = detectTheme(a.title, a.description); });
-      return { source, status: "ok", items, ms: Date.now() - start, via: "proxy" };
-    }
-  }
-
-  // 3️⃣ Tout a échoué
-  return { source, status: "error", error: direct.error, ms: Date.now() - start, items: [] };
+  const items = parseFeed(result.text, source);
+  items.forEach(a => { a.themes = detectTheme(a.title, a.description); });
+  return { source, status: "ok", items, ms };
 }
 
 // ============================================================
@@ -177,20 +198,19 @@ async function main() {
 
   for (const r of results) {
     if (r.status !== "fulfilled") continue;
-    const { source, status, items, ms, error, via } = r.value;
-    feedStatus[source.id] = { status, items: items.length, ms, error, nom: source.nom, via };
+    const { source, status, items, ms, error } = r.value;
+    feedStatus[source.id] = { status, items: items.length, ms, error, nom: source.nom };
     if (status === "ok" && items.length > 0) {
       all.push(...items);
-      const tag = via === "proxy" ? " ⚠️" : "";
-      okList.push(`${source.nom}${tag} (${items.length})`);
-      console.log(`✅ ${source.nom.padEnd(30)} ${String(items.length).padStart(2)} art. (${ms}ms)${tag}`);
+      okList.push(`${source.nom} (${items.length})`);
+      console.log(`✅ ${source.nom.padEnd(30)} ${String(items.length).padStart(2)} art. (${ms}ms)`);
     } else {
       koList.push(`${source.nom} → ${error || "vide"}`);
       console.log(`❌ ${source.nom.padEnd(30)} ${error || "vide"} (${ms}ms)`);
     }
   }
 
-  // Déduplication
+  // Déduplication par URL + par titre
   const seenUrl = new Set();
   const seenTitle = new Set();
   const unique = all.filter(a => {
@@ -201,19 +221,21 @@ async function main() {
     seenTitle.add(titleKey);
     return true;
   });
+
+  // Tri par date
   unique.sort((a, b) => b.pubDate - a.pubDate);
 
-  const okDirect = Object.values(feedStatus).filter(s => s.status === "ok" && s.via === "direct").length;
-  const okProxy = Object.values(feedStatus).filter(s => s.status === "ok" && s.via === "proxy").length;
+  // Comptage des thèmes pour le log
+  const themeCounts = {};
+  unique.forEach(a => (a.themes || []).forEach(t => { themeCounts[t] = (themeCounts[t] || 0) + 1; }));
 
   const output = {
     generatedAt: new Date().toISOString(),
     totalSources: sources.length,
     okSources: okList.length,
     koSources: koList.length,
-    okDirect,
-    okProxy,
     totalArticles: unique.length,
+    themeCounts,
     articles: unique,
     feedStatus,
   };
@@ -222,10 +244,13 @@ async function main() {
 
   console.log("\n" + "=".repeat(70));
   console.log(`\n📊 BILAN`);
-  console.log(`   Sources OK (direct) : ${okDirect}`);
-  console.log(`   Sources OK (proxy)  : ${okProxy}`);
-  console.log(`   Sources en échec    : ${koList.length}`);
-  console.log(`   Articles uniques    : ${unique.length}`);
+  console.log(`   Sources OK      : ${okList.length}`);
+  console.log(`   Sources en échec: ${koList.length}`);
+  console.log(`   Articles uniques: ${unique.length}`);
+  console.log(`\n📈 RÉPARTITION PAR THÈME :`);
+  Object.entries(themeCounts)
+    .sort(([, a], [, b]) => b - a)
+    .forEach(([theme, count]) => console.log(`   ${theme.padEnd(20)} ${count} articles`));
   if (koList.length > 0) {
     console.log(`\n❌ SOURCES EN ÉCHEC :`);
     koList.forEach(s => console.log(`   • ${s}`));
