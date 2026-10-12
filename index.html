@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Veille Média — Luttes, transparence, démocratie</title>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; max-width: 100%; }
   :root {
     --paper: #f4f4ef; --surface: #ffffff; --ink: #20211f; --muted: #747770;
     --line: #dedfd8; --red: #c94f36; --red-soft: #f7e8e3;
@@ -13,6 +13,10 @@
     --serif: Georgia, serif;
     --sans: -apple-system, "Segoe UI", sans-serif;
     --mono: Consolas, monospace;
+  }
+  html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
   }
   body { background: var(--paper); color: var(--ink); font: 14px/1.45 var(--sans); min-height: 100vh; }
 
@@ -23,27 +27,26 @@
     display: flex; justify-content: space-between;
     align-items: center; gap: 20px; flex-wrap: wrap;
     position: sticky; top: 0; z-index: 100;
+    max-width: 100vw;
   }
-  .brand { display: flex; align-items: center; gap: 12px; }
-  .brand-mark { width: 36px; height: 36px; border-radius: 50%; background: var(--red); color: white; display: grid; place-items: center; font-size: 18px; }
+  .brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+  .brand-mark { width: 36px; height: 36px; border-radius: 50%; background: var(--red); color: white; display: grid; place-items: center; font-size: 18px; flex: 0 0 auto; }
   .brand-name { font: 600 20px/1 var(--serif); }
   .brand-tag { font: 11px var(--mono); color: var(--muted); margin-top: 3px; letter-spacing: 0.5px; }
 
-  .controls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
-  .searchbox { display: flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 8px 12px; min-width: 240px; }
-  .searchbox input { border: 0; outline: 0; background: transparent; font-size: 13px; width: 100%; color: var(--ink); }
-  select, button { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 8px 12px; font-size: 13px; color: var(--ink); cursor: pointer; }
+  .controls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; max-width: 100%; }
+  .searchbox { display: flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 8px 12px; min-width: 200px; max-width: 100%; }
+  .searchbox input { border: 0; outline: 0; background: transparent; font-size: 13px; width: 100%; color: var(--ink); min-width: 0; }
+  select, button { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 8px 12px; font-size: 13px; color: var(--ink); cursor: pointer; max-width: 100%; }
   button:hover { border-color: #999; }
-  button.primary { background: var(--red); color: white; border-color: var(--red); font-weight: 600; }
-  button.primary:hover { background: #ad432f; }
 
-  .container { max-width: 1400px; margin: 0 auto; padding: 24px 32px 60px; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 24px 32px 60px; width: 100%; }
   .intro { margin-bottom: 22px; }
   .intro h1 { font: 500 34px/1.1 var(--serif); margin-bottom: 6px; }
   .intro p { color: var(--muted); font-size: 13px; }
 
-  .stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-bottom: 26px; }
-  .stat { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px 18px; }
+  .stats { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; margin-bottom: 26px; }
+  .stat { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px 18px; min-width: 0; }
   .stat-label { color: var(--muted); font: 10px var(--mono); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
   .stat-value { font: 500 26px/1 var(--serif); }
   .stat-value.green { color: var(--green); }
@@ -55,14 +58,15 @@
   .filters .filter-label { font: 11px var(--mono); color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
   .pills { display: flex; gap: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 3px; }
   .pills button { border: 0; padding: 6px 12px; font-size: 12px; background: transparent; border-radius: 4px; }
-  .pills button.active { background: var(--ink); color: white; }
 
-  .articles { display: grid; gap: 12px; }
+  .articles { display: grid; gap: 12px; width: 100%; min-width: 0; }
   .article {
     background: var(--surface); border: 1px solid var(--line);
     border-left: 4px solid var(--line); border-radius: 8px;
     padding: 16px 18px; transition: border-color 0.15s, transform 0.15s;
     animation: arrive 0.35s ease-out;
+    min-width: 0; overflow: hidden; word-wrap: break-word;
+    max-width: 100%;
   }
   @keyframes arrive { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
   .article:hover { border-color: #b8bab2; transform: translateY(-1px); }
@@ -73,20 +77,20 @@
   .article.centre-droite { border-left-color: #6d97c9; }
   .article.droite { border-left-color: #2f6fb0; }
 
-  .article-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font: 11px var(--mono); color: var(--muted); flex-wrap: wrap; }
-  .source { background: #f1f1ec; color: #555851; padding: 3px 8px; border-radius: 3px; font-weight: 600; font-size: 10px; }
-  .badge { padding: 3px 7px; border-radius: 3px; font-size: 10px; font-weight: 600; }
+  .article-head { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; font: 11px var(--mono); color: var(--muted); flex-wrap: wrap; min-width: 0; }
+  .source { background: #f1f1ec; color: #555851; padding: 3px 8px; border-radius: 3px; font-weight: 600; font-size: 10px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .badge { padding: 3px 7px; border-radius: 3px; font-size: 10px; font-weight: 600; white-space: nowrap; flex: 0 0 auto; }
   .badge.gauche, .badge.gauche-radicale { background: var(--red-soft); color: var(--red); }
   .badge.centre-gauche { background: #fbe6d9; color: #b3612f; }
   .badge.neutre { background: #eceae3; color: #6a6d65; }
   .badge.centre-droite { background: #e3ecf5; color: #3f6d9b; }
   .badge.droite { background: #dce8f5; color: var(--blue); }
 
-  .article-title { font: 500 19px/1.25 var(--serif); margin-bottom: 6px; color: var(--ink); text-decoration: none; display: block; }
+  .article-title { font: 500 19px/1.25 var(--serif); margin-bottom: 6px; color: var(--ink); text-decoration: none; display: block; word-wrap: break-word; overflow-wrap: break-word; }
   .article-title:hover { color: var(--red); }
-  .article-desc { color: #686b64; font-size: 13px; line-height: 1.5; margin-bottom: 10px; }
-  .article-foot { display: flex; gap: 8px; align-items: center; font: 10px var(--mono); color: var(--muted); flex-wrap: wrap; }
-  .article-foot a { color: var(--blue); text-decoration: none; }
+  .article-desc { color: #686b64; font-size: 13px; line-height: 1.5; margin-bottom: 10px; word-wrap: break-word; overflow-wrap: break-word; }
+  .article-foot { display: flex; gap: 8px; align-items: center; font: 10px var(--mono); color: var(--muted); flex-wrap: wrap; min-width: 0; }
+  .article-foot a { color: var(--blue); text-decoration: none; word-break: break-word; }
   .article-foot a:hover { text-decoration: underline; }
 
   .empty { padding: 60px 20px; text-align: center; color: var(--muted); background: var(--surface); border: 1px dashed var(--line); border-radius: 8px; }
@@ -97,6 +101,7 @@
     .container { padding: 18px 16px 40px; }
     header { padding: 14px 16px; }
     .intro h1 { font-size: 26px; }
+    .article-title { font-size: 16px; }
   }
 </style>
 </head>
@@ -127,13 +132,19 @@
       <option value="FR">🇫🇷 France</option>
       <option value="INT">🌍 International</option>
     </select>
+    <select id="langue-filter">
+      <option value="">Toutes les langues</option>
+      <option value="fr">🇫🇷 Français</option>
+      <option value="nl">🇳🇱 Néerlandais</option>
+      <option value="en">🇬🇧 Anglais</option>
+    </select>
   </div>
 </header>
 
 <div class="container">
   <div class="intro">
     <h1>Le fil de la veille.</h1>
-    <p>Collecte automatique côté serveur, une fois par heure. Aucune limitation CORS.</p>
+    <p>Médias francophones en priorité, puis néerlandophones, puis anglophones. Classés par thème et par bord éditorial.</p>
   </div>
 
   <div class="stats">
@@ -167,7 +178,6 @@
   <div class="articles" id="articles">
     <div class="empty">
       <p>⏳ Chargement des articles…</p>
-      <p style="margin-top:8px;font-size:12px">Les articles sont collectés automatiquement par GitHub Actions toutes les heures.</p>
     </div>
   </div>
 </div>
@@ -178,6 +188,7 @@ let activePeriod = 24;
 let activeTheme = "";
 let activeBord = "";
 let activePays = "";
+let activeLangue = "";
 let searchQuery = "";
 let generatedAt = null;
 let okSources = 0;
@@ -185,6 +196,16 @@ let koSources = 0;
 
 function escapeHtml(s) {
   return String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
+// Priorité linguistique pour le tri
+function languePriority(langue) {
+  if (!langue) return 3;
+  const l = langue.toLowerCase();
+  if (l.startsWith("fr")) return 0;
+  if (l.startsWith("nl")) return 1;
+  if (l.startsWith("en")) return 2;
+  return 3;
 }
 
 function render() {
@@ -196,15 +217,25 @@ function render() {
     if (activePeriod < 99999 && now - a.pubDate > maxAgeMs) return false;
     if (activeBord && a.bord !== activeBord) return false;
     if (activePays && a.pays !== activePays) return false;
+    if (activeLangue && !(a.langue || "").toLowerCase().startsWith(activeLangue)) return false;
     if (activeTheme && !(a.themes || []).includes(activeTheme)) return false;
     if (searchQuery) {
-      const text = (a.title + " " + a.source + " " + a.description).toLowerCase();
+      const text = (a.title + " " + a.source + " " + (a.description || "")).toLowerCase();
       if (!text.includes(searchQuery.toLowerCase())) return false;
     }
     return true;
-  }).slice(0, 150);
+  });
 
-  if (!filtered.length) {
+  // Tri : langue d'abord (FR > NL > EN), puis date
+  filtered.sort((a, b) => {
+    const lp = languePriority(a.langue) - languePriority(b.langue);
+    if (lp !== 0) return lp;
+    return b.pubDate - a.pubDate;
+  });
+
+  const shown = filtered.slice(0, 200);
+
+  if (!shown.length) {
     container.innerHTML = `<div class="empty">
       <p>Aucun article ne correspond à ces filtres.</p>
       <p style="margin-top:8px;font-size:12px">Essaie d'élargir la période ou de retirer un filtre.</p>
@@ -212,25 +243,26 @@ function render() {
     return;
   }
 
-  container.innerHTML = filtered.map(a => {
+  container.innerHTML = shown.map(a => {
     const date = new Date(a.pubDate);
     const dateStr = date.toLocaleDateString("fr-FR", { day: "2-digit", month: "short" }) + " " +
                     date.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" });
-    const bordLabel = a.bord.replace("-", " ");
+    const bordLabel = (a.bord || "neutre").replace("-", " ");
     const flag = a.pays === "BE" ? "🇧🇪" : a.pays === "FR" ? "🇫🇷" : "🌍";
     const desc = a.description ? `<p class="article-desc">${escapeHtml(a.description)}</p>` : "";
+    const themes = (a.themes || []).map(t => `<span>· ${escapeHtml(t)}</span>`).join("");
     return `
-      <article class="article ${a.bord}">
+      <article class="article ${escapeHtml(a.bord || "neutre")}">
         <div class="article-head">
           <span class="source">${flag} ${escapeHtml(a.source)}</span>
-          <span class="badge ${a.bord}">${escapeHtml(bordLabel)}</span>
-          <span style="margin-left:auto">${dateStr}</span>
+          <span class="badge ${escapeHtml(a.bord || "neutre")}">${escapeHtml(bordLabel)}</span>
+          <span style="margin-left:auto;white-space:nowrap">${dateStr}</span>
         </div>
         <a class="article-title" href="${escapeHtml(a.link)}" target="_blank" rel="noreferrer">${escapeHtml(a.title)}</a>
         ${desc}
         <div class="article-foot">
           <a href="${escapeHtml(a.link)}" target="_blank" rel="noreferrer">Ouvrir la source ↗</a>
-          ${(a.themes || []).map(t => `<span>· ${escapeHtml(t)}</span>`).join("")}
+          ${themes}
         </div>
       </article>
     `;
@@ -268,7 +300,6 @@ async function loadArticles() {
   } catch (err) {
     document.getElementById("articles").innerHTML = `<div class="empty">
       <p>⏳ Aucun articles.json trouvé pour le moment.</p>
-      <p style="margin-top:8px;font-size:12px">Si tu viens de mettre le projet en ligne, va dans l'onglet <strong>Actions</strong> de ton dépôt GitHub et lance le workflow <strong>"Collecte des flux RSS"</strong> manuellement. Il écrira articles.json, puis cette page l'affichera automatiquement.</p>
     </div>`;
   }
 }
@@ -276,6 +307,7 @@ async function loadArticles() {
 document.getElementById("search").addEventListener("input", e => { searchQuery = e.target.value; render(); });
 document.getElementById("bord-filter").addEventListener("change", e => { activeBord = e.target.value; render(); });
 document.getElementById("pays-filter").addEventListener("change", e => { activePays = e.target.value; render(); });
+document.getElementById("langue-filter").addEventListener("change", e => { activeLangue = e.target.value; render(); });
 document.getElementById("theme-filter").addEventListener("change", e => { activeTheme = e.target.value; render(); });
 document.querySelectorAll("#period-pills button").forEach(btn => {
   btn.addEventListener("click", () => {
@@ -287,7 +319,6 @@ document.querySelectorAll("#period-pills button").forEach(btn => {
 });
 
 loadArticles();
-// Recharge auto toutes les 10 minutes pour voir les nouveaux articles arriver
 setInterval(loadArticles, 10 * 60 * 1000);
 </script>
 
