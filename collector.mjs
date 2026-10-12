@@ -1,4 +1,4 @@
-// collector.mjs — Collecte les flux RSS avec scoring thématique
+// collector.mjs — Collecte les flux RSS avec scoring thématique + fusion 14 jours
 import { readFile, writeFile } from "node:fs/promises";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -7,6 +7,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const USER_AGENT = "Mozilla/5.0 (compatible; VeilleMedia/1.0; +github-actions)";
 const TIMEOUT_MS = 15000;
+const MAX_AGE_DAYS = 14;
 
 // ============================================================
 // NETTOYAGE HTML
@@ -46,6 +47,40 @@ function extractAtomLink(block) {
   return any ? any[1] : "";
 }
 
+// ============================================================
+// NETTOYAGE DES URLs GOOGLE NEWS
+// ============================================================
+function cleanGoogleNewsUrl(url) {
+  if (!url) return url;
+  // Les URLs Google News ont la forme :
+  // https://news.google.com/rss/articles/CBMi...?oc=5
+  // Elles contiennent l'URL d'origine en base64 dans le chemin
+  try {
+    const match = url.match(/\/articles\/([A-Za-z0-9_-]+)/);
+    if (!match) return url;
+
+    // Tentative de décodage du base64
+    const encoded = match[1];
+    // Google News utilise une variante base64 URL-safe
+    let b64 = encoded.replace(/-/g, "+").replace(/_/g, "/");
+    // Ajout du padding
+    while (b64.length % 4) b64 += "=";
+
+    try {
+      const decoded = Buffer.from(b64, "base64").toString("utf-8");
+      // Cherche une URL dans le résultat
+      const urlMatch = decoded.match(/https?:\/\/[^\s\x00-\x1f"']+/);
+      if (urlMatch && urlMatch[0] && !urlMatch[0].includes("news.google.com")) {
+        // Nettoie les caractères parasites en fin d'URL
+        return urlMatch[0].replace(/[\x00-\x1f].*$/, "").replace(/["'<>].*$/, "").trim();
+      }
+    } catch (e) {
+      // Décodage échoué, retourne l'URL brute
+    }
+  } catch (e) { /* ignore */ }
+  return url;
+}
+
 function parseFeed(xml, source) {
   const isAtom = /<feed[\s>]/.test(xml);
   const itemRegex = isAtom ? /<entry[\s>][\s\S]*?<\/entry>/gi : /<item[\s>][\s\S]*?<\/item>/gi;
@@ -66,9 +101,11 @@ function parseFeed(xml, source) {
     if (title.toLowerCase() === source.nom.toLowerCase()) continue;
 
     const parsed = rawDate ? Date.parse(rawDate) : NaN;
+    const cleanLink = cleanGoogleNewsUrl(link.trim());
+
     result.push({
       title,
-      link: link.trim(),
+      link: cleanLink,
       description,
       pubDate: Number.isFinite(parsed) ? parsed : Date.now(),
       sourceId: source.id,
@@ -95,18 +132,7 @@ const THEMES_SCORING = {
   },
   "transparence": {
     weight: 1.4,
-    kws: [
-      // Organismes et contrôle
-      "transparence","lanceur d'alerte","lanceur d’alerte","whistleblower","alerte","signalement","cour des comptes","haute autorité","haute autorite","organisme de contrôle","organisme de controle","autorité indépendante","autorite independante","rapport public","recommandation",
-      // Financement et patrimoine
-      "comptes de campagne","comptes de campagne","financement politique","financement de la vie politique","dons aux partis","subventions publiques","patrimoine des élus","patrimoine des elus","déclaration d'intérêts","declaration d'interets","déclaration d'activités","situation patrimoniale","enrichissement",
-      // Influence
-      "lobbying","lobbyiste","registre des lobbyistes","groupe d'intérêt","groupe d’intérêt","groupe de pression","agenda public","rendez-vous officiel","pantouflage","traçabilité","tracabilite","scrutin public","vote public","commission d'enquête","commission d’enquête",
-      // Argent public
-      "marché public","marche public","marchés publics","marches publics","appel d'offres","appel d’offres","partenariat public-privé","partenariat public-prive","attribution de contrat","bénéficiaire effectif","beneficiaire effectif","subvention","aide publique","fonds public","collaborateur parlementaire","cabinet ministériel","cabinet ministeriel",
-      // Open data
-      "open data","données ouvertes","donnees ouvertes","accès aux documents","acces aux documents","accès à l'information","acces a l'information","liberté d'information","liberte d'information","cada","archives publiques","algorithme public","parcoursup","gouvernement ouvert"
-    ]
+    kws: ["transparence","lanceur d'alerte","lanceur d’alerte","whistleblower","alerte","signalement","cour des comptes","haute autorité","haute autorite","organisme de contrôle","organisme de controle","autorité indépendante","autorite independante","rapport public","recommandation","comptes de campagne","financement politique","financement de la vie politique","dons aux partis","subventions publiques","patrimoine des élus","patrimoine des elus","déclaration d'intérêts","declaration d'interets","déclaration d'activités","situation patrimoniale","lobbying","lobbyiste","registre des lobbyistes","groupe d'intérêt","groupe d’intérêt","groupe de pression","agenda public","rendez-vous officiel","traçabilité","tracabilite","scrutin public","vote public","commission d'enquête","commission d’enquête","marché public","marche public","marchés publics","marches publics","appel d'offres","appel d’offres","partenariat public-privé","partenariat public-prive","attribution de contrat","bénéficiaire effectif","beneficiaire effectif","subvention","aide publique","fonds public","collaborateur parlementaire","cabinet ministériel","cabinet ministeriel","open data","données ouvertes","donnees ouvertes","accès aux documents","acces aux documents","accès à l'information","acces a l'information","liberté d'information","liberte d'information","cada","archives publiques","algorithme public","parcoursup","gouvernement ouvert"]
   },
   "democratie": {
     weight: 1,
@@ -121,12 +147,14 @@ const THEMES_SCORING = {
     kws: ["international","monde","guerre","conflit","diplomatie","géopolitique","geopolitique","étranger","etranger","union européenne","union europeenne","onu","otan","gaza","ukraine","israël","israel","palestine","moyen-orient","afrique","asie","amérique","amerique"]
   },
 };
+
 function escapeRegex(str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-function detectTheme(title, desc) {
-  const text = (title + " " + desc).toLowerCase();
+function detectTheme(title, desc, url = "") {
+  const urlText = url ? url.split("/").slice(-3).join(" ").replace(/-/g, " ") : "";
+  const text = (title + " " + desc + " " + urlText).toLowerCase();
   const scores = {};
 
   for (const [theme, { weight, kws }] of Object.entries(THEMES_SCORING)) {
@@ -152,7 +180,7 @@ function detectTheme(title, desc) {
 }
 
 // ============================================================
-// FETCH AVEC RETRY
+// FETCH
 // ============================================================
 async function tryFetch(url, timeoutMs = TIMEOUT_MS) {
   try {
@@ -187,7 +215,7 @@ async function fetchFeed(source) {
   }
 
   const items = parseFeed(result.text, source);
-  items.forEach(a => { a.themes = detectTheme(a.title, a.description); });
+  items.forEach(a => { a.themes = detectTheme(a.title, a.description, a.link); });
   return { source, status: "ok", items, ms };
 }
 
@@ -213,50 +241,73 @@ async function main() {
     if (status === "ok" && items.length > 0) {
       all.push(...items);
       okList.push(`${source.nom} (${items.length})`);
-      console.log(`✅ ${source.nom.padEnd(30)} ${String(items.length).padStart(2)} art. (${ms}ms)`);
+      console.log(`✅ ${source.nom.padEnd(35)} ${String(items.length).padStart(2)} art. (${ms}ms)`);
     } else {
       koList.push(`${source.nom} → ${error || "vide"}`);
-      console.log(`❌ ${source.nom.padEnd(30)} ${error || "vide"} (${ms}ms)`);
+      console.log(`❌ ${source.nom.padEnd(35)} ${error || "vide"} (${ms}ms)`);
     }
   }
 
-  // Déduplication par URL + par titre
+  // ============================================================
+  // FUSION AVEC L'ANCIEN articles.json (fenêtre 14 jours)
+  // ============================================================
+  const ARTICLES_PATH = resolve(__dirname, "articles.json");
+  let previousArticles = [];
+  try {
+    const previous = JSON.parse(await readFile(ARTICLES_PATH, "utf8"));
+    if (previous.articles && Array.isArray(previous.articles)) {
+      previousArticles = previous.articles;
+      console.log(`\n📚 ${previousArticles.length} articles précédents à fusionner`);
+    }
+  } catch (e) { /* première collecte */ }
+
   const seenUrl = new Set();
   const seenTitle = new Set();
-  const unique = all.filter(a => {
+  const now = Date.now();
+  const MAX_AGE_MS = MAX_AGE_DAYS * 24 * 3600 * 1000;
+
+  const merged = [...all, ...previousArticles].filter(a => {
+    if (!a.pubDate || now - a.pubDate > MAX_AGE_MS) return false;
     if (seenUrl.has(a.link)) return false;
+    seenUrl.add(a.link);
     const titleKey = a.title.toLowerCase().slice(0, 60);
     if (seenTitle.has(titleKey)) return false;
-    seenUrl.add(a.link);
     seenTitle.add(titleKey);
     return true;
   });
 
-  // Tri par date
-  unique.sort((a, b) => b.pubDate - a.pubDate);
+  merged.sort((a, b) => b.pubDate - a.pubDate);
 
-  // Comptage des thèmes pour le log
+  // Recalcule les thèmes pour les anciens articles sans thème
+  merged.forEach(a => {
+    if (!a.themes || !a.themes.length) {
+      a.themes = detectTheme(a.title, a.description || "", a.link || "");
+    }
+  });
+
   const themeCounts = {};
-  unique.forEach(a => (a.themes || []).forEach(t => { themeCounts[t] = (themeCounts[t] || 0) + 1; }));
+  merged.forEach(a => (a.themes || []).forEach(t => { themeCounts[t] = (themeCounts[t] || 0) + 1; }));
 
   const output = {
     generatedAt: new Date().toISOString(),
     totalSources: sources.length,
     okSources: okList.length,
     koSources: koList.length,
-    totalArticles: unique.length,
+    totalArticles: merged.length,
     themeCounts,
-    articles: unique,
+    articles: merged,
     feedStatus,
   };
 
-  await writeFile(resolve(__dirname, "articles.json"), JSON.stringify(output, null, 2), "utf8");
+  await writeFile(ARTICLES_PATH, JSON.stringify(output, null, 2), "utf8");
 
   console.log("\n" + "=".repeat(70));
   console.log(`\n📊 BILAN`);
-  console.log(`   Sources OK      : ${okList.length}`);
-  console.log(`   Sources en échec: ${koList.length}`);
-  console.log(`   Articles uniques: ${unique.length}`);
+  console.log(`   Sources OK         : ${okList.length}`);
+  console.log(`   Sources en échec   : ${koList.length}`);
+  console.log(`   Nouveaux articles  : ${all.length}`);
+  console.log(`   Archives fusionnées: ${previousArticles.length}`);
+  console.log(`   TOTAL après fusion : ${merged.length}`);
   console.log(`\n📈 RÉPARTITION PAR THÈME :`);
   Object.entries(themeCounts)
     .sort(([, a], [, b]) => b - a)
