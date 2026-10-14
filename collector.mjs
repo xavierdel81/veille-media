@@ -1,4 +1,4 @@
-// collector.mjs — Collecte les flux RSS avec scoring thématique strict
+// collector.mjs — Collecte les flux RSS avec scoring thématique strict + filtre anti-bruit
 import { readFile, writeFile } from "node:fs/promises";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -109,7 +109,7 @@ function parseFeed(xml, source) {
 }
 
 // ============================================================
-// DÉTECTION DE THÈME PAR SCORE (version stricte)
+// SCORING THÉMATIQUE
 // ============================================================
 const THEMES_SCORING = {
   "luttes-sociales": {
@@ -147,9 +147,32 @@ function escapeRegex(str) {
 
 // Termes TRÈS spécifiques qui suffisent à eux seuls à qualifier un thème
 const HIGH_SIGNAL_TERMS = {
-  "transparence": ["cada","lanceur d'alerte","lanceur d’alerte","lanceurs d'alerte","lanceurs d’alerte","whistleblower","open data","données ouvertes","donnees ouvertes","freedom of information","accès aux documents","acces aux documents","publicité de l'administration","publicite de l'administration","commission d'accès","commission d’accès","transparencia"],
-  "corruption": ["corruption","détournement","detournement","pot-de-vin","pots-de-vin","trafic d'influence","trafic d’influence","malversation","népotisme","nepotisme","prise illégale","prise illegale","abus de biens","abus de confiance","pantouflage"],
-  "auto-defense": ["zététique","zetetique","sophisme","fact-check","fake news","complotisme","théorie du complot","theorie du complot","désinformation","desinformation"]
+  "transparence": [
+    "cada","lanceur d'alerte","lanceur d’alerte","lanceurs d'alerte","lanceurs d’alerte","whistleblower",
+    "open data","données ouvertes","donnees ouvertes","freedom of information",
+    "accès aux documents","acces aux documents","accès refusé","acces refuse","refus d'accès","refus d’accès",
+    "droit à l'information","droit a l'information","droit de savoir","publicité des actes","publicite des actes",
+    "publicité de l'administration","publicite de l'administration",
+    "commission d'accès","commission d’accès","commission de recours","transparencia",
+    "secret d'état","secret d’état","secret des affaires","secret défense","secret defense",
+    "opacité administrative","opacite administrative","dissimulation","archives publiques",
+    "document administratif","documents administratifs"
+  ],
+  "corruption": [
+    "corruption","détournement","detournement","pot-de-vin","pots-de-vin",
+    "trafic d'influence","trafic d’influence","malversation","népotisme","nepotisme",
+    "prise illégale","prise illegale","abus de biens","abus de confiance","pantouflage",
+    "abus de pouvoir","biens mal acquis","détournement de fonds","detournement de fonds",
+    "mise en examen","renvoi en correctionnelle","parquet financier","pôle financier","pole financier",
+    "instruction judiciaire","favoritisme","clientélisme","clientelisme"
+  ],
+  "auto-defense": [
+    "zététique","zetetique","sophisme","fact-check","fact check","fake news","infox",
+    "complotisme","théorie du complot","theorie du complot",
+    "désinformation","desinformation","propagande","rhétorique","rhetorique",
+    "argumentation","vérification des faits","verification des faits","post-vérité","post-verite",
+    "manipulation médiatique","manipulation mediatique","décryptage","decryptage","esprit critique"
+  ]
 };
 
 function detectTheme(title, desc, url = "") {
@@ -178,16 +201,23 @@ function detectTheme(title, desc, url = "") {
       return regex.test(text);
     });
 
-    // Règle stricte pour les thèmes sensibles :
-    // besoin d'un signal fort OU de 2 mots-clés distincts
+    // Règle assouplie : signal fort OU 1 mot-clé moyen
     const strictThemes = ["corruption", "transparence", "auto-defense"];
     if (strictThemes.includes(theme)) {
-      if (!hasHighSignal && matchedKws < 2) {
+      if (!hasHighSignal && matchedKws < 1) {
         continue;
       }
     }
 
     scores[theme] = score;
+  }
+
+  // Filtre anti-bruit : si > 3 thèmes, on garde les 2 meilleurs
+  if (Object.keys(scores).length > 3) {
+    const sorted = Object.entries(scores).sort(([, a], [, b]) => b - a);
+    const topTwo = Object.fromEntries(sorted.slice(0, 2));
+    Object.keys(scores).forEach(k => delete scores[k]);
+    Object.assign(scores, topTwo);
   }
 
   const values = Object.values(scores);
@@ -301,7 +331,7 @@ async function main() {
 
   merged.sort((a, b) => b.pubDate - a.pubDate);
 
-  // Recalcul COMPLET des thèmes pour tous les articles (au cas où la détection a changé)
+  // Recalcul COMPLET des thèmes pour tous les articles
   merged.forEach(a => {
     a.themes = detectTheme(a.title, a.description || "", a.link || "");
   });
