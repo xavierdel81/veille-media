@@ -1,4 +1,4 @@
-// collector.mjs — Collecte les flux RSS avec scoring thématique + fusion 14 jours
+// collector.mjs — Collecte les flux RSS avec scoring thématique strict
 import { readFile, writeFile } from "node:fs/promises";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -52,31 +52,21 @@ function extractAtomLink(block) {
 // ============================================================
 function cleanGoogleNewsUrl(url) {
   if (!url) return url;
-  // Les URLs Google News ont la forme :
-  // https://news.google.com/rss/articles/CBMi...?oc=5
-  // Elles contiennent l'URL d'origine en base64 dans le chemin
   try {
     const match = url.match(/\/articles\/([A-Za-z0-9_-]+)/);
     if (!match) return url;
 
-    // Tentative de décodage du base64
     const encoded = match[1];
-    // Google News utilise une variante base64 URL-safe
     let b64 = encoded.replace(/-/g, "+").replace(/_/g, "/");
-    // Ajout du padding
     while (b64.length % 4) b64 += "=";
 
     try {
       const decoded = Buffer.from(b64, "base64").toString("utf-8");
-      // Cherche une URL dans le résultat
       const urlMatch = decoded.match(/https?:\/\/[^\s\x00-\x1f"']+/);
       if (urlMatch && urlMatch[0] && !urlMatch[0].includes("news.google.com")) {
-        // Nettoie les caractères parasites en fin d'URL
         return urlMatch[0].replace(/[\x00-\x1f].*$/, "").replace(/["'<>].*$/, "").trim();
       }
-    } catch (e) {
-      // Décodage échoué, retourne l'URL brute
-    }
+    } catch (e) { /* ignore */ }
   } catch (e) { /* ignore */ }
   return url;
 }
@@ -119,20 +109,23 @@ function parseFeed(xml, source) {
 }
 
 // ============================================================
-// DÉTECTION DE THÈME PAR SCORE
+// DÉTECTION DE THÈME PAR SCORE (version stricte)
 // ============================================================
 const THEMES_SCORING = {
   "luttes-sociales": {
     weight: 1,
-    kws: ["grève","greve","manifestation","syndicat","mobilisation","protestation","travailleurs","salaires","précarité","precarite","chômage","chomage","logement","pauvreté","pauvrete","inégalités","inegalites","austérité","austerite","retraite","licenciement","plan social","piquet","cortège","cortege","militant","collectif","solidarité","solidarite","revendication","débrayage","debrayage","précarisation","precarisation","exploitation","temps de travail","conditions de travail","accident du travail"]
+    kws: ["grève","greve","manifestation","syndicat","mobilisation","protestation","travailleurs","salaires","précarité","precarite","chômage","chomage","logement","pauvreté","pauvrete","inégalités","inegalites","austérité","austerite","retraite","licenciement","plan social","piquet","cortège","cortege","militant","collectif","solidarité","solidarite","revendication","débrayage","debrayage","précarisation","precarisation","exploitation","conditions de travail","accident du travail"]
   },
   "corruption": {
     weight: 1.5,
-    kws: ["corruption","détournement","detournement","fraude","conflit d'intérêts","conflit d’intérêts","pot-de-vin","trafic d'influence","trafic d’influence","malversation","opacité","opacite","clientélisme","clientelisme","népotisme","nepotisme","favoritisme","commission occulte","dessous de table","enrichissement","abus de biens","abus de confiance","prise illégale","prise illegale","faux et usage","corrompu","corrompue","pots-de-vin","pantouflage","rémunération","remuneration","notes de frais","déclaration de patrimoine","declaration de patrimoine","enrichissement illicite"]
+    kws: ["corruption","détournement","detournement","fraude","conflit d'intérêts","conflit d’intérêts","pot-de-vin","trafic d'influence","trafic d’influence","malversation","clientélisme","clientelisme","népotisme","nepotisme","favoritisme","commission occulte","dessous de table","enrichissement illicite","abus de biens","abus de confiance","prise illégale","prise illegale","faux et usage","corrompu","corrompue","pots-de-vin","pantouflage","notes de frais","déclaration de patrimoine","declaration de patrimoine"]
   },
   "transparence": {
-    weight: 1.4,
-    kws: ["transparence","lanceur d'alerte","lanceur d’alerte","whistleblower","alerte","signalement","cour des comptes","haute autorité","haute autorite","organisme de contrôle","organisme de controle","autorité indépendante","autorite independante","rapport public","recommandation","comptes de campagne","financement politique","financement de la vie politique","dons aux partis","subventions publiques","patrimoine des élus","patrimoine des elus","déclaration d'intérêts","declaration d'interets","déclaration d'activités","situation patrimoniale","lobbying","lobbyiste","registre des lobbyistes","groupe d'intérêt","groupe d’intérêt","groupe de pression","agenda public","rendez-vous officiel","traçabilité","tracabilite","scrutin public","vote public","commission d'enquête","commission d’enquête","marché public","marche public","marchés publics","marches publics","appel d'offres","appel d’offres","partenariat public-privé","partenariat public-prive","attribution de contrat","bénéficiaire effectif","beneficiaire effectif","subvention","aide publique","fonds public","collaborateur parlementaire","cabinet ministériel","cabinet ministeriel","open data","données ouvertes","donnees ouvertes","accès aux documents","acces aux documents","accès à l'information","acces a l'information","liberté d'information","liberte d'information","cada","archives publiques","algorithme public","parcoursup","gouvernement ouvert"]
+    weight: 2,
+    kws: [
+      "cada","lanceur d'alerte","lanceur d’alerte","lanceurs d'alerte","lanceurs d’alerte","whistleblower","open data","données ouvertes","donnees ouvertes","freedom of information","accès aux documents","acces aux documents","accès à l'information","acces a l'information","liberté d'information","liberte d'information","publicité de l'administration","publicite de l'administration","commission d'accès","commission d’accès","transparencia",
+      "transparence","secret d'état","secret d’état","secret des affaires","secret défense","secret defense","refus de communication","refus de transmettre","opacité administrative","opacite administrative","manque de transparence","défaut de transparence","defaut de transparence","demande de documents","demande d'accès","demande d’acces","droit de savoir","redevabilité","redevabilite","reddition des comptes","déclaration d'intérêts","declaration d'interets","registre des lobbyistes","agenda public","budget participatif","gouvernement ouvert","open government"
+    ]
   },
   "democratie": {
     weight: 1,
@@ -152,6 +145,13 @@ function escapeRegex(str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
+// Termes TRÈS spécifiques qui suffisent à eux seuls à qualifier un thème
+const HIGH_SIGNAL_TERMS = {
+  "transparence": ["cada","lanceur d'alerte","lanceur d’alerte","lanceurs d'alerte","lanceurs d’alerte","whistleblower","open data","données ouvertes","donnees ouvertes","freedom of information","accès aux documents","acces aux documents","publicité de l'administration","publicite de l'administration","commission d'accès","commission d’accès","transparencia"],
+  "corruption": ["corruption","détournement","detournement","pot-de-vin","pots-de-vin","trafic d'influence","trafic d’influence","malversation","népotisme","nepotisme","prise illégale","prise illegale","abus de biens","abus de confiance","pantouflage"],
+  "auto-defense": ["zététique","zetetique","sophisme","fact-check","fake news","complotisme","théorie du complot","theorie du complot","désinformation","desinformation"]
+};
+
 function detectTheme(title, desc, url = "") {
   const urlText = url ? url.split("/").slice(-3).join(" ").replace(/-/g, " ") : "";
   const text = (title + " " + desc + " " + urlText).toLowerCase();
@@ -159,12 +159,35 @@ function detectTheme(title, desc, url = "") {
 
   for (const [theme, { weight, kws }] of Object.entries(THEMES_SCORING)) {
     let score = 0;
+    let matchedKws = 0;
+    const highSignal = HIGH_SIGNAL_TERMS[theme] || [];
+
     for (const kw of kws) {
       const regex = new RegExp("\\b" + escapeRegex(kw) + "\\b", "gi");
       const matches = text.match(regex);
-      if (matches) score += matches.length * weight;
+      if (matches) {
+        score += matches.length * weight;
+        matchedKws++;
+      }
     }
-    if (score > 0) scores[theme] = score;
+
+    if (score === 0) continue;
+
+    const hasHighSignal = highSignal.some(kw => {
+      const regex = new RegExp("\\b" + escapeRegex(kw) + "\\b", "i");
+      return regex.test(text);
+    });
+
+    // Règle stricte pour les thèmes sensibles :
+    // besoin d'un signal fort OU de 2 mots-clés distincts
+    const strictThemes = ["corruption", "transparence", "auto-defense"];
+    if (strictThemes.includes(theme)) {
+      if (!hasHighSignal && matchedKws < 2) {
+        continue;
+      }
+    }
+
+    scores[theme] = score;
   }
 
   const values = Object.values(scores);
@@ -278,11 +301,9 @@ async function main() {
 
   merged.sort((a, b) => b.pubDate - a.pubDate);
 
-  // Recalcule les thèmes pour les anciens articles sans thème
+  // Recalcul COMPLET des thèmes pour tous les articles (au cas où la détection a changé)
   merged.forEach(a => {
-    if (!a.themes || !a.themes.length) {
-      a.themes = detectTheme(a.title, a.description || "", a.link || "");
-    }
+    a.themes = detectTheme(a.title, a.description || "", a.link || "");
   });
 
   const themeCounts = {};
