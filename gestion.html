@@ -33,7 +33,7 @@
 
   .container { max-width: 1400px; margin: 0 auto; padding: 24px 32px 60px; }
 
-  .tabs { display: flex; gap: 4px; border-bottom: 2px solid var(--line); margin-bottom: 24px; }
+  .tabs { display: flex; gap: 4px; border-bottom: 2px solid var(--line); margin-bottom: 24px; flex-wrap: wrap; }
   .tab { padding: 12px 20px; background: transparent; border: 0; border-bottom: 2px solid transparent; margin-bottom: -2px; cursor: pointer; font-size: 14px; color: var(--muted); font-weight: 500; }
   .tab.active { color: var(--red); border-bottom-color: var(--red); }
   .tab:hover { color: var(--ink); }
@@ -48,6 +48,8 @@
   .btn:hover { border-color: #999; }
   .btn.primary { background: var(--red); color: white; border-color: var(--red); font-weight: 600; }
   .btn.primary:hover { background: #ad432f; }
+  .btn.danger { background: #c94f36; color: white; border-color: #c94f36; }
+  .btn.danger:hover { background: #ad432f; }
   .btn.small { padding: 4px 8px; font-size: 11px; }
 
   table { width: 100%; border-collapse: collapse; background: var(--surface); border-radius: 8px; overflow: hidden; }
@@ -64,18 +66,20 @@
   .badge.ok { background: #e8efe9; color: var(--green); }
   .badge.ko { background: var(--red-soft); color: var(--red); }
   .badge.vide { background: #f1f1ec; color: var(--muted); }
+  .badge.exclue { background: #666; color: white; }
 
   .json-output {
     background: #1c1c1a; color: #d4d4cc; padding: 16px;
     border-radius: 8px; font: 12px/1.5 var(--mono);
     white-space: pre-wrap; word-break: break-all;
     max-height: 400px; overflow-y: auto;
-    margin-top: 16px;
+    margin-top: 16px; position: relative;
   }
   .json-output .copy-btn {
-    position: absolute; top: 10px; right: 10px;
+    position: sticky; top: 0; float: right;
     background: var(--red); color: white; border: 0;
     padding: 6px 12px; border-radius: 4px; cursor: pointer;
+    margin-left: 10px;
   }
 
   .form-group { margin-bottom: 16px; }
@@ -97,10 +101,41 @@
   .help-text strong { color: var(--ink); }
   .help-text code { background: #eeefe9; padding: 2px 6px; border-radius: 3px; font-family: var(--mono); font-size: 12px; }
 
+  .action-bar {
+    background: var(--surface); border: 2px solid var(--red);
+    border-radius: 8px; padding: 14px 18px; margin-bottom: 20px;
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 14px; flex-wrap: wrap;
+  }
+  .action-bar .info { font-size: 13px; color: var(--ink); }
+  .action-bar .info strong { color: var(--red); }
+
+  .checkbox-cell { width: 40px; text-align: center; }
+  .checkbox-cell input { transform: scale(1.3); cursor: pointer; }
+  tr.excluded td { opacity: 0.4; text-decoration: line-through; }
+
+  .floating-actions {
+    position: fixed; bottom: 24px; right: 24px; z-index: 100;
+    background: var(--ink); color: white; border-radius: 8px;
+    padding: 14px 18px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    display: flex; align-items: center; gap: 14px;
+  }
+  .floating-actions strong { color: var(--yellow); }
+  .floating-actions button {
+    background: var(--red); color: white; border: 0;
+    padding: 8px 14px; border-radius: 6px; cursor: pointer;
+    font-size: 13px; font-weight: 600;
+  }
+  .floating-actions button:hover { background: #ad432f; }
+  .floating-actions button.cancel {
+    background: #555; font-weight: normal;
+  }
+
   @media (max-width: 900px) {
     .container { padding: 16px; }
     .stats { grid-template-columns: repeat(2, 1fr); }
     .form-row { grid-template-columns: 1fr; }
+    .floating-actions { bottom: 12px; right: 12px; left: 12px; }
   }
 </style>
 </head>
@@ -148,6 +183,8 @@
         <option value="extreme-droite">Extrême droite</option>
       </select>
       <button class="btn primary" id="add-source-btn">+ Ajouter une source</button>
+      <button class="btn" id="select-all-sources">Tout sélectionner</button>
+      <button class="btn" id="deselect-all-sources">Tout désélectionner</button>
     </div>
 
     <div id="add-source-form" style="display:none; background: var(--surface); padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid var(--line);">
@@ -204,6 +241,7 @@
       <table>
         <thead>
           <tr>
+            <th class="checkbox-cell">🗑️</th>
             <th>Nom</th>
             <th>Pays</th>
             <th>Langue</th>
@@ -213,7 +251,7 @@
           </tr>
         </thead>
         <tbody id="sources-tbody">
-          <tr><td colspan="6" style="text-align:center; padding:30px; color: var(--muted);">Chargement…</td></tr>
+          <tr><td colspan="7" style="text-align:center; padding:30px; color: var(--muted);">Chargement…</td></tr>
         </tbody>
       </table>
     </div>
@@ -223,6 +261,7 @@
   <div class="panel" id="panel-themes">
     <div class="toolbar">
       <button class="btn primary" id="add-theme-btn">+ Ajouter un thème</button>
+      <button class="btn" id="show-excluded-themes">Afficher les thèmes exclus</button>
     </div>
 
     <div id="add-theme-form" style="display:none; background: var(--surface); padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid var(--line);">
@@ -278,16 +317,23 @@
     <table>
       <thead>
         <tr>
+          <th class="checkbox-cell">Actif</th>
           <th>Thème</th>
           <th>Poids</th>
-          <th>Nombre de mots-clés</th>
+          <th>Mots-clés</th>
           <th>Mots-clés forts</th>
         </tr>
       </thead>
       <tbody id="themes-tbody">
-        <tr><td colspan="4" style="text-align:center; padding:30px; color: var(--muted);">Chargement…</td></tr>
+        <tr><td colspan="5" style="text-align:center; padding:30px; color: var(--muted);">Chargement…</td></tr>
       </tbody>
     </table>
+
+    <div class="help-text" style="margin-top: 24px;">
+      <strong>Comment fonctionne l'exclusion de thème ?</strong><br>
+      Les thèmes que tu décoches sont ajoutés à un fichier <code>themes-exclus.json</code>. Le collecteur les ignorera à la prochaine collecte. Pour les réactiver, il suffit de les recocher.<br><br>
+      <strong>Astuce</strong> : l'exclusion est <em>réversible</em> — rien n'est supprimé de <code>themes.json</code>.
+    </div>
   </div>
 
   <!-- ============ PANNEAU DOCUMENTATION ============ -->
@@ -295,29 +341,37 @@
     <h2 style="margin-bottom: 16px;">Comment gérer tes sources et thèmes</h2>
 
     <div class="help-text">
+      <strong>Supprimer une ou plusieurs sources</strong><br>
+      1. Onglet <strong>Sources</strong><br>
+      2. Coche les sources à supprimer (colonne 🗑️)<br>
+      3. Clique sur <strong>"Générer le sources.json épuré"</strong> (barre rouge en bas)<br>
+      4. Copie le contenu affiché<br>
+      5. Ouvre <code>sources.json</code> sur GitHub, remplace TOUT par le contenu copié<br>
+      6. Commit + relance la collecte
+    </div>
+
+    <div class="help-text">
       <strong>Ajouter une source</strong><br>
-      1. Onglet <strong>Sources</strong> → "+ Ajouter une source"<br>
-      2. Remplis le formulaire (nom, URL RSS, pays…)<br>
+      1. Bouton <strong>"+ Ajouter une source"</strong><br>
+      2. Remplis le formulaire<br>
       3. Clique sur <strong>"Générer le JSON"</strong><br>
-      4. Copie la ligne JSON générée<br>
-      5. Ouvre <code>sources.json</code> sur GitHub, colle la ligne avant le <code>]</code> final<br>
-      6. Commit + relance la collecte (Actions → Run workflow)
+      4. Copie la ligne générée dans <code>sources.json</code> avant le <code>]</code>
+    </div>
+
+    <div class="help-text">
+      <strong>Désactiver un thème (sans le supprimer)</strong><br>
+      1. Onglet <strong>Thèmes</strong><br>
+      2. Décoche les thèmes à exclure<br>
+      3. Clique sur <strong>"Générer themes-exclus.json"</strong> (barre rouge en bas)<br>
+      4. Crée/remplace le fichier <code>themes-exclus.json</code> sur GitHub avec le contenu copié
     </div>
 
     <div class="help-text">
       <strong>Ajouter un thème</strong><br>
-      1. Onglet <strong>Thèmes</strong> → "+ Ajouter un thème"<br>
-      2. Choisis un thème pré-configuré OU crée ton propre thème<br>
-      3. Remplis les mots-clés (séparés par des virgules)<br>
-      4. Clique sur <strong>"Générer le JSON"</strong><br>
-      5. Copie le bloc généré dans <code>themes.json</code> sur GitHub
-    </div>
-
-    <div class="help-text">
-      <strong>Bon à savoir</strong><br>
-      • Les <strong>mots-clés forts</strong> sont ceux qui suffisent à eux seuls à qualifier un article (ex : "corruption", "CAda", "lanceur d'alerte").<br>
-      • Le <strong>poids</strong> permet de donner plus d'importance à un thème (ex : corruption à 1.5, transparence à 2).<br>
-      • Un article peut avoir <strong>plusieurs thèmes</strong> s'il touche à plusieurs sujets.
+      1. Bouton <strong>"+ Ajouter un thème"</strong><br>
+      2. Choisis un preset OU crée ton propre thème<br>
+      3. Remplis les mots-clés<br>
+      4. Copie le bloc généré dans <code>themes.json</code>
     </div>
 
     <h3 style="margin-top: 30px; margin-bottom: 16px;">Fichiers du projet</h3>
@@ -328,7 +382,8 @@
       <tbody>
         <tr><td><code>sources.json</code></td><td>Liste des sources RSS</td><td>✅ via cette interface</td></tr>
         <tr><td><code>themes.json</code></td><td>Liste des thèmes et mots-clés</td><td>✅ via cette interface</td></tr>
-        <tr><td><code>collector.mjs</code></td><td>Script de collecte (GitHub Actions)</td><td>⛔ automatique</td></tr>
+        <tr><td><code>themes-exclus.json</code></td><td>Liste des thèmes désactivés</td><td>✅ via cette interface</td></tr>
+        <tr><td><code>collector.mjs</code></td><td>Script de collecte</td><td>⛔ automatique</td></tr>
         <tr><td><code>articles.json</code></td><td>Articles collectés</td><td>⛔ automatique</td></tr>
         <tr><td><code>index.html</code></td><td>Interface publique</td><td>⛔ automatique</td></tr>
         <tr><td><code>gestion.html</code></td><td>Cette page</td><td>—</td></tr>
@@ -338,34 +393,53 @@
 
 </div>
 
+<!-- Barre d'action flottante pour générer les fichiers -->
+<div class="floating-actions" id="floating-actions" style="display:none;">
+  <span id="floating-text"></span>
+  <button id="generate-file-btn">Générer le fichier</button>
+  <button class="cancel" id="cancel-selection-btn">Annuler</button>
+</div>
+
 <script>
 // ============================================================
-// CHARGEMENT DES DONNÉES
+// ÉTAT
 // ============================================================
 let sources = [];
 let themes = [];
+let themesExclus = []; // IDs des thèmes exclus
 let feedStatus = {};
-let themeCounts = {};
+let selectedForDeletion = new Set(); // IDs des sources cochées
+let deselectedThemes = new Set(); // IDs des thèmes décochés
+let currentAction = null; // "delete-sources" ou "exclude-themes"
 
+// ============================================================
+// CHARGEMENT
+// ============================================================
 async function loadData() {
   try {
-    // Charge sources.json
     const resSources = await fetch("sources.json?t=" + Date.now());
     if (resSources.ok) sources = await resSources.json();
 
-    // Charge themes.json
     const resThemes = await fetch("themes.json?t=" + Date.now());
     if (resThemes.ok) {
       const data = await resThemes.json();
       themes = data.themes || [];
     }
 
-    // Charge articles.json pour les stats
+    // Charge themes-exclus.json s'il existe
+    try {
+      const resExclus = await fetch("themes-exclus.json?t=" + Date.now());
+      if (resExclus.ok) {
+        const data = await resExclus.json();
+        themesExclus = data.exclus || [];
+        themesExclus.forEach(id => deselectedThemes.add(id));
+      }
+    } catch (e) { /* fichier inexistant, ok */ }
+
     const resArticles = await fetch("articles.json?t=" + Date.now());
     if (resArticles.ok) {
       const data = await resArticles.json();
       feedStatus = data.feedStatus || {};
-      themeCounts = data.themeCounts || {};
     }
 
     renderStats();
@@ -396,11 +470,6 @@ function renderStats() {
 // ============================================================
 // SOURCES
 // ============================================================
-function countArticlesBySource(sourceName) {
-  // On compte via themeCounts (approximation)
-  return feedStatus[sources.find(s => s.nom === sourceName)?.id]?.items || 0;
-}
-
 function renderSources() {
   const query = document.getElementById("search-source").value.toLowerCase();
   const pays = document.getElementById("filter-pays").value;
@@ -415,7 +484,7 @@ function renderSources() {
 
   const tbody = document.getElementById("sources-tbody");
   if (!filtered.length) {
-    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:30px; color: var(--muted);">Aucune source ne correspond</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:30px; color: var(--muted);">Aucune source ne correspond</td></tr>`;
     return;
   }
 
@@ -424,8 +493,10 @@ function renderSources() {
     const itemsCount = status?.items || 0;
     const statusLabel = !status ? "Inconnu" : (status.status === "ok" && itemsCount > 0 ? `${itemsCount} art.` : (status.status === "ok" ? "vide" : "KO"));
     const statusClass = !status ? "" : (status.status === "ok" && itemsCount > 0 ? "ok" : (status.status === "ok" ? "vide" : "ko"));
+    const isChecked = selectedForDeletion.has(s.id);
     return `
-      <tr>
+      <tr class="${isChecked ? 'excluded' : ''}">
+        <td class="checkbox-cell"><input type="checkbox" data-source-id="${escapeHtml(s.id)}" ${isChecked ? 'checked' : ''}></td>
         <td><strong>${escapeHtml(s.nom)}</strong><br><span style="font-size:11px;color:var(--muted);font-family:var(--mono)">${escapeHtml(s.id)}</span></td>
         <td>${s.pays === "BE" ? "🇧🇪" : s.pays === "FR" ? "🇫🇷" : "🌍"} ${s.pays}</td>
         <td>${s.langue.toUpperCase()}</td>
@@ -435,6 +506,20 @@ function renderSources() {
       </tr>
     `;
   }).join("");
+
+  // Attache les events sur les checkboxes
+  tbody.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    cb.addEventListener("change", (e) => {
+      const id = e.target.getAttribute("data-source-id");
+      if (e.target.checked) {
+        selectedForDeletion.add(id);
+      } else {
+        selectedForDeletion.delete(id);
+      }
+      updateFloatingActions();
+      renderSources();
+    });
+  });
 }
 
 // ============================================================
@@ -443,18 +528,115 @@ function renderSources() {
 function renderThemes() {
   const tbody = document.getElementById("themes-tbody");
   if (!themes.length) {
-    tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding:30px; color: var(--muted);">Aucun thème chargé</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:30px; color: var(--muted);">Aucun thème chargé</td></tr>`;
     return;
   }
 
-  tbody.innerHTML = themes.map(t => `
-    <tr>
-      <td><strong>${escapeHtml(t.nom)}</strong><br><span style="font-size:11px;color:var(--muted);font-family:var(--mono)">${escapeHtml(t.id)}</span></td>
-      <td>${t.poids}</td>
-      <td>${t.motsCles.length}</td>
-      <td>${(t.motsClesForts || []).length}</td>
-    </tr>
-  `).join("");
+  tbody.innerHTML = themes.map(t => {
+    const isActive = !deselectedThemes.has(t.id);
+    return `
+      <tr class="${!isActive ? 'excluded' : ''}">
+        <td class="checkbox-cell"><input type="checkbox" data-theme-id="${escapeHtml(t.id)}" ${isActive ? 'checked' : ''}></td>
+        <td><strong>${escapeHtml(t.nom)}</strong><br><span style="font-size:11px;color:var(--muted);font-family:var(--mono)">${escapeHtml(t.id)}</span></td>
+        <td>${t.poids}</td>
+        <td>${t.motsCles.length}</td>
+        <td>${(t.motsClesForts || []).length}</td>
+      </tr>
+    `;
+  }).join("");
+
+  // Attache les events
+  tbody.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    cb.addEventListener("change", (e) => {
+      const id = e.target.getAttribute("data-theme-id");
+      if (e.target.checked) {
+        deselectedThemes.delete(id);
+      } else {
+        deselectedThemes.add(id);
+      }
+      updateFloatingActions();
+      renderThemes();
+    });
+  });
+}
+
+// ============================================================
+// BARRE D'ACTION FLOTTANTE
+// ============================================================
+function updateFloatingActions() {
+  const bar = document.getElementById("floating-actions");
+  const text = document.getElementById("floating-text");
+  const btn = document.getElementById("generate-file-btn");
+
+  const activeTab = document.querySelector(".tab.active").dataset.tab;
+
+  if (activeTab === "sources" && selectedForDeletion.size > 0) {
+    bar.style.display = "flex";
+    currentAction = "delete-sources";
+    text.innerHTML = `<strong>${selectedForDeletion.size}</strong> source(s) sélectionnée(s) pour suppression`;
+    btn.textContent = "Générer le sources.json épuré";
+  } else if (activeTab === "themes" && deselectedThemes.size > 0) {
+    bar.style.display = "flex";
+    currentAction = "exclude-themes";
+    text.innerHTML = `<strong>${deselectedThemes.size}</strong> thème(s) désactivé(s)`;
+    btn.textContent = "Générer themes-exclus.json";
+  } else {
+    bar.style.display = "none";
+    currentAction = null;
+  }
+}
+
+// ============================================================
+// GÉNÉRATION DE FICHIERS
+// ============================================================
+document.getElementById("generate-file-btn").addEventListener("click", () => {
+  if (currentAction === "delete-sources") {
+    // Génère sources.json sans les sources cochées
+    const newSources = sources.filter(s => !selectedForDeletion.has(s.id));
+    const json = JSON.stringify(newSources, null, 2);
+
+    showJsonOutput(json, `sources.json épuré (${newSources.length} sources restantes)`);
+  } else if (currentAction === "exclude-themes") {
+    // Génère themes-exclus.json avec les IDs décochés
+    const data = { exclus: Array.from(deselectedThemes) };
+    const json = JSON.stringify(data, null, 2);
+
+    showJsonOutput(json, `themes-exclus.json (${deselectedThemes.size} thème(s) exclu(s))`);
+  }
+});
+
+document.getElementById("cancel-selection-btn").addEventListener("click", () => {
+  selectedForDeletion.clear();
+  deselectedThemes.clear();
+  // Remet les thèmes comme actifs (on annule le décochage temporaire)
+  themesExclus.forEach(id => deselectedThemes.add(id));
+  updateFloatingActions();
+  renderSources();
+  renderThemes();
+});
+
+function showJsonOutput(json, title) {
+  // Crée un overlay avec le JSON
+  const overlay = document.createElement("div");
+  overlay.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:200;display:grid;place-items:center;padding:20px;";
+  overlay.innerHTML = `
+    <div style="background:var(--surface); border-radius:12px; padding:24px; max-width:900px; width:100%; max-height:90vh; overflow-y:auto; position:relative;">
+      <h3 style="margin-bottom:16px;">${title}</h3>
+      <div style="background:#1c1c1a;color:#d4d4cc;padding:16px;border-radius:8px;font:12px/1.5 var(--mono);white-space:pre-wrap;word-break:break-all;max-height:500px;overflow-y:auto;">${escapeHtml(json)}</div>
+      <div style="margin-top:20px;display:flex;gap:10px;justify-content:flex-end;">
+        <button class="btn" onclick="this.closest('div[style]').parentElement.parentElement.remove()">Fermer</button>
+        <button class="btn primary" id="copy-json-btn">📋 Copier</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+
+  document.getElementById("copy-json-btn").addEventListener("click", () => {
+    navigator.clipboard.writeText(json);
+    const btn = document.getElementById("copy-json-btn");
+    btn.textContent = "✅ Copié !";
+    setTimeout(() => btn.textContent = "📋 Copier", 2000);
+  });
 }
 
 // ============================================================
@@ -462,10 +644,6 @@ function renderThemes() {
 // ============================================================
 function escapeHtml(s) {
   return String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-}
-
-function jsonToCopyable(obj) {
-  return JSON.stringify(obj, null, 2);
 }
 
 // ============================================================
@@ -478,6 +656,7 @@ document.querySelectorAll(".tab").forEach(tab => {
     document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
     tab.classList.add("active");
     document.getElementById("panel-" + tab.dataset.tab).classList.add("active");
+    updateFloatingActions();
   });
 });
 
@@ -485,6 +664,29 @@ document.querySelectorAll(".tab").forEach(tab => {
 document.getElementById("search-source").addEventListener("input", renderSources);
 document.getElementById("filter-pays").addEventListener("change", renderSources);
 document.getElementById("filter-bord").addEventListener("change", renderSources);
+
+// Select all / deselect all
+document.getElementById("select-all-sources").addEventListener("click", () => {
+  const query = document.getElementById("search-source").value.toLowerCase();
+  const pays = document.getElementById("filter-pays").value;
+  const bord = document.getElementById("filter-bord").value;
+
+  sources.filter(s => {
+    if (query && !s.nom.toLowerCase().includes(query) && !s.id.toLowerCase().includes(query)) return false;
+    if (pays && s.pays !== pays) return false;
+    if (bord && s.bord !== bord) return false;
+    return true;
+  }).forEach(s => selectedForDeletion.add(s.id));
+
+  renderSources();
+  updateFloatingActions();
+});
+
+document.getElementById("deselect-all-sources").addEventListener("click", () => {
+  selectedForDeletion.clear();
+  renderSources();
+  updateFloatingActions();
+});
 
 // Ajout source
 document.getElementById("add-source-btn").addEventListener("click", () => {
@@ -514,23 +716,6 @@ document.getElementById("generate-source-json").addEventListener("click", () => 
   const output = document.getElementById("source-json-output");
   output.textContent = json;
   output.style.display = "block";
-
-  // Ajouter un bouton copier
-  const copyBtn = document.createElement("button");
-  copyBtn.textContent = "📋 Copier";
-  copyBtn.className = "btn primary small";
-  copyBtn.style.position = "absolute";
-  copyBtn.style.top = "10px";
-  copyBtn.style.right = "10px";
-  copyBtn.onclick = () => {
-    navigator.clipboard.writeText(json);
-    copyBtn.textContent = "✅ Copié";
-    setTimeout(() => copyBtn.textContent = "📋 Copier", 2000);
-  };
-  output.style.position = "relative";
-  output.innerHTML = "";
-  output.appendChild(copyBtn);
-  output.appendChild(document.createTextNode("\n\n" + json));
 });
 
 // Ajout thème
@@ -582,22 +767,8 @@ document.getElementById("generate-theme-json").addEventListener("click", () => {
   const json = "    " + JSON.stringify(obj, null, 2).split("\n").map((l, i) => i === 0 ? l : "    " + l).join("\n");
 
   const output = document.getElementById("theme-json-output");
-  output.innerHTML = "";
-  const copyBtn = document.createElement("button");
-  copyBtn.textContent = "📋 Copier";
-  copyBtn.className = "btn primary small";
-  copyBtn.style.position = "absolute";
-  copyBtn.style.top = "10px";
-  copyBtn.style.right = "10px";
-  copyBtn.onclick = () => {
-    navigator.clipboard.writeText(json);
-    copyBtn.textContent = "✅ Copié";
-    setTimeout(() => copyBtn.textContent = "📋 Copier", 2000);
-  };
-  output.style.position = "relative";
+  output.textContent = json;
   output.style.display = "block";
-  output.appendChild(copyBtn);
-  output.appendChild(document.createTextNode("\n\n" + json));
 });
 
 // ============================================================
