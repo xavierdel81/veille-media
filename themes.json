@@ -1,0 +1,97 @@
+{
+  "themes": [
+    {
+      "id": "luttes-sociales",
+      "nom": "Luttes sociales",
+      "poids": 1,
+      "motsCles": ["grève","greve","manifestation","syndicat","mobilisation","protestation","travailleurs","salaires","précarité","precarite","chômage","chomage","logement","pauvreté","pauvrete","inégalités","inegalites","austérité","austerite","retraite","licenciement","plan social","piquet","cortège","cortege","militant","collectif","solidarité","solidarite","revendication","débrayage","debrayage","précarisation","precarisation","exploitation","conditions de travail","accident du travail"]
+    },
+    {
+      "id": "corruption",
+      "nom": "Corruption",
+      "poids": 1.5,
+      "motsCles": ["corruption","détournement","detournement","fraude","conflit d'intérêts","conflit d’intérêts","pot-de-vin","trafic d'influence","trafic d’influence","malversation","clientélisme","clientelisme","népotisme","nepotisme","favoritisme","commission occulte","dessous de table","enrichissement illicite","abus de biens","abus de confiance","prise illégale","prise illegale","faux et usage","corrompu","corrompue","pots-de-vin","pantouflage","notes de frais","déclaration de patrimoine","declaration de patrimoine"],
+      "motsClesForts": ["corruption","détournement","detournement","pot-de-vin","pots-de-vin","trafic d'influence","trafic d’influence","malversation","népotisme","nepotisme","prise illégale","prise illegale","abus de biens","abus de confiance","pantouflage"]
+    },
+    {
+      "id": "transparence",
+      "nom": "Transparence",
+      "poids": 2,
+      "motsCles": ["cada","lanceur d'alerte","lanceur d’alerte","lanceurs d'alerte","lanceurs d’alerte","whistleblower","open data","données ouvertes","donnees ouvertes","freedom of information","accès aux documents","acces aux documents","accès à l'information","acces a l'information","liberté d'information","liberte d'information","publicité de l'administration","publicite de l'administration","commission d'accès","commission d’accès","transparencia","transparence","secret d'état","secret d’état","secret des affaires","secret défense","secret defense","refus de communication","refus de transmettre","opacité administrative","opacite administrative","manque de transparence","défaut de transparence","defaut de transparence","demande de documents","demande d'accès","demande d’acces","droit de savoir","redevabilité","redevabilite","reddition des comptes","déclaration d'intérêts","declaration d'interets","registre des lobbyistes","agenda public","budget participatif","gouvernement ouvert","open government"],
+      "motsClesForts": ["cada","lanceur d'alerte","lanceur d’alerte","lanceurs d'alerte","lanceurs d’alerte","whistleblower","open data","données ouvertes","donnees ouvertes","freedom of information","accès aux documents","acces aux documents","accès refusé","acces refuse","refus d'accès","refus d’accès","droit à l'information","droit a l'information","droit de savoir","publicité des actes","publicite des actes","publicité de l'administration","publicite de l'administration","commission d'accès","commission d’accès","commission de recours","transparencia","secret d'état","secret d’état","secret des affaires","secret défense","secret defense","opacité administrative","opacite administrative","dissimulation","archives publiques","document administratif","documents administratifs"]
+    },
+    {
+      "id": "democratie",
+      "nom": "Démocratie",
+      "poids": 1,
+      "motsCles": ["démocratie","democratie","élection","election","parlement","citoyen","débat public","debat public","libertés","libertes","droits","constitution","vote","pluralisme","état de droit","etat de droit","référendum","referendum","suffrage","assemblée","assemblee","scrutin","député","depute","sénateur","senateur","gouvernement","participation citoyenne","démocratie locale","democratie locale","démocratie participative","democratie participative"]
+    },
+    {
+      "id": "auto-defense",
+      "nom": "Auto-défense intellectuelle",
+      "poids": 1.3,
+      "motsCles": ["zététique","zetetique","esprit critique","sophisme","manipulation","fact-check","fact check","fake news","désinformation","desinformation","propagande","rumeur","novlangue","vérification","verification","décodage","decodage","démystification","demystification","complotisme","théorie du complot","theorie du complot","pensée critique","pensee critique","rhétorique","rhetorique","argumentation","biais cognitif"],
+      "motsClesForts": ["zététique","zetetique","sophisme","fact-check","fact check","fake news","infox","complotisme","théorie du complot","theorie du complot","désinformation","desinformation","propagande","rhétorique","rhetorique","argumentation","vérification des faits","verification des faits","post-vérité","post-verite","manipulation médiatique","manipulation mediatique","décryptage","decryptage","esprit critique"]
+    },
+    {
+      "id": "international",
+      "nom": "International",
+      "poids": 0.7,
+      "motsCles": ["international","monde","guerre","conflit","diplomatie","géopolitique","geopolitique","étranger","etranger","union européenne","union europeenne","onu","otan","gaza","ukraine","israël","israel","palestine","moyen-orient","afrique","asie","amérique","amerique"]
+    },
+    {
+      "id": "economie",
+      "nom": "Économie",
+      "poids": 1,
+      "motsCles": ["économie","economie","inflation","croissance","pib","budget","dette","impôt","impot","fiscalité","fiscalite","pouvoir d'achat","salaire","chômage","chomage","entreprise","marché","marche","bourse","banque","finance","austérité","austerite","investissement","capitalisme","néolibéralisme","neoliberalisme"]
+    },
+    {
+      "id": "sante",
+      "nom": "Santé",
+      "poids": 1,
+      "motsCles": ["santé","sante","hôpital","hopital","médecin","medecin","patient","maladie","épidémie","epidemie","vaccin","médicament","medicament","sécurité sociale","securite sociale","mutuelle","soins","urgences","psychiatrie","handicap","pharmaceutique"]
+    },
+    {
+      "id": "climat-environnement",
+      "nom": "Climat & environnement",
+      "poids": 1,
+      "motsCles": ["climat","environnement","réchauffement","rechauffement","biodiversité","biodiversite","pollution","émission","emission","carbone","énergies renouvelables","energies renouvelables","transition énergétique","transition energetique","écologie","ecologie","nature","forêt","foret","eau","pesticides","agriculture"]
+    },
+    {
+      "id": "culture",
+      "nom": "Culture",
+      "poids": 0.8,
+      "motsCles": ["culture","cinéma","cinema","musique","théâtre","theatre","livre","roman","exposition","artiste","spectacle","festival","patrimoine","musée","musee","peinture","littérature","litterature"]
+    },
+    {
+      "id": "tech-numerique",
+      "nom": "Tech & numérique",
+      "poids": 1,
+      "motsCles": ["numérique","numerique","intelligence artificielle","ia","algorithme","données personnelles","donnees personnelles","surveillance","cybersécurité","cybersecurite","internet","réseaux sociaux","reseaux sociaux","smartphone","plateforme","gafam","logiciel","hacker","tech"]
+    },
+    {
+      "id": "education",
+      "nom": "Éducation",
+      "poids": 1,
+      "motsCles": ["éducation","education","école","ecole","enseignement","élève","eleve","étudiant","etudiant","professeur","université","universite","formation","pédagogie","pedagogie","baccalauréat","baccalaureat","cours","classe","scolaire"]
+    },
+    {
+      "id": "justice",
+      "nom": "Justice",
+      "poids": 1,
+      "motsCles": ["justice","tribunal","procès","proces","avocat","juge","parquet","instruction","mise en examen","condamnation","peine","prison","détention","detention","victime","plainte","enquête judiciaire","enquete judiciaire"]
+    },
+    {
+      "id": "immigration",
+      "nom": "Immigration & asile",
+      "poids": 1,
+      "motsCles": ["immigration","migrant","réfugié","refugie","asile","demandeur d'asile","sans-papiers","expulsion","régularisation","regularisation","frontière","frontiere","centre de rétention","centre de retention","accueil","intégration","integration","xénophobie","xenophobie","racisme"]
+    },
+    {
+      "id": "feminisme",
+      "nom": "Féminisme & genre",
+      "poids": 1,
+      "motsCles": ["féminisme","feminisme","femme","égalité","egalite","genre","sexisme","harcèlement","harcelement","violence conjugale","fémicide","femicide","parité","parite","avortement","IVG","droits des femmes","LGBT","homophobie","transphobie"]
+    }
+  ]
+}
