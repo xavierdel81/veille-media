@@ -1,4 +1,4 @@
-// collector.mjs — Collecte les flux RSS avec thèmes configurables
+// collector.mjs — Collecte les flux RSS avec thèmes configurables et exclusion
 import { readFile, writeFile } from "node:fs/promises";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -10,15 +10,28 @@ const TIMEOUT_MS = 15000;
 const MAX_AGE_DAYS = 14;
 
 // ============================================================
-// CHARGEMENT DES THÈMES (depuis themes.json)
+// CHARGEMENT DES THÈMES (depuis themes.json, avec exclusion)
 // ============================================================
 let THEMES_SCORING = {};
 let HIGH_SIGNAL_TERMS = {};
 
 async function loadThemes() {
   try {
+    // Charge tous les thèmes
     const data = JSON.parse(await readFile(resolve(__dirname, "themes.json"), "utf8"));
+
+    // Charge les thèmes exclus (si le fichier existe)
+    let exclus = [];
+    try {
+      const exclusData = JSON.parse(await readFile(resolve(__dirname, "themes-exclus.json"), "utf8"));
+      exclus = exclusData.exclus || [];
+      if (exclus.length) console.log(`⚠️  ${exclus.length} thème(s) exclu(s) : ${exclus.join(", ")}`);
+    } catch (e) { /* fichier inexistant, ok */ }
+
     for (const theme of data.themes) {
+      // Ignore les thèmes exclus
+      if (exclus.includes(theme.id)) continue;
+
       THEMES_SCORING[theme.id] = {
         weight: theme.poids,
         kws: theme.motsCles,
@@ -27,7 +40,7 @@ async function loadThemes() {
         HIGH_SIGNAL_TERMS[theme.id] = theme.motsClesForts;
       }
     }
-    console.log(`📚 ${data.themes.length} thèmes chargés\n`);
+    console.log(`📚 ${Object.keys(THEMES_SCORING).length} thèmes chargés\n`);
   } catch (err) {
     console.error("❌ Erreur de chargement de themes.json :", err.message);
     process.exit(1);
