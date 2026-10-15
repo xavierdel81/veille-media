@@ -1,4 +1,4 @@
-// collector.mjs — Collecte les flux RSS avec scoring thématique strict + filtre anti-bruit
+// collector.mjs — Collecte les flux RSS avec thèmes configurables
 import { readFile, writeFile } from "node:fs/promises";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -8,6 +8,31 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const USER_AGENT = "Mozilla/5.0 (compatible; VeilleMedia/1.0; +github-actions)";
 const TIMEOUT_MS = 15000;
 const MAX_AGE_DAYS = 14;
+
+// ============================================================
+// CHARGEMENT DES THÈMES (depuis themes.json)
+// ============================================================
+let THEMES_SCORING = {};
+let HIGH_SIGNAL_TERMS = {};
+
+async function loadThemes() {
+  try {
+    const data = JSON.parse(await readFile(resolve(__dirname, "themes.json"), "utf8"));
+    for (const theme of data.themes) {
+      THEMES_SCORING[theme.id] = {
+        weight: theme.poids,
+        kws: theme.motsCles,
+      };
+      if (theme.motsClesForts && theme.motsClesForts.length) {
+        HIGH_SIGNAL_TERMS[theme.id] = theme.motsClesForts;
+      }
+    }
+    console.log(`📚 ${data.themes.length} thèmes chargés\n`);
+  } catch (err) {
+    console.error("❌ Erreur de chargement de themes.json :", err.message);
+    process.exit(1);
+  }
+}
 
 // ============================================================
 // NETTOYAGE HTML
@@ -47,19 +72,14 @@ function extractAtomLink(block) {
   return any ? any[1] : "";
 }
 
-// ============================================================
-// NETTOYAGE DES URLs GOOGLE NEWS
-// ============================================================
 function cleanGoogleNewsUrl(url) {
   if (!url) return url;
   try {
     const match = url.match(/\/articles\/([A-Za-z0-9_-]+)/);
     if (!match) return url;
-
     const encoded = match[1];
     let b64 = encoded.replace(/-/g, "+").replace(/_/g, "/");
     while (b64.length % 4) b64 += "=";
-
     try {
       const decoded = Buffer.from(b64, "base64").toString("utf-8");
       const urlMatch = decoded.match(/https?:\/\/[^\s\x00-\x1f"']+/);
@@ -109,71 +129,11 @@ function parseFeed(xml, source) {
 }
 
 // ============================================================
-// SCORING THÉMATIQUE
+// DÉTECTION DE THÈME
 // ============================================================
-const THEMES_SCORING = {
-  "luttes-sociales": {
-    weight: 1,
-    kws: ["grève","greve","manifestation","syndicat","mobilisation","protestation","travailleurs","salaires","précarité","precarite","chômage","chomage","logement","pauvreté","pauvrete","inégalités","inegalites","austérité","austerite","retraite","licenciement","plan social","piquet","cortège","cortege","militant","collectif","solidarité","solidarite","revendication","débrayage","debrayage","précarisation","precarisation","exploitation","conditions de travail","accident du travail"]
-  },
-  "corruption": {
-    weight: 1.5,
-    kws: ["corruption","détournement","detournement","fraude","conflit d'intérêts","conflit d’intérêts","pot-de-vin","trafic d'influence","trafic d’influence","malversation","clientélisme","clientelisme","népotisme","nepotisme","favoritisme","commission occulte","dessous de table","enrichissement illicite","abus de biens","abus de confiance","prise illégale","prise illegale","faux et usage","corrompu","corrompue","pots-de-vin","pantouflage","notes de frais","déclaration de patrimoine","declaration de patrimoine"]
-  },
-  "transparence": {
-    weight: 2,
-    kws: [
-      "cada","lanceur d'alerte","lanceur d’alerte","lanceurs d'alerte","lanceurs d’alerte","whistleblower","open data","données ouvertes","donnees ouvertes","freedom of information","accès aux documents","acces aux documents","accès à l'information","acces a l'information","liberté d'information","liberte d'information","publicité de l'administration","publicite de l'administration","commission d'accès","commission d’accès","transparencia",
-      "transparence","secret d'état","secret d’état","secret des affaires","secret défense","secret defense","refus de communication","refus de transmettre","opacité administrative","opacite administrative","manque de transparence","défaut de transparence","defaut de transparence","demande de documents","demande d'accès","demande d’acces","droit de savoir","redevabilité","redevabilite","reddition des comptes","déclaration d'intérêts","declaration d'interets","registre des lobbyistes","agenda public","budget participatif","gouvernement ouvert","open government"
-    ]
-  },
-  "democratie": {
-    weight: 1,
-    kws: ["démocratie","democratie","élection","election","parlement","citoyen","débat public","debat public","libertés","libertes","droits","constitution","vote","pluralisme","état de droit","etat de droit","référendum","referendum","suffrage","assemblée","assemblee","scrutin","député","depute","sénateur","senateur","gouvernement","participation citoyenne","démocratie locale","democratie locale","démocratie participative","democratie participative"]
-  },
-  "auto-defense": {
-    weight: 1.3,
-    kws: ["zététique","zetetique","esprit critique","sophisme","manipulation","fact-check","fact check","fake news","désinformation","desinformation","propagande","rumeur","novlangue","vérification","verification","décodage","decodage","démystification","demystification","complotisme","théorie du complot","theorie du complot","pensée critique","pensee critique","rhétorique","rhetorique","argumentation","biais cognitif"]
-  },
-  "international": {
-    weight: 0.7,
-    kws: ["international","monde","guerre","conflit","diplomatie","géopolitique","geopolitique","étranger","etranger","union européenne","union europeenne","onu","otan","gaza","ukraine","israël","israel","palestine","moyen-orient","afrique","asie","amérique","amerique"]
-  },
-};
-
 function escapeRegex(str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
-
-// Termes TRÈS spécifiques qui suffisent à eux seuls à qualifier un thème
-const HIGH_SIGNAL_TERMS = {
-  "transparence": [
-    "cada","lanceur d'alerte","lanceur d’alerte","lanceurs d'alerte","lanceurs d’alerte","whistleblower",
-    "open data","données ouvertes","donnees ouvertes","freedom of information",
-    "accès aux documents","acces aux documents","accès refusé","acces refuse","refus d'accès","refus d’accès",
-    "droit à l'information","droit a l'information","droit de savoir","publicité des actes","publicite des actes",
-    "publicité de l'administration","publicite de l'administration",
-    "commission d'accès","commission d’accès","commission de recours","transparencia",
-    "secret d'état","secret d’état","secret des affaires","secret défense","secret defense",
-    "opacité administrative","opacite administrative","dissimulation","archives publiques",
-    "document administratif","documents administratifs"
-  ],
-  "corruption": [
-    "corruption","détournement","detournement","pot-de-vin","pots-de-vin",
-    "trafic d'influence","trafic d’influence","malversation","népotisme","nepotisme",
-    "prise illégale","prise illegale","abus de biens","abus de confiance","pantouflage",
-    "abus de pouvoir","biens mal acquis","détournement de fonds","detournement de fonds",
-    "mise en examen","renvoi en correctionnelle","parquet financier","pôle financier","pole financier",
-    "instruction judiciaire","favoritisme","clientélisme","clientelisme"
-  ],
-  "auto-defense": [
-    "zététique","zetetique","sophisme","fact-check","fact check","fake news","infox",
-    "complotisme","théorie du complot","theorie du complot",
-    "désinformation","desinformation","propagande","rhétorique","rhetorique",
-    "argumentation","vérification des faits","verification des faits","post-vérité","post-verite",
-    "manipulation médiatique","manipulation mediatique","décryptage","decryptage","esprit critique"
-  ]
-};
 
 function detectTheme(title, desc, url = "") {
   const urlText = url ? url.split("/").slice(-3).join(" ").replace(/-/g, " ") : "";
@@ -201,18 +161,15 @@ function detectTheme(title, desc, url = "") {
       return regex.test(text);
     });
 
-    // Règle assouplie : signal fort OU 1 mot-clé moyen
-    const strictThemes = ["corruption", "transparence", "auto-defense"];
-    if (strictThemes.includes(theme)) {
-      if (!hasHighSignal && matchedKws < 1) {
-        continue;
-      }
+    // Règle stricte uniquement si le thème a une liste "motsClesForts"
+    if (highSignal.length > 0) {
+      if (!hasHighSignal && matchedKws < 1) continue;
     }
 
     scores[theme] = score;
   }
 
-  // Filtre anti-bruit : si > 3 thèmes, on garde les 2 meilleurs
+  // Filtre anti-bruit : si > 3 thèmes, garder les 2 meilleurs
   if (Object.keys(scores).length > 3) {
     const sorted = Object.entries(scores).sort(([, a], [, b]) => b - a);
     const topTwo = Object.fromEntries(sorted.slice(0, 2));
@@ -278,6 +235,8 @@ async function fetchFeed(source) {
 async function main() {
   console.log("🚀 Démarrage de la collecte…\n");
 
+  await loadThemes();
+
   const sources = JSON.parse(await readFile(resolve(__dirname, "sources.json"), "utf8"));
   console.log(`📋 ${sources.length} sources à tester\n`);
 
@@ -302,7 +261,7 @@ async function main() {
   }
 
   // ============================================================
-  // FUSION AVEC L'ANCIEN articles.json (fenêtre 14 jours)
+  // FUSION
   // ============================================================
   const ARTICLES_PATH = resolve(__dirname, "articles.json");
   let previousArticles = [];
@@ -331,7 +290,6 @@ async function main() {
 
   merged.sort((a, b) => b.pubDate - a.pubDate);
 
-  // Recalcul COMPLET des thèmes pour tous les articles
   merged.forEach(a => {
     a.themes = detectTheme(a.title, a.description || "", a.link || "");
   });
@@ -362,7 +320,7 @@ async function main() {
   console.log(`\n📈 RÉPARTITION PAR THÈME :`);
   Object.entries(themeCounts)
     .sort(([, a], [, b]) => b - a)
-    .forEach(([theme, count]) => console.log(`   ${theme.padEnd(20)} ${count} articles`));
+    .forEach(([theme, count]) => console.log(`   ${theme.padEnd(25)} ${count} articles`));
   if (koList.length > 0) {
     console.log(`\n❌ SOURCES EN ÉCHEC :`);
     koList.forEach(s => console.log(`   • ${s}`));
