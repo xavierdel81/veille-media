@@ -39,6 +39,8 @@
   button.primary { background: var(--red); color: white; border-color: var(--red); font-weight: 600; }
   button.primary:hover { background: #ad432f; }
   button.action { font-size: 12px; padding: 6px 10px; }
+  .link-btn { display: inline-block; padding: 7px 12px; font-size: 13px; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; color: var(--ink); text-decoration: none; }
+  .link-btn:hover { border-color: #999; }
 
   .container { max-width: 1200px; margin: 0 auto; padding: 20px 32px 60px; width: 100%; }
 
@@ -61,8 +63,6 @@
   .stat-value.red { color: var(--red); }
   .stat-value.blue { color: var(--blue); }
   .stat-value.yellow { color: var(--yellow); }
-  .stat-value.clickable { cursor: pointer; text-decoration: underline dotted; }
-  .stat-value.clickable:hover { color: var(--red); }
 
   .filters { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 14px; padding: 12px 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; }
   .filters .filter-label { font: 11px var(--mono); color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
@@ -90,6 +90,7 @@
   .article.neutre { border-left-color: #888b83; }
   .article.centre-droite { border-left-color: #6d97c9; }
   .article.droite { border-left-color: #2f6fb0; }
+  .article.extreme-droite { border-left-color: #1a3a5f; }
 
   .article-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font: 11px var(--mono); color: var(--muted); flex-wrap: wrap; min-width: 0; }
   .source { background: #f1f1ec; color: #555851; padding: 3px 8px; border-radius: 3px; font-weight: 600; font-size: 10px; cursor: pointer; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -100,6 +101,7 @@
   .badge.neutre { background: #eceae3; color: #6a6d65; }
   .badge.centre-droite { background: #e3ecf5; color: #3f6d9b; }
   .badge.droite { background: #dce8f5; color: var(--blue); }
+  .badge.extreme-droite { background: #1a3a5f; color: white; }
   .badge.fresh { background: var(--yellow); color: white; }
   .badge.theme { background: #eeefe9; color: #555851; }
   .badge.theme.corruption { background: var(--red-soft); color: var(--red); }
@@ -115,13 +117,8 @@
   .empty { padding: 60px 20px; text-align: center; color: var(--muted); background: var(--surface); border: 1px dashed var(--line); border-radius: 8px; }
   .empty a { color: var(--red); }
 
-  .load-more {
-    text-align: center; padding: 20px 0; margin-top: 20px;
-  }
-  .load-more button {
-    padding: 12px 24px; background: var(--ink); color: white;
-    border: 0; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer;
-  }
+  .load-more { text-align: center; padding: 20px 0; margin-top: 20px; }
+  .load-more button { padding: 12px 24px; background: var(--ink); color: white; border: 0; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; }
   .load-more button:hover { background: #000; }
   .load-more .count { color: var(--muted); font: 11px var(--mono); margin-top: 8px; }
 
@@ -154,6 +151,7 @@
       <option value="neutre">Neutre / Fact-check</option>
       <option value="centre-droite">Centre-droite</option>
       <option value="droite">Droite</option>
+      <option value="extreme-droite">Extrême droite</option>
     </select>
     <select id="pays-filter">
       <option value="">Tous les pays</option>
@@ -167,6 +165,7 @@
       <option value="nl">🇳🇱 Néerlandais</option>
       <option value="en">🇬🇧 Anglais</option>
     </select>
+    <a href="./gestion.html" class="link-btn" title="Gérer les sources et les thèmes">⚙️ Gestion</a>
     <button class="primary action" id="refresh">🔄 Rafraîchir</button>
   </div>
 </header>
@@ -183,30 +182,12 @@
   </div>
 
   <div class="stats">
-    <div class="stat">
-      <div class="stat-label">Articles</div>
-      <div class="stat-value blue" id="stat-articles">—</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">Sources actives</div>
-      <div class="stat-value green" id="stat-sources">—</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">Sources en échec</div>
-      <div class="stat-value red" id="stat-ko">—</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">Dernières 24h</div>
-      <div class="stat-value yellow" id="stat-24h">—</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">Dernières 60min</div>
-      <div class="stat-value yellow" id="stat-60min">—</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">Dernière collecte</div>
-      <div class="stat-value red" id="stat-time" style="font-size:13px;padding-top:6px">—</div>
-    </div>
+    <div class="stat"><div class="stat-label">Articles</div><div class="stat-value blue" id="stat-articles">—</div></div>
+    <div class="stat"><div class="stat-label">Sources actives</div><div class="stat-value green" id="stat-sources">—</div></div>
+    <div class="stat"><div class="stat-label">Sources en échec</div><div class="stat-value red" id="stat-ko">—</div></div>
+    <div class="stat"><div class="stat-label">Dernières 24h</div><div class="stat-value yellow" id="stat-24h">—</div></div>
+    <div class="stat"><div class="stat-label">Dernières 60min</div><div class="stat-value yellow" id="stat-60min">—</div></div>
+    <div class="stat"><div class="stat-label">Dernière collecte</div><div class="stat-value red" id="stat-time" style="font-size:13px;padding-top:6px">—</div></div>
   </div>
 
   <div class="filters">
@@ -221,12 +202,6 @@
     <span class="filter-label" style="margin-left:auto">Thème</span>
     <select id="theme-filter">
       <option value="">Tous les thèmes</option>
-      <option value="luttes-sociales">Luttes sociales</option>
-      <option value="corruption">Corruption</option>
-      <option value="transparence">Transparence</option>
-      <option value="democratie">Démocratie</option>
-      <option value="auto-defense">Auto-défense intellectuelle</option>
-      <option value="international">International</option>
     </select>
     <span class="filter-label">Source</span>
     <select id="source-filter">
@@ -297,7 +272,7 @@ function timeAgo(pubDate) {
 }
 
 function isFresh(pubDate) {
-  return (Date.now() - pubDate) < 30 * 60 * 1000; // 30 minutes
+  return (Date.now() - pubDate) < 30 * 60 * 1000;
 }
 
 // ============================================================
@@ -378,7 +353,6 @@ function render() {
     `;
   }).join("");
 
-  // Gestion du bouton "Charger plus"
   const loadMore = document.getElementById("load-more");
   if (filteredArticles.length > displayedCount) {
     loadMore.style.display = "block";
@@ -388,7 +362,6 @@ function render() {
     loadMore.style.display = "none";
   }
 
-  // Attacher les clics sur les sources
   document.querySelectorAll(".source[data-source]").forEach(el => {
     el.addEventListener("click", () => {
       const sourceName = el.getAttribute("data-source");
@@ -433,7 +406,7 @@ function updateExportButton() {
 }
 
 // ============================================================
-// STATISTIQUES
+// STATS
 // ============================================================
 function updateStats() {
   document.getElementById("stat-articles").textContent = allArticles.length;
@@ -456,8 +429,18 @@ function updateStats() {
 }
 
 // ============================================================
-// PEUPLEMENT DU FILTRE SOURCES
+// REMPLISSAGE DES FILTRES DYNAMIQUES
 // ============================================================
+function populateThemeFilter() {
+  const themeFilter = document.getElementById("theme-filter");
+  const themes = new Set();
+  allArticles.forEach(a => (a.themes || []).forEach(t => themes.add(t)));
+
+  const sortedThemes = [...themes].sort();
+  themeFilter.innerHTML = `<option value="">Tous les thèmes (${sortedThemes.length})</option>` +
+    sortedThemes.map(t => `<option value="${escapeHtml(t)}">${escapeHtml(t)}</option>`).join("");
+}
+
 function populateSourceFilter() {
   const sourceFilter = document.getElementById("source-filter");
   const sources = [...new Set(allArticles.map(a => a.source))].sort((a, b) => a.localeCompare(b, "fr"));
@@ -492,6 +475,7 @@ async function loadArticles(showLoading = false) {
     koSources = data.koSources || 0;
 
     updateStats();
+    populateThemeFilter();
     populateSourceFilter();
     applyFilters();
 
