@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Veille Média — Gestion</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; max-width: 100%; }
+  :root {
+    --paper: #f4f4ef; --surface: #fff; --ink: #20211f; --muted: #747770;
+    --line: #dedfd8; --red: #c94f36; --red-soft: #f7e8e3;
+    --green: #486f5b; --blue: #2f6fb0; --yellow: #d5a844;
+    --serif: Georgia, serif;
+    --sans: -apple-system, "Segoe UI", sans-serif;
+    --mono: Consolas, monospace;
+  }
+  html, body { overflow-x: hidden; max-width: 100vw; }
+  body { background: var(--paper); color: var(--ink); font: 14px/1.45 var(--sans); min-height: 100vh; }
+
+  header {
+    background: linear-gradient(90deg, #f7f7f3, #eeefe9);
+    border-bottom: 1px solid var(--line);
+    padding: 16px 32px;
+    display: flex; justify-content: space-between;
+    align-items: center; gap: 16px; flex-wrap: wrap;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .brand-mark { width: 36px; height: 36px; border-radius: 50%; background: var(--red); color: white; display: grid; place-items: center; font-size: 18px; }
+  .brand-name { font: 600 20px/1 var(--serif); }
+  .brand-tag { font: 11px var(--mono); color: var(--muted); margin-top: 3px; }
+  .back-link { color: var(--blue); text-decoration: none; font-size: 13px; }
+  .back-link:hover { text-decoration: underline; }
+
+  .container { max-width: 1400px; margin: 0 auto; padding: 24px 32px 60px; }
+
+  .tabs { display: flex; gap: 4px; border-bottom: 2px solid var(--line); margin-bottom: 24px; }
+  .tab { padding: 12px 20px; background: transparent; border: 0; border-bottom: 2px solid transparent; margin-bottom: -2px; cursor: pointer; font-size: 14px; color: var(--muted); font-weight: 500; }
+  .tab.active { color: var(--red); border-bottom-color: var(--red); }
+  .tab:hover { color: var(--ink); }
+
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  .toolbar { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 20px; }
+  .toolbar input, .toolbar select { padding: 8px 12px; border: 1px solid var(--line); border-radius: 6px; font-size: 13px; background: var(--surface); }
+  .toolbar input { min-width: 240px; }
+  .btn { padding: 8px 14px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface); cursor: pointer; font-size: 13px; color: var(--ink); }
+  .btn:hover { border-color: #999; }
+  .btn.primary { background: var(--red); color: white; border-color: var(--red); font-weight: 600; }
+  .btn.primary:hover { background: #ad432f; }
+  .btn.small { padding: 4px 8px; font-size: 11px; }
+
+  table { width: 100%; border-collapse: collapse; background: var(--surface); border-radius: 8px; overflow: hidden; }
+  th { text-align: left; padding: 10px 12px; background: #eeefe9; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 10px 12px; border-top: 1px solid var(--line); font-size: 13px; }
+  tr:hover td { background: #f7f7f3; }
+  .badge { display: inline-block; padding: 3px 8px; border-radius: 3px; font-size: 11px; font-weight: 600; }
+  .badge.gauche, .badge.gauche-radicale { background: var(--red-soft); color: var(--red); }
+  .badge.centre-gauche { background: #fbe6d9; color: #b3612f; }
+  .badge.neutre { background: #eceae3; color: #6a6d65; }
+  .badge.centre-droite { background: #e3ecf5; color: #3f6d9b; }
+  .badge.droite { background: #dce8f5; color: var(--blue); }
+  .badge.extreme-droite { background: #1a3a5f; color: white; }
+  .badge.ok { background: #e8efe9; color: var(--green); }
+  .badge.ko { background: var(--red-soft); color: var(--red); }
+  .badge.vide { background: #f1f1ec; color: var(--muted); }
+
+  .json-output {
+    background: #1c1c1a; color: #d4d4cc; padding: 16px;
+    border-radius: 8px; font: 12px/1.5 var(--mono);
+    white-space: pre-wrap; word-break: break-all;
+    max-height: 400px; overflow-y: auto;
+    margin-top: 16px;
+  }
+  .json-output .copy-btn {
+    position: absolute; top: 10px; right: 10px;
+    background: var(--red); color: white; border: 0;
+    padding: 6px 12px; border-radius: 4px; cursor: pointer;
+  }
+
+  .form-group { margin-bottom: 16px; }
+  .form-group label { display: block; margin-bottom: 6px; font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; padding: 10px 12px; border: 1px solid var(--line);
+    border-radius: 6px; font-size: 13px; background: var(--surface); color: var(--ink);
+    font-family: var(--sans);
+  }
+  .form-group textarea { min-height: 100px; font-family: var(--mono); font-size: 12px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px; }
+  .stat { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; }
+  .stat-label { color: var(--muted); font: 10px var(--mono); text-transform: uppercase; margin-bottom: 6px; }
+  .stat-value { font: 500 22px/1 var(--serif); }
+
+  .help-text { background: #f7f7f3; border-left: 3px solid var(--yellow); padding: 12px 16px; margin: 20px 0; font-size: 13px; color: #555851; }
+  .help-text strong { color: var(--ink); }
+  .help-text code { background: #eeefe9; padding: 2px 6px; border-radius: 3px; font-family: var(--mono); font-size: 12px; }
+
+  @media (max-width: 900px) {
+    .container { padding: 16px; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="brand-mark">⚙️</div>
+    <div>
+      <div class="brand-name">Veille Média — Gestion</div>
+      <div class="brand-tag">SOURCES · THÈMES</div>
+    </div>
+  </div>
+  <a class="back-link" href="./index.html">← Retour à la veille</a>
+</header>
+
+<div class="container">
+
+  <div class="tabs">
+    <button class="tab active" data-tab="sources">📡 Sources</button>
+    <button class="tab" data-tab="themes">🏷️ Thèmes</button>
+    <button class="tab" data-tab="documentation">📖 Documentation</button>
+  </div>
+
+  <!-- ============ PANNEAU SOURCES ============ -->
+  <div class="panel active" id="panel-sources">
+    <div class="stats" id="source-stats"></div>
+
+    <div class="toolbar">
+      <input type="text" id="search-source" placeholder="🔍 Rechercher une source…">
+      <select id="filter-pays">
+        <option value="">Tous les pays</option>
+        <option value="BE">🇧🇪 Belgique</option>
+        <option value="FR">🇫🇷 France</option>
+        <option value="INT">🌍 International</option>
+      </select>
+      <select id="filter-bord">
+        <option value="">Tous les bords</option>
+        <option value="gauche-radicale">Gauche radicale</option>
+        <option value="gauche">Gauche</option>
+        <option value="centre-gauche">Centre-gauche</option>
+        <option value="neutre">Neutre</option>
+        <option value="centre-droite">Centre-droite</option>
+        <option value="droite">Droite</option>
+        <option value="extreme-droite">Extrême droite</option>
+      </select>
+      <button class="btn primary" id="add-source-btn">+ Ajouter une source</button>
+    </div>
+
+    <div id="add-source-form" style="display:none; background: var(--surface); padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid var(--line);">
+      <h3 style="margin-bottom: 16px;">Ajouter une source</h3>
+      <div class="form-group">
+        <label>Nom de la source</label>
+        <input type="text" id="new-source-nom" placeholder="Ex : Le Soir">
+      </div>
+      <div class="form-group">
+        <label>URL du flux RSS</label>
+        <input type="text" id="new-source-url" placeholder="https://exemple.be/feed/">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Pays</label>
+          <select id="new-source-pays">
+            <option value="BE">🇧🇪 Belgique</option>
+            <option value="FR">🇫🇷 France</option>
+            <option value="INT">🌍 International</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Langue</label>
+          <select id="new-source-langue">
+            <option value="fr">🇫🇷 Français</option>
+            <option value="nl">🇳🇱 Néerlandais</option>
+            <option value="en">🇬🇧 Anglais</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Bord éditorial</label>
+          <select id="new-source-bord">
+            <option value="neutre">Neutre</option>
+            <option value="gauche-radicale">Gauche radicale</option>
+            <option value="gauche">Gauche</option>
+            <option value="centre-gauche">Centre-gauche</option>
+            <option value="centre-droite">Centre-droite</option>
+            <option value="droite">Droite</option>
+            <option value="extreme-droite">Extrême droite</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>ID (unique, sans espace)</label>
+        <input type="text" id="new-source-id" placeholder="ex: le-soir">
+      </div>
+      <button class="btn primary" id="generate-source-json">Générer le JSON</button>
+      <button class="btn" id="cancel-add-source">Annuler</button>
+
+      <div id="source-json-output" class="json-output" style="display:none;"></div>
+    </div>
+
+    <div id="sources-table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Pays</th>
+            <th>Langue</th>
+            <th>Bord</th>
+            <th>Articles (14j)</th>
+            <th>Statut</th>
+          </tr>
+        </thead>
+        <tbody id="sources-tbody">
+          <tr><td colspan="6" style="text-align:center; padding:30px; color: var(--muted);">Chargement…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ============ PANNEAU THÈMES ============ -->
+  <div class="panel" id="panel-themes">
+    <div class="toolbar">
+      <button class="btn primary" id="add-theme-btn">+ Ajouter un thème</button>
+    </div>
+
+    <div id="add-theme-form" style="display:none; background: var(--surface); padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid var(--line);">
+      <h3 style="margin-bottom: 16px;">Ajouter un thème</h3>
+
+      <div class="form-group">
+        <label>Thème pré-configuré (optionnel)</label>
+        <select id="theme-preset">
+          <option value="">— Thème personnalisé —</option>
+          <option value="economie">Économie</option>
+          <option value="sante">Santé</option>
+          <option value="climat-environnement">Climat & environnement</option>
+          <option value="culture">Culture</option>
+          <option value="tech-numerique">Tech & numérique</option>
+          <option value="education">Éducation</option>
+          <option value="justice">Justice</option>
+          <option value="immigration">Immigration & asile</option>
+          <option value="feminisme">Féminisme & genre</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>ID (sans espace)</label>
+          <input type="text" id="new-theme-id" placeholder="ex: economie">
+        </div>
+        <div class="form-group">
+          <label>Nom affiché</label>
+          <input type="text" id="new-theme-nom" placeholder="ex: Économie">
+        </div>
+        <div class="form-group">
+          <label>Poids (0.5 à 2)</label>
+          <input type="number" id="new-theme-poids" value="1" min="0.5" max="2" step="0.1">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Mots-clés (séparés par des virgules)</label>
+        <textarea id="new-theme-kws" placeholder="inflation, pib, croissance, budget, impôt..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Mots-clés à FORT signal (optionnel)</label>
+        <textarea id="new-theme-kws-forts" placeholder="corruption, détournement (si un seul suffit à qualifier)"></textarea>
+      </div>
+
+      <button class="btn primary" id="generate-theme-json">Générer le JSON</button>
+      <button class="btn" id="cancel-add-theme">Annuler</button>
+
+      <div id="theme-json-output" class="json-output" style="display:none;"></div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Thème</th>
+          <th>Poids</th>
+          <th>Nombre de mots-clés</th>
+          <th>Mots-clés forts</th>
+        </tr>
+      </thead>
+      <tbody id="themes-tbody">
+        <tr><td colspan="4" style="text-align:center; padding:30px; color: var(--muted);">Chargement…</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============ PANNEAU DOCUMENTATION ============ -->
+  <div class="panel" id="panel-documentation">
+    <h2 style="margin-bottom: 16px;">Comment gérer tes sources et thèmes</h2>
+
+    <div class="help-text">
+      <strong>Ajouter une source</strong><br>
+      1. Onglet <strong>Sources</strong> → "+ Ajouter une source"<br>
+      2. Remplis le formulaire (nom, URL RSS, pays…)<br>
+      3. Clique sur <strong>"Générer le JSON"</strong><br>
+      4. Copie la ligne JSON générée<br>
+      5. Ouvre <code>sources.json</code> sur GitHub, colle la ligne avant le <code>]</code> final<br>
+      6. Commit + relance la collecte (Actions → Run workflow)
+    </div>
+
+    <div class="help-text">
+      <strong>Ajouter un thème</strong><br>
+      1. Onglet <strong>Thèmes</strong> → "+ Ajouter un thème"<br>
+      2. Choisis un thème pré-configuré OU crée ton propre thème<br>
+      3. Remplis les mots-clés (séparés par des virgules)<br>
+      4. Clique sur <strong>"Générer le JSON"</strong><br>
+      5. Copie le bloc généré dans <code>themes.json</code> sur GitHub
+    </div>
+
+    <div class="help-text">
+      <strong>Bon à savoir</strong><br>
+      • Les <strong>mots-clés forts</strong> sont ceux qui suffisent à eux seuls à qualifier un article (ex : "corruption", "CAda", "lanceur d'alerte").<br>
+      • Le <strong>poids</strong> permet de donner plus d'importance à un thème (ex : corruption à 1.5, transparence à 2).<br>
+      • Un article peut avoir <strong>plusieurs thèmes</strong> s'il touche à plusieurs sujets.
+    </div>
+
+    <h3 style="margin-top: 30px; margin-bottom: 16px;">Fichiers du projet</h3>
+    <table>
+      <thead>
+        <tr><th>Fichier</th><th>Rôle</th><th>Modifiable</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>sources.json</code></td><td>Liste des sources RSS</td><td>✅ via cette interface</td></tr>
+        <tr><td><code>themes.json</code></td><td>Liste des thèmes et mots-clés</td><td>✅ via cette interface</td></tr>
+        <tr><td><code>collector.mjs</code></td><td>Script de collecte (GitHub Actions)</td><td>⛔ automatique</td></tr>
+        <tr><td><code>articles.json</code></td><td>Articles collectés</td><td>⛔ automatique</td></tr>
+        <tr><td><code>index.html</code></td><td>Interface publique</td><td>⛔ automatique</td></tr>
+        <tr><td><code>gestion.html</code></td><td>Cette page</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<script>
+// ============================================================
+// CHARGEMENT DES DONNÉES
+// ============================================================
+let sources = [];
+let themes = [];
+let feedStatus = {};
+let themeCounts = {};
+
+async function loadData() {
+  try {
+    // Charge sources.json
+    const resSources = await fetch("sources.json?t=" + Date.now());
+    if (resSources.ok) sources = await resSources.json();
+
+    // Charge themes.json
+    const resThemes = await fetch("themes.json?t=" + Date.now());
+    if (resThemes.ok) {
+      const data = await resThemes.json();
+      themes = data.themes || [];
+    }
+
+    // Charge articles.json pour les stats
+    const resArticles = await fetch("articles.json?t=" + Date.now());
+    if (resArticles.ok) {
+      const data = await resArticles.json();
+      feedStatus = data.feedStatus || {};
+      themeCounts = data.themeCounts || {};
+    }
+
+    renderStats();
+    renderSources();
+    renderThemes();
+  } catch (err) {
+    console.error("Erreur de chargement :", err);
+  }
+}
+
+// ============================================================
+// STATS
+// ============================================================
+function renderStats() {
+  const total = sources.length;
+  const be = sources.filter(s => s.pays === "BE").length;
+  const fr = sources.filter(s => s.pays === "FR").length;
+  const intl = sources.filter(s => s.pays === "INT").length;
+
+  document.getElementById("source-stats").innerHTML = `
+    <div class="stat"><div class="stat-label">Total sources</div><div class="stat-value">${total}</div></div>
+    <div class="stat"><div class="stat-label">🇧🇪 Belgique</div><div class="stat-value">${be}</div></div>
+    <div class="stat"><div class="stat-label">🇫🇷 France</div><div class="stat-value">${fr}</div></div>
+    <div class="stat"><div class="stat-label">🌍 International</div><div class="stat-value">${intl}</div></div>
+  `;
+}
+
+// ============================================================
+// SOURCES
+// ============================================================
+function countArticlesBySource(sourceName) {
+  // On compte via themeCounts (approximation)
+  return feedStatus[sources.find(s => s.nom === sourceName)?.id]?.items || 0;
+}
+
+function renderSources() {
+  const query = document.getElementById("search-source").value.toLowerCase();
+  const pays = document.getElementById("filter-pays").value;
+  const bord = document.getElementById("filter-bord").value;
+
+  const filtered = sources.filter(s => {
+    if (query && !s.nom.toLowerCase().includes(query) && !s.id.toLowerCase().includes(query)) return false;
+    if (pays && s.pays !== pays) return false;
+    if (bord && s.bord !== bord) return false;
+    return true;
+  });
+
+  const tbody = document.getElementById("sources-tbody");
+  if (!filtered.length) {
+    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:30px; color: var(--muted);">Aucune source ne correspond</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = filtered.map(s => {
+    const status = feedStatus[s.id];
+    const itemsCount = status?.items || 0;
+    const statusLabel = !status ? "Inconnu" : (status.status === "ok" && itemsCount > 0 ? `${itemsCount} art.` : (status.status === "ok" ? "vide" : "KO"));
+    const statusClass = !status ? "" : (status.status === "ok" && itemsCount > 0 ? "ok" : (status.status === "ok" ? "vide" : "ko"));
+    return `
+      <tr>
+        <td><strong>${escapeHtml(s.nom)}</strong><br><span style="font-size:11px;color:var(--muted);font-family:var(--mono)">${escapeHtml(s.id)}</span></td>
+        <td>${s.pays === "BE" ? "🇧🇪" : s.pays === "FR" ? "🇫🇷" : "🌍"} ${s.pays}</td>
+        <td>${s.langue.toUpperCase()}</td>
+        <td><span class="badge ${s.bord}">${s.bord.replace("-", " ")}</span></td>
+        <td>${itemsCount}</td>
+        <td><span class="badge ${statusClass}">${statusLabel}</span></td>
+      </tr>
+    `;
+  }).join("");
+}
+
+// ============================================================
+// THÈMES
+// ============================================================
+function renderThemes() {
+  const tbody = document.getElementById("themes-tbody");
+  if (!themes.length) {
+    tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding:30px; color: var(--muted);">Aucun thème chargé</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = themes.map(t => `
+    <tr>
+      <td><strong>${escapeHtml(t.nom)}</strong><br><span style="font-size:11px;color:var(--muted);font-family:var(--mono)">${escapeHtml(t.id)}</span></td>
+      <td>${t.poids}</td>
+      <td>${t.motsCles.length}</td>
+      <td>${(t.motsClesForts || []).length}</td>
+    </tr>
+  `).join("");
+}
+
+// ============================================================
+// UTILITAIRES
+// ============================================================
+function escapeHtml(s) {
+  return String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
+function jsonToCopyable(obj) {
+  return JSON.stringify(obj, null, 2);
+}
+
+// ============================================================
+// ÉVÉNEMENTS
+// ============================================================
+// Tabs
+document.querySelectorAll(".tab").forEach(tab => {
+  tab.addEventListener("click", () => {
+    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+    document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
+    tab.classList.add("active");
+    document.getElementById("panel-" + tab.dataset.tab).classList.add("active");
+  });
+});
+
+// Filtres sources
+document.getElementById("search-source").addEventListener("input", renderSources);
+document.getElementById("filter-pays").addEventListener("change", renderSources);
+document.getElementById("filter-bord").addEventListener("change", renderSources);
+
+// Ajout source
+document.getElementById("add-source-btn").addEventListener("click", () => {
+  document.getElementById("add-source-form").style.display = "block";
+});
+document.getElementById("cancel-add-source").addEventListener("click", () => {
+  document.getElementById("add-source-form").style.display = "none";
+  document.getElementById("source-json-output").style.display = "none";
+});
+
+document.getElementById("generate-source-json").addEventListener("click", () => {
+  const nom = document.getElementById("new-source-nom").value.trim();
+  const url = document.getElementById("new-source-url").value.trim();
+  const pays = document.getElementById("new-source-pays").value;
+  const langue = document.getElementById("new-source-langue").value;
+  const bord = document.getElementById("new-source-bord").value;
+  const id = document.getElementById("new-source-id").value.trim();
+
+  if (!nom || !url || !id) {
+    alert("Nom, URL et ID sont obligatoires");
+    return;
+  }
+
+  const obj = { id, nom, url, pays, langue, bord };
+  const json = "  " + JSON.stringify(obj).replace(/","/g, '", "').replace(/":"/g, '": "') + ",";
+
+  const output = document.getElementById("source-json-output");
+  output.textContent = json;
+  output.style.display = "block";
+
+  // Ajouter un bouton copier
+  const copyBtn = document.createElement("button");
+  copyBtn.textContent = "📋 Copier";
+  copyBtn.className = "btn primary small";
+  copyBtn.style.position = "absolute";
+  copyBtn.style.top = "10px";
+  copyBtn.style.right = "10px";
+  copyBtn.onclick = () => {
+    navigator.clipboard.writeText(json);
+    copyBtn.textContent = "✅ Copié";
+    setTimeout(() => copyBtn.textContent = "📋 Copier", 2000);
+  };
+  output.style.position = "relative";
+  output.innerHTML = "";
+  output.appendChild(copyBtn);
+  output.appendChild(document.createTextNode("\n\n" + json));
+});
+
+// Ajout thème
+document.getElementById("add-theme-btn").addEventListener("click", () => {
+  document.getElementById("add-theme-form").style.display = "block";
+});
+document.getElementById("cancel-add-theme").addEventListener("click", () => {
+  document.getElementById("add-theme-form").style.display = "none";
+  document.getElementById("theme-json-output").style.display = "none";
+});
+
+document.getElementById("theme-preset").addEventListener("change", (e) => {
+  const preset = e.target.value;
+  const presets = {
+    "economie": { id: "economie", nom: "Économie", poids: 1, kws: "économie, economie, inflation, croissance, pib, budget, dette, impôt, impot, fiscalité, fiscalite, pouvoir d'achat, salaire, entreprise, marché, marche, bourse, banque, finance, austérité, austerite, investissement, capitalisme" },
+    "sante": { id: "sante", nom: "Santé", poids: 1, kws: "santé, sante, hôpital, hopital, médecin, medecin, patient, maladie, épidémie, epidemie, vaccin, médicament, medicament, sécurité sociale, securite sociale, mutuelle, soins, urgences, psychiatrie, handicap" },
+    "climat-environnement": { id: "climat-environnement", nom: "Climat & environnement", poids: 1, kws: "climat, environnement, réchauffement, rechauffement, biodiversité, biodiversite, pollution, émission, emission, carbone, énergies renouvelables, energies renouvelables, transition énergétique, transition energetique, écologie, ecologie, nature, forêt, foret, eau, pesticides" },
+    "culture": { id: "culture", nom: "Culture", poids: 0.8, kws: "culture, cinéma, cinema, musique, théâtre, theatre, livre, roman, exposition, artiste, spectacle, festival, patrimoine, musée, musee, peinture, littérature, litterature" },
+    "tech-numerique": { id: "tech-numerique", nom: "Tech & numérique", poids: 1, kws: "numérique, numerique, intelligence artificielle, ia, algorithme, données personnelles, donnees personnelles, surveillance, cybersécurité, cybersecurite, internet, réseaux sociaux, reseaux sociaux, gafam, hacker, tech" },
+    "education": { id: "education", nom: "Éducation", poids: 1, kws: "éducation, education, école, ecole, enseignement, élève, eleve, étudiant, etudiant, professeur, université, universite, formation, pédagogie, pedagogie, baccalauréat, baccalaureat, cours, classe, scolaire" },
+    "justice": { id: "justice", nom: "Justice", poids: 1, kws: "justice, tribunal, procès, proces, avocat, juge, parquet, instruction, mise en examen, condamnation, peine, prison, détention, detention, victime, plainte" },
+    "immigration": { id: "immigration", nom: "Immigration & asile", poids: 1, kws: "immigration, migrant, réfugié, refugie, asile, demandeur d'asile, sans-papiers, expulsion, régularisation, regularisation, frontière, frontiere, accueil, intégration, integration, racisme" },
+    "feminisme": { id: "feminisme", nom: "Féminisme & genre", poids: 1, kws: "féminisme, feminisme, femme, égalité, egalite, genre, sexisme, harcèlement, harcelement, violence conjugale, féminicide, feminicide, parité, parite, avortement, IVG" }
+  };
+
+  if (presets[preset]) {
+    document.getElementById("new-theme-id").value = presets[preset].id;
+    document.getElementById("new-theme-nom").value = presets[preset].nom;
+    document.getElementById("new-theme-poids").value = presets[preset].poids;
+    document.getElementById("new-theme-kws").value = presets[preset].kws;
+  }
+});
+
+document.getElementById("generate-theme-json").addEventListener("click", () => {
+  const id = document.getElementById("new-theme-id").value.trim();
+  const nom = document.getElementById("new-theme-nom").value.trim();
+  const poids = Number(document.getElementById("new-theme-poids").value);
+  const kws = document.getElementById("new-theme-kws").value.split(",").map(k => k.trim()).filter(k => k);
+  const kwsForts = document.getElementById("new-theme-kws-forts").value.split(",").map(k => k.trim()).filter(k => k);
+
+  if (!id || !nom || !kws.length) {
+    alert("ID, nom et mots-clés sont obligatoires");
+    return;
+  }
+
+  const obj = { id, nom, poids, motsCles: kws };
+  if (kwsForts.length) obj.motsClesForts = kwsForts;
+
+  const json = "    " + JSON.stringify(obj, null, 2).split("\n").map((l, i) => i === 0 ? l : "    " + l).join("\n");
+
+  const output = document.getElementById("theme-json-output");
+  output.innerHTML = "";
+  const copyBtn = document.createElement("button");
+  copyBtn.textContent = "📋 Copier";
+  copyBtn.className = "btn primary small";
+  copyBtn.style.position = "absolute";
+  copyBtn.style.top = "10px";
+  copyBtn.style.right = "10px";
+  copyBtn.onclick = () => {
+    navigator.clipboard.writeText(json);
+    copyBtn.textContent = "✅ Copié";
+    setTimeout(() => copyBtn.textContent = "📋 Copier", 2000);
+  };
+  output.style.position = "relative";
+  output.style.display = "block";
+  output.appendChild(copyBtn);
+  output.appendChild(document.createTextNode("\n\n" + json));
+});
+
+// ============================================================
+// DÉMARRAGE
+// ============================================================
+loadData();
+</script>
+
+</body>
+</html>
