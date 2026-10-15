@@ -1,4 +1,4 @@
-// collector.mjs — Collecte les flux RSS avec thèmes configurables et exclusion
+// collector.mjs — Collecte filtrée sur les 5 thèmes prioritaires
 import { readFile, writeFile } from "node:fs/promises";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -10,17 +10,20 @@ const TIMEOUT_MS = 15000;
 const MAX_AGE_DAYS = 14;
 
 // ============================================================
-// CHARGEMENT DES THÈMES (depuis themes.json, avec exclusion)
+// THÈMES PRIORITAIRES (seuls ceux-là comptent pour l'inclusion)
+// ============================================================
+const PRIORITY_THEMES = ["luttes-sociales", "corruption", "transparence", "democratie", "auto-defense"];
+
+// ============================================================
+// CHARGEMENT DES THÈMES
 // ============================================================
 let THEMES_SCORING = {};
 let HIGH_SIGNAL_TERMS = {};
 
 async function loadThemes() {
   try {
-    // Charge tous les thèmes
     const data = JSON.parse(await readFile(resolve(__dirname, "themes.json"), "utf8"));
 
-    // Charge les thèmes exclus (si le fichier existe)
     let exclus = [];
     try {
       const exclusData = JSON.parse(await readFile(resolve(__dirname, "themes-exclus.json"), "utf8"));
@@ -29,9 +32,7 @@ async function loadThemes() {
     } catch (e) { /* fichier inexistant, ok */ }
 
     for (const theme of data.themes) {
-      // Ignore les thèmes exclus
       if (exclus.includes(theme.id)) continue;
-
       THEMES_SCORING[theme.id] = {
         weight: theme.poids,
         kws: theme.motsCles,
@@ -40,7 +41,12 @@ async function loadThemes() {
         HIGH_SIGNAL_TERMS[theme.id] = theme.motsClesForts;
       }
     }
-    console.log(`📚 ${Object.keys(THEMES_SCORING).length} thèmes chargés\n`);
+    console.log(`📚 ${Object.keys(THEMES_SCORING).length} thèmes chargés`);
+    console.log(`🎯 Thèmes prioritaires (seuls comptent pour l'inclusion) :`);
+    for (const t of PRIORITY_THEMES) {
+      if (THEMES_SCORING[t]) console.log(`   • ${t}`);
+    }
+    console.log("");
   } catch (err) {
     console.error("❌ Erreur de chargement de themes.json :", err.message);
     process.exit(1);
@@ -104,50 +110,13 @@ function cleanGoogleNewsUrl(url) {
   return url;
 }
 
-function parseFeed(xml, source) {
-  const isAtom = /<feed[\s>]/.test(xml);
-  const itemRegex = isAtom ? /<entry[\s>][\s\S]*?<\/entry>/gi : /<item[\s>][\s\S]*?<\/item>/gi;
-  const blocks = xml.match(itemRegex) || [];
-  const result = [];
-
-  for (const block of blocks.slice(0, 20)) {
-    const rawTitle = extractTag(block, "title");
-    const link = isAtom ? extractAtomLink(block) : (extractTag(block, "link") || extractTag(block, "guid"));
-    const rawDesc = extractTag(block, "description") || extractTag(block, "summary") || extractTag(block, "content");
-    const rawDate = extractTag(block, "pubDate") || extractTag(block, "published") || extractTag(block, "updated") || extractTag(block, "dc:date");
-
-    const title = cleanHtml(rawTitle).slice(0, 220);
-    const description = cleanHtml(rawDesc).slice(0, 280);
-
-    if (!title || title.length < 5) continue;
-    if (!link || !/^https?:\/\//i.test(link.trim())) continue;
-    if (title.toLowerCase() === source.nom.toLowerCase()) continue;
-
-    const parsed = rawDate ? Date.parse(rawDate) : NaN;
-    const cleanLink = cleanGoogleNewsUrl(link.trim());
-
-    result.push({
-      title,
-      link: cleanLink,
-      description,
-      pubDate: Number.isFinite(parsed) ? parsed : Date.now(),
-      sourceId: source.id,
-      source: source.nom,
-      pays: source.pays,
-      langue: source.langue,
-      bord: source.bord,
-    });
-  }
-  return result;
-}
-
-// ============================================================
-// DÉTECTION DE THÈME
-// ============================================================
 function escapeRegex(str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
+// ============================================================
+// DÉTECTION DE THÈME PAR SCORE
+// ============================================================
 function detectTheme(title, desc, url = "") {
   const urlText = url ? url.split("/").slice(-3).join(" ").replace(/-/g, " ") : "";
   const text = (title + " " + desc + " " + urlText).toLowerCase();
@@ -174,7 +143,6 @@ function detectTheme(title, desc, url = "") {
       return regex.test(text);
     });
 
-    // Règle stricte uniquement si le thème a une liste "motsClesForts"
     if (highSignal.length > 0) {
       if (!hasHighSignal && matchedKws < 1) continue;
     }
@@ -182,7 +150,6 @@ function detectTheme(title, desc, url = "") {
     scores[theme] = score;
   }
 
-  // Filtre anti-bruit : si > 3 thèmes, garder les 2 meilleurs
   if (Object.keys(scores).length > 3) {
     const sorted = Object.entries(scores).sort(([, a], [, b]) => b - a);
     const topTwo = Object.fromEntries(sorted.slice(0, 2));
@@ -200,6 +167,60 @@ function detectTheme(title, desc, url = "") {
     .filter(([, score]) => score >= threshold)
     .sort(([, a], [, b]) => b - a)
     .map(([theme]) => theme);
+}
+
+// ============================================================
+// VÉRIFICATION : L'ARTICLE A-T-IL UN THÈME PRIORITAIRE ?
+// ============================================================
+function hasPriorityTheme(themes) {
+  return themes.some(t => PRIORITY_THEMES.includes(t));
+}
+
+// ============================================================
+// PARSE FEED
+// ============================================================
+function parseFeed(xml, source) {
+  const isAtom = /<feed[\s>]/.test(xml);
+  const itemRegex = isAtom ? /<entry[\s>][\s\S]*?<\/entry>/gi : /<item[\s>][\s\S]*?<\/item>/gi;
+  const blocks = xml.match(itemRegex) || [];
+  const result = [];
+
+  for (const block of blocks.slice(0, 20)) {
+    const rawTitle = extractTag(block, "title");
+    const link = isAtom ? extractAtomLink(block) : (extractTag(block, "link") || extractTag(block, "guid"));
+    const rawDesc = extractTag(block, "description") || extractTag(block, "summary") || extractTag(block, "content");
+    const rawDate = extractTag(block, "pubDate") || extractTag(block, "published") || extractTag(block, "updated") || extractTag(block, "dc:date");
+
+    const title = cleanHtml(rawTitle).slice(0, 220);
+    const description = cleanHtml(rawDesc).slice(0, 280);
+
+    if (!title || title.length < 5) continue;
+    if (!link || !/^https?:\/\//i.test(link.trim())) continue;
+    if (title.toLowerCase() === source.nom.toLowerCase()) continue;
+
+    const parsed = rawDate ? Date.parse(rawDate) : NaN;
+    const cleanLink = cleanGoogleNewsUrl(link.trim());
+
+    // Détection thématique
+    const themes = detectTheme(title, description, cleanLink);
+
+    // ⚠️ EXCLUSION STRICTE : il faut AU MOINS UN thème prioritaire
+    if (!hasPriorityTheme(themes)) continue;
+
+    result.push({
+      title,
+      link: cleanLink,
+      description,
+      pubDate: Number.isFinite(parsed) ? parsed : Date.now(),
+      sourceId: source.id,
+      source: source.nom,
+      pays: source.pays,
+      langue: source.langue,
+      bord: source.bord,
+      themes,
+    });
+  }
+  return result;
 }
 
 // ============================================================
@@ -238,7 +259,6 @@ async function fetchFeed(source) {
   }
 
   const items = parseFeed(result.text, source);
-  items.forEach(a => { a.themes = detectTheme(a.title, a.description, a.link); });
   return { source, status: "ok", items, ms };
 }
 
@@ -274,7 +294,7 @@ async function main() {
   }
 
   // ============================================================
-  // FUSION
+  // FUSION avec filtrage strict
   // ============================================================
   const ARTICLES_PATH = resolve(__dirname, "articles.json");
   let previousArticles = [];
@@ -291,21 +311,27 @@ async function main() {
   const now = Date.now();
   const MAX_AGE_MS = MAX_AGE_DAYS * 24 * 3600 * 1000;
 
+  // Filtrage strict : rejet de tout article sans thème prioritaire
   const merged = [...all, ...previousArticles].filter(a => {
     if (!a.pubDate || now - a.pubDate > MAX_AGE_MS) return false;
+
+    // Recalcule les thèmes
+    const themes = detectTheme(a.title, a.description || "", a.link || "");
+
+    // ⚠️ EXCLUSION STRICTE : il faut AU MOINS UN thème prioritaire
+    if (!hasPriorityTheme(themes)) return false;
+
     if (seenUrl.has(a.link)) return false;
     seenUrl.add(a.link);
     const titleKey = a.title.toLowerCase().slice(0, 60);
     if (seenTitle.has(titleKey)) return false;
     seenTitle.add(titleKey);
+
+    a.themes = themes;
     return true;
   });
 
   merged.sort((a, b) => b.pubDate - a.pubDate);
-
-  merged.forEach(a => {
-    a.themes = detectTheme(a.title, a.description || "", a.link || "");
-  });
 
   const themeCounts = {};
   merged.forEach(a => (a.themes || []).forEach(t => { themeCounts[t] = (themeCounts[t] || 0) + 1; }));
@@ -327,9 +353,9 @@ async function main() {
   console.log(`\n📊 BILAN`);
   console.log(`   Sources OK         : ${okList.length}`);
   console.log(`   Sources en échec   : ${koList.length}`);
-  console.log(`   Nouveaux articles  : ${all.length}`);
+  console.log(`   Nouveaux articles  : ${all.length} (avant filtrage)`);
   console.log(`   Archives fusionnées: ${previousArticles.length}`);
-  console.log(`   TOTAL après fusion : ${merged.length}`);
+  console.log(`   TOTAL après fusion : ${merged.length} (après filtrage strict)`);
   console.log(`\n📈 RÉPARTITION PAR THÈME :`);
   Object.entries(themeCounts)
     .sort(([, a], [, b]) => b - a)
