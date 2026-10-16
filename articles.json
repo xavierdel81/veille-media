@@ -1,19 +1,19 @@
 {
-  "generatedAt": "2026-10-15T22:09:26.981Z",
+  "generatedAt": "2026-10-16T01:05:25.444Z",
   "totalSources": 200,
-  "okSources": 138,
-  "koSources": 62,
-  "totalArticles": 1226,
+  "okSources": 134,
+  "koSources": 66,
+  "totalArticles": 1236,
   "themeCounts": {
-    "democratie": 599,
+    "democratie": 606,
+    "luttes-sociales": 510,
+    "international": 157,
+    "economie": 130,
     "auto-defense": 65,
-    "luttes-sociales": 507,
-    "international": 155,
-    "economie": 128,
-    "culture": 24,
+    "justice": 70,
+    "culture": 25,
     "education": 76,
     "climat-environnement": 36,
-    "justice": 69,
     "sante": 24,
     "tech-numerique": 37,
     "corruption": 75,
@@ -26,11 +26,97 @@
       "title": "Pauline Marois et Jean Royer formeront les recrues du PQ à l’Assemblée nationale",
       "link": "https://ici.radio-canada.ca/nouvelle/2293066/assermentation-deputes-pq-marois-royer",
       "description": "Les nouveaux députés pourront ainsi profiter de leur expérience en vue de la rentrée parlementaire.",
-      "pubDate": 1792101447000,
+      "pubDate": 1792107749000,
       "sourceId": "radio-canada",
       "source": "Radio-Canada",
       "pays": "INT",
       "langue": "fr",
+      "bord": "neutre",
+      "themes": [
+        "democratie"
+      ]
+    },
+    {
+      "title": "\"En se retournant à gauche ou à droite, on peut perdre un collègue\" : les travailleurs de GSK désormais dans l’incertitude",
+      "link": "https://www.rtbf.be/article/en-se-retournant-a-gauche-ou-a-droite-on-peut-perdre-un-collegue-les-travailleurs-de-gsk-desormais-dans-l-incertitude-11801037",
+      "description": "Qui sera concerné ? Qui devra être recasé, partir à la retraite ou pire, qui sera licencié ? A Wavre, c’est...",
+      "pubDate": 1792106461000,
+      "sourceId": "rtbf-info",
+      "source": "RTBF Info",
+      "pays": "BE",
+      "langue": "fr",
+      "bord": "centre-gauche",
+      "themes": [
+        "luttes-sociales"
+      ]
+    },
+    {
+      "title": "Mark Carney veut que l’Alberta reste au Canada, mais s’oppose aux 9 autres questions",
+      "link": "https://ici.radio-canada.ca/nouvelle/2293058/mark-carney-alberta-referendum",
+      "description": "Le premier ministre est à Calgary jeudi, et il se rendra à Red Deer et à Edmonton vendredi.",
+      "pubDate": 1792105284000,
+      "sourceId": "radio-canada",
+      "source": "Radio-Canada",
+      "pays": "INT",
+      "langue": "fr",
+      "bord": "neutre",
+      "themes": [
+        "democratie"
+      ]
+    },
+    {
+      "title": "Letters with 'suspicious substances' sent to US senators and election offices",
+      "link": "https://www.bbc.co.uk/news/articles/cmq8n513x523o?at_medium=RSS&amp;at_campaign=rss",
+      "description": "A number of states have confirmed they were targeted by the mailings, including Oklahoma, Ohio and Louisiana.",
+      "pubDate": 1792104409000,
+      "sourceId": "bbc-news",
+      "source": "BBC News",
+      "pays": "INT",
+      "langue": "en",
+      "bord": "neutre",
+      "themes": [
+        "democratie"
+      ]
+    },
+    {
+      "title": "Cameroun: à Bamenda, le Premier ministre appelle à renforcer «le dialogue communautaire» pour la paix en zone anglophone",
+      "link": "https://www.rfi.fr/fr/afrique/20261015-cameroun-%C3%A0-bamenda-le-premier-ministre-appelle-%C3%A0-renforcer-le-dialogue-communautaire-pour-la-paix-en-zone-anglophone",
+      "description": "Au Cameroun, le Premier ministre Joseph Dion Ngute était ce jeudi 15 octobre à Bamenda, chef-lieu de la région du Nord-Ouest, avec plusieurs autres hautes personnalités et membres du gouvernement. Comme à Buea, dans le Sud-Ouest, le 28 septembre, Joseph Dion Ngute y a présidé une",
+      "pubDate": 1792104094000,
+      "sourceId": "rfi-afrique",
+      "source": "RFI Afrique",
+      "pays": "INT",
+      "langue": "fr",
+      "bord": "neutre",
+      "themes": [
+        "democratie",
+        "international"
+      ]
+    },
+    {
+      "title": "Les députés unanimes pour reconnaître et déployer des unités hospitalières spécialisées pour les enfants maltraités",
+      "link": "https://www.ouest-france.fr/faits-divers/violences/les-deputes-unanimes-pour-reconnaitre-et-deployer-des-unites-hospitalieres-specialisees-pour-les-enfants-maltraites-0c0bbc08-c8db-11f1-9522-1f9ae0711c0a?utm_source=fluxpublicactu&amp;utm_medium=fluxrss&amp;utm_campaign=banquedecontenu",
+      "description": "Les députés ont adopté à l’unanimité, en commission, un article du projet de budget de la Sécurité sociale visant à reconnaître et déployer largement les unités d’accueil pour enfants en danger (Uaped).",
+      "pubDate": 1792102586000,
+      "sourceId": "ouest-france",
+      "source": "Ouest-France",
+      "pays": "FR",
+      "langue": "fr",
+      "bord": "centre",
+      "themes": [
+        "democratie",
+        "economie"
+      ]
+    },
+    {
+      "title": "Elon Musk agrees to settle lawsuits over 2024 election lottery - Reuters",
+      "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPRWNocUdlZHdZdEpFWmotSFNZbTd5cWVveGxXYnh6WFNBaUNlUDhKdnE0c1VVZWdpYkVDazJxeUdRSXBKSW9SUm5qc2gyRDhpdS1jTkxidGNXSmFfajdGeV9ERUQxMnUtYl9ZNzZ5M0J4cXdLNWxfTzR4d1BNblNlNlN1bEM3VUd2MDhZVzcwNTlybllZYWhkejBmUDNaUXJqaUROcDdrb2wxV3RSaEhnV1ln?oc=5",
+      "description": "<a href=\"https://news.google.com/rss/articles/CBMisgFBVV95cUxPRWNocUdlZHdZdEpFWmotSFNZbTd5cWVveGxXYnh6WFNBaUNlUDhKdnE0c1VVZWdpYkVDazJxeUdRSXBKSW9SUm5qc2gyRDhpdS1jTkxidGNXSmFfajdGeV9ERUQxMnUtYl9ZNzZ5M0J4cXdLNWxfTzR4d1BNblNlNlN1bEM3VUd2MDhZVzcwNTlybllZYWhkejBmUDNaUXJqaUROcDdrb2wxV3",
+      "pubDate": 1792102347000,
+      "sourceId": "reuters",
+      "source": "Reuters",
+      "pays": "INT",
+      "langue": "en",
       "bord": "neutre",
       "themes": [
         "democratie"
@@ -51,20 +137,6 @@
       ]
     },
     {
-      "title": "Letters with 'suspicious substances' sent to US senators and election offices",
-      "link": "https://www.bbc.co.uk/news/articles/cmq8n513x523o?at_medium=RSS&amp;at_campaign=rss",
-      "description": "A number of states have confirmed they were targeted by the mailings, including Oklahoma, Ohio and Louisiana.",
-      "pubDate": 1792100546000,
-      "sourceId": "bbc-news",
-      "source": "BBC News",
-      "pays": "INT",
-      "langue": "en",
-      "bord": "neutre",
-      "themes": [
-        "democratie"
-      ]
-    },
-    {
       "title": "Trump’s Attacks on Voting Raise Fears He Will Try to Challenge Midterm Results",
       "link": "https://www.nytimes.com/2026/10/15/us/politics/trumps-attacks-voting-midterms.html",
       "description": "Election officials say they worry the administration could use its own unsubstantiated claims to contest the vote in November.",
@@ -74,6 +146,20 @@
       "pays": "INT",
       "langue": "en",
       "bord": "centre-gauche",
+      "themes": [
+        "democratie"
+      ]
+    },
+    {
+      "title": "Senate Republicans plan post-election blitz to confirm Trump's judicial nominees - Reuters",
+      "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxQT1ZEd0kwQ3gyWjFUR0Q5eTVfRTdUV3RraTd0ak43dm5ESzZXZTZvblp0dzkyekFnNkJ2Zks3WXVwOFc2ZXZERTNqVkdHb2k0cTU0UWZ4WXpGT2dQb2hEMGZHWmRlX1dMT1VnRWxuYjNwUGFaNTBGa2RKcFZFRkdzeXJHc3NMMFNhR2hHZmE0TEt5V2FwclpGMkFLNXhUakFfSE9JYnZjOHF6bW8taHpIemVMQ1pwempUSkVVLVV0RWNxQ2xTamRDMw?oc=5",
+      "description": "<a href=\"https://news.google.com/rss/articles/CBMiyAFBVV95cUxQT1ZEd0kwQ3gyWjFUR0Q5eTVfRTdUV3RraTd0ak43dm5ESzZXZTZvblp0dzkyekFnNkJ2Zks3WXVwOFc2ZXZERTNqVkdHb2k0cTU0UWZ4WXpGT2dQb2hEMGZHWmRlX1dMT1VnRWxuYjNwUGFaNTBGa2RKcFZFRkdzeXJHc3NMMFNhR2hHZmE0TEt5V2FwclpGMkFLNXhUakFfSE9JYnZjOHF6bW",
+      "pubDate": 1792099375000,
+      "sourceId": "reuters",
+      "source": "Reuters",
+      "pays": "INT",
+      "langue": "en",
+      "bord": "neutre",
       "themes": [
         "democratie"
       ]
@@ -93,17 +179,19 @@
       ]
     },
     {
-      "title": "Mark Carney veut que l’Alberta reste au Canada, mais s’oppose aux 9 autres questions",
-      "link": "https://ici.radio-canada.ca/nouvelle/2293058/mark-carney-alberta-referendum",
-      "description": "Le premier ministre est à Calgary jeudi, et se rendra à Red Deer et Edmonton vendredi.",
-      "pubDate": 1792098867000,
-      "sourceId": "radio-canada",
-      "source": "Radio-Canada",
-      "pays": "INT",
+      "title": "Indonésie: un huitième remaniement ministériel pour le président Prabowo Subianto",
+      "link": "https://www.rfi.fr/fr/asie-pacifique/20261015-indon%C3%A9sie-un-huiti%C3%A8me-remaniement-minist%C3%A9riel-pour-le-pr%C3%A9sident-prabowo-subianto",
+      "description": "En Indonésie, alors que l'archipel affronte des incendies forestiers massifs, le gouvernement est en crise larvée. Le président Prabowo Subianto vient de procéder à son huitième remaniement ministériel depuis son arrivée au pouvoir. C'est le troisième en à peine un mois. Un vérit",
+      "pubDate": 1792098972000,
+      "sourceId": "rfi",
+      "source": "RFI",
+      "pays": "FR",
       "langue": "fr",
       "bord": "neutre",
       "themes": [
-        "democratie"
+        "democratie",
+        "justice",
+        "international"
       ]
     },
     {
@@ -169,9 +257,9 @@
       "link": "https://www.lemonde.fr/international/article/2026/10/15/liban-le-hezbollah-reconnait-qu-une-demi-tonne-d-explosifs-saisis-la-semaine-derniere-etaient-destines-a-la-resistance-contre-israel_6794798_3210.html",
       "description": "Le groupe pro-iranien a demandé au gouvernement libanais « la restitution du véhicule et de son contenu », car il s’agit de « capacités » que le parti utilise contre Israël. Le secrétaire d’Etat américain, Marco Rubio, a exhorté le président libanais à ne pas rendre ces explosifs",
       "pubDate": 1792097449000,
-      "sourceId": "lemonde",
-      "source": "Le Monde",
-      "pays": "FR",
+      "sourceId": "lemonde-international",
+      "source": "Le Monde International",
+      "pays": "INT",
       "langue": "fr",
       "bord": "centre-gauche",
       "themes": [
@@ -196,7 +284,7 @@
     {
       "title": "Argentine : une manifestation pour défendre l'université dérape en heurts avec la police",
       "link": "https://information.tv5monde.com/international/argentine-une-manifestation-pour-defendre-luniversite-derape-en-heurts-avec-la-police-2841811",
-      "description": "<p>Par AFP Par Martín RASCHINSKY, Tomás VIOLA © 2026 AFP</p> <img src=\"https://information.tv5monde.com/sites/tv5-info/files/styles/rss/public/2026-10/field_media_image-3062230-64b63099720b8a20f6830802a985b1640d379672.jpg?h=473938e4\" width=\"752\" height=\"423\" alt=\"Des protestatair",
+      "description": "<p>Par AFP Par Martín RASCHINSKY, Tomás VIOLA © 2026 AFP</p> <img src=\"https://information.tv5monde.com/sites/tv5-info/files/styles/rss/public/2026-10/field_media_image-3062230-b8b099af5edc7b12faccf6d1e21d922fd52643f1.jpg?h=4d638683\" width=\"752\" height=\"423\" alt=\"Des protestatair",
       "pubDate": 1792096279000,
       "sourceId": "tv5monde",
       "source": "TV5MONDE Info",
@@ -464,7 +552,7 @@
     {
       "title": "PSPP appelle ses collègues députés à jouer en équipe",
       "link": "https://www.ledevoir.com/politique/quebec/1017191/59-elus-parti-quebecois-pretent-serment-deviennent-deputes",
-      "description": "Les élus du PQ ont prêté serment au peuple du Québec jeudi, celui au roi n’étant plus obligatoire depuis 2022.",
+      "description": "Les élus du PQ ont prêté serment au peuple du Québec jeudi, le serment au roi n’étant plus obligatoire depuis 2022.",
       "pubDate": 1792088580000,
       "sourceId": "ledevoir",
       "source": "Le Devoir",
@@ -819,9 +907,9 @@
       "link": "https://www.lemonde.fr/international/article/2026/10/15/au-danemark-le-parcours-seme-d-embuches-des-candidats-a-la-naturalisation_6794621_3210.html",
       "description": "Depuis juin 2025 et le report du vote au Parlement de la loi d’octroi de la nationalité, des milliers de personnes d’origine étrangère attendent que leur dossier soit examiné. Dans le même temps, les députés se préparent à en restreindre encore les conditions d’accès.",
       "pubDate": 1792082701000,
-      "sourceId": "lemonde-international",
-      "source": "Le Monde International",
-      "pays": "INT",
+      "sourceId": "lemonde",
+      "source": "Le Monde",
+      "pays": "FR",
       "langue": "fr",
       "bord": "centre-gauche",
       "themes": [
@@ -915,20 +1003,6 @@
       ]
     },
     {
-      "title": "Mobilisation lycéenne : à Paris, des policiers victimes de leur propre grenade explosive - Libération",
-      "link": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxOX1JfUG1KU2dEVUFxTHZ5U3lsV0VpQjdUTHlUaTh5UGhhdjFCMnhVOUxIZXJNR0lDMWlTTGc2SUpERTZva3hsSjZlOHFNZFBYeHVkVFUxazRTYWlLMjRZS09YaEZiZHlONzZrdURCMGRueGNxQXBJQUJ0Y2dWX2gzR3NyV0JPN2ZLNWM1OEhQYWVxdkdUNHVpSWZlemJucG5ZUVlLdDg0Sm1FdXFZWEE2SVV1VXBaS0JhUl9sSmZOWXhfUThyVVp0Y3ZEWVhNaHBENjhUSlV0OUhldHIzMWprVGdzT0FkcGJyNW5XMm5UWQ?oc=5",
-      "description": "<a href=\"https://news.google.com/rss/articles/CBMi7wFBVV95cUxOX1JfUG1KU2dEVUFxTHZ5U3lsV0VpQjdUTHlUaTh5UGhhdjFCMnhVOUxIZXJNR0lDMWlTTGc2SUpERTZva3hsSjZlOHFNZFBYeHVkVFUxazRTYWlLMjRZS09YaEZiZHlONzZrdURCMGRueGNxQXBJQUJ0Y2dWX2gzR3NyV0JPN2ZLNWM1OEhQYWVxdkdUNHVpSWZlemJucG5ZUVlLdDg0Sm1FdX",
-      "pubDate": 1792082160000,
-      "sourceId": "checknews",
-      "source": "CheckNews (Libération)",
-      "pays": "FR",
-      "langue": "fr",
-      "bord": "neutre",
-      "themes": [
-        "luttes-sociales"
-      ]
-    },
-    {
       "title": "Le gouvernement annonce des mesures pour mieux accompagner les femmes pendant la ménopause",
       "link": "https://www.franceinfo.fr/sante/le-gouvernement-annonce-des-mesures-pour-mieux-accompagner-les-femmes-pendant-la-menopause_8238961.html#xtor=RSS-3-[lestitres]",
       "description": "Synonyme au plan médical de fin de l'activité ovarienne et de l'arrêt des cycles menstruels, la ménopause concerne plus de 17 millions de Françaises de 45 ans et plus.",
@@ -948,6 +1022,20 @@
       "link": "https://news.google.com/rss/articles/CBMizwFBVV95cUxNUHhjTlJrczdwakVoUmhodVFNSHJPZkRZQ2FxNWU2eXhSWlFFRnNWQnNRb1JyaVBkU0FCTUtaV0xXQzd2alMtRzlfamlpRFkxZkNiM0dwTFpZTkd5UVQtOXBnRDdFNjNfMU5TTnBEZ2ZBM3VPZkpPWmhxWVllOWkzck5PT2FrMWFuRzM2ZUhOQ3U5VHJxUmExejlHU1VlRW9mWGNmaTJ4QThNS1Q5Mnl3V2hYU29ycUpISUJYZWVyd29hdnRWdTJNYmR1bVU1b00?oc=5",
       "description": "<a href=\"https://news.google.com/rss/articles/CBMizwFBVV95cUxNUHhjTlJrczdwakVoUmhodVFNSHJPZkRZQ2FxNWU2eXhSWlFFRnNWQnNRb1JyaVBkU0FCTUtaV0xXQzd2alMtRzlfamlpRFkxZkNiM0dwTFpZTkd5UVQtOXBnRDdFNjNfMU5TTnBEZ2ZBM3VPZkpPWmhxWVllOWkzck5PT2FrMWFuRzM2ZUhOQ3U5VHJxUmExejlHU1VlRW9mWGNmaTJ4QThNS1",
       "pubDate": 1792081440000,
+      "sourceId": "notele",
+      "source": "Notélé (Tournai)",
+      "pays": "BE",
+      "langue": "fr",
+      "bord": "neutre",
+      "themes": [
+        "luttes-sociales"
+      ]
+    },
+    {
+      "title": "Les élèves de Saint-Luc multiplient les actions de protestation - Notélé",
+      "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQbWp0bWN3aFVvV1JuMnlHUVRWZU5GcTJEREVSRWgxTGQyWm5fZlUtRTFPQjgwZmpveVFFSzRiY2NESFpqMnJ2a1VhZ2RVUFdqc2NRZmx6QWQ1Y1NXRnd1eFp2ZTNuMElKY2sxTlVVVk1mM2RjZTNsNTZpa0d5a19zQ0xqbFF3TTNXSlZWYjRwN19mWkhRN00yODhnZFR3cXRITU1IT04yWmFRS0k?oc=5",
+      "description": "<a href=\"https://news.google.com/rss/articles/CBMiqwFBVV95cUxQbWp0bWN3aFVvV1JuMnlHUVRWZU5GcTJEREVSRWgxTGQyWm5fZlUtRTFPQjgwZmpveVFFSzRiY2NESFpqMnJ2a1VhZ2RVUFdqc2NRZmx6QWQ1Y1NXRnd1eFp2ZTNuMElKY2sxTlVVVk1mM2RjZTNsNTZpa0d5a19zQ0xqbFF3TTNXSlZWYjRwN19mWkhRN00yODhnZFR3cXRITU1IT04yWmFRS0",
+      "pubDate": 1792081200000,
       "sourceId": "notele",
       "source": "Notélé (Tournai)",
       "pays": "BE",
@@ -1014,6 +1102,20 @@
       "themes": [
         "democratie",
         "luttes-sociales"
+      ]
+    },
+    {
+      "title": "Attaque meurtrière des Houthis pro-iraniens contre le siège du gouvernement yéménite",
+      "link": "https://www.ledevoir.com/monde/moyen-orient/1017152/riyad-accuse-teheran-encourager-escalade-houthis",
+      "description": "Le premier ministre était présent, mais n’a pas été atteint. Riyad accuse Téhéran d’«encourager l’escalade» des Houthis.",
+      "pubDate": 1792080300000,
+      "sourceId": "ledevoir",
+      "source": "Le Devoir",
+      "pays": "INT",
+      "langue": "fr",
+      "bord": "neutre",
+      "themes": [
+        "democratie"
       ]
     },
     {
@@ -1128,21 +1230,6 @@
       "themes": [
         "luttes-sociales",
         "education"
-      ]
-    },
-    {
-      "title": "Attaque meurtrière des Houthis pro-iraniens contre le siège du gouvernement yéménite",
-      "link": "https://information.tv5monde.com/international/attaque-meurtriere-des-houthis-pro-iraniens-contre-le-siege-du-gouvernement-yemenite-2841768",
-      "description": "<p>Par AFP © 2026 AFP</p> <img src=\"https://information.tv5monde.com/sites/tv5-info/files/styles/rss/public/2026-10/field_media_image-3062140-b06d1a0c228aa48c0e976d2f5a36d4c322a01565.jpg?h=17634064\" width=\"752\" height=\"423\" alt=\"Turki Al-Malki, porte-parole de la coalition milita",
-      "pubDate": 1792078427000,
-      "sourceId": "tv5monde",
-      "source": "TV5MONDE Info",
-      "pays": "INT",
-      "langue": "fr",
-      "bord": "neutre",
-      "themes": [
-        "democratie",
-        "international"
       ]
     },
     {
@@ -1432,21 +1519,6 @@
       "themes": [
         "luttes-sociales",
         "economie"
-      ]
-    },
-    {
-      "title": "Manifestation du 17 octobre : redoutant des violences, la Préfecture de police de Paris propose un autre parcours - Le Monde.fr",
-      "link": "https://news.google.com/rss/articles/CBMikAJBVV95cUxQb0RSZ0tKYVVLc1RQcW1YNl9GX2dJRjlXWTQtX3ZIbzlCclREQ0RKb1RNVFlGVG91SjdBVXNQRk1aSmJqWmJQWjhNUVZzV2JWckFYR0tCRm5lN3pzWkpKZjVSUklmSjhrWDVuTHJSZmRtZ2hHaFFMejNzR295R29nWFNqM3dfazFhNjlwMkpWV05LZ2tnaWkzUVRPekwxdkxuS0thOExMVE5fSVJuV0RCNGkxNGtSdkV1SzYtNTA1Z21EUEl1clYyTkFoRi1RX1hOWk5mcVprSTVPWktvZXBCVHlMNnlZYWhpSFRZV0JQMFN4VWFyYXYxcVhMNDFNeHNOVy1GTkY2S21SUS1Yb0tzRg?oc=5",
-      "description": "<a href=\"https://news.google.com/rss/articles/CBMikAJBVV95cUxQb0RSZ0tKYVVLc1RQcW1YNl9GX2dJRjlXWTQtX3ZIbzlCclREQ0RKb1RNVFlGVG91SjdBVXNQRk1aSmJqWmJQWjhNUVZzV2JWckFYR0tCRm5lN3pzWkpKZjVSUklmSjhrWDVuTHJSZmRtZ2hHaFFMejNzR295R29nWFNqM3dfazFhNjlwMkpWV05LZ2tnaWkzUVRPekwxdkxuS0thOExMVE5fSV",
-      "pubDate": 1792073547000,
-      "sourceId": "gn-luttes-fr",
-      "source": "🇫🇷 Luttes sociales · France",
-      "pays": "FR",
-      "langue": "fr",
-      "bord": "neutre",
-      "themes": [
-        "luttes-sociales",
-        "international"
       ]
     },
     {
@@ -2262,6 +2334,22 @@
       "bord": "centre-gauche",
       "themes": [
         "democratie"
+      ]
+    },
+    {
+      "title": "Gros plan sur la Corée du Sud et la démocratie au 49e festival international du court métrage de Clermont-Ferrand - La Montagne",
+      "link": "https://news.google.com/rss/articles/CBMijAJBVV95cUxPTDVNUXI4UGotelZsT051T0FGMFE2N2praUdZd1cxZjMza1ZtMHVrV09CX1BNV1RFbnlaNmM0MVhUU2FIRWZqeWN3TUFWeHBweVFPTkhzTk5oYnQwZS1KcndLSDM0RE5EVnpIbGo3R3ZJVmFfZ1RsdC1VQXlFWkpuODk3amVpb2RTQWllTGdqdF83SDQxVXVXRkRLVE82T21lWTd3ZTZ1Y3Y3cW5HTHFZRWljZHpJcDd6NFRRemVtckRvelNDdGdrdGI5anhQcFp4Nm1lZHZDQlBpcWZnOElfNHZLUmdEYUZxVmQ1VEtCb0NWZEtXcjNKVVlUcjl0MkZSVUdoc2tyM0Mtcjc0?oc=5",
+      "description": "<a href=\"https://news.google.com/rss/articles/CBMijAJBVV95cUxPTDVNUXI4UGotelZsT051T0FGMFE2N2praUdZd1cxZjMza1ZtMHVrV09CX1BNV1RFbnlaNmM0MVhUU2FIRWZqeWN3TUFWeHBweVFPTkhzTk5oYnQwZS1KcndLSDM0RE5EVnpIbGo3R3ZJVmFfZ1RsdC1VQXlFWkpuODk3amVpb2RTQWllTGdqdF83SDQxVXVXRkRLVE82T21lWTd3ZTZ1Y3Y3cW",
+      "pubDate": 1792054860000,
+      "sourceId": "gn-democratie-int",
+      "source": "🌍 Démocratie · International",
+      "pays": "INT",
+      "langue": "fr",
+      "bord": "neutre",
+      "themes": [
+        "democratie",
+        "culture",
+        "international"
       ]
     },
     {
@@ -3443,6 +3531,21 @@
       ]
     },
     {
+      "title": "Manifestation du 17 octobre : redoutant des violences, la Préfecture de police de Paris propose un autre parcours - Le Monde.fr",
+      "link": "https://news.google.com/rss/articles/CBMikAJBVV95cUxQb0RSZ0tKYVVLc1RQcW1YNl9GX2dJRjlXWTQtX3ZIbzlCclREQ0RKb1RNVFlGVG91SjdBVXNQRk1aSmJqWmJQWjhNUVZzV2JWckFYR0tCRm5lN3pzWkpKZjVSUklmSjhrWDVuTHJSZmRtZ2hHaFFMejNzR295R29nWFNqM3dfazFhNjlwMkpWV05LZ2tnaWkzUVRPekwxdkxuS0thOExMVE5fSVJuV0RCNGkxNGtSdkV1SzYtNTA1Z21EUEl1clYyTkFoRi1RX1hOWk5mcVprSTVPWktvZXBCVHlMNnlZYWhpSFRZV0JQMFN4VWFyYXYxcVhMNDFNeHNOVy1GTkY2S21SUS1Yb0tzRg?oc=5",
+      "description": "<a href=\"https://news.google.com/rss/articles/CBMikAJBVV95cUxQb0RSZ0tKYVVLc1RQcW1YNl9GX2dJRjlXWTQtX3ZIbzlCclREQ0RKb1RNVFlGVG91SjdBVXNQRk1aSmJqWmJQWjhNUVZzV2JWckFYR0tCRm5lN3pzWkpKZjVSUklmSjhrWDVuTHJSZmRtZ2hHaFFMejNzR295R29nWFNqM3dfazFhNjlwMkpWV05LZ2tnaWkzUVRPekwxdkxuS0thOExMVE5fSV",
+      "pubDate": 1792025016000,
+      "sourceId": "gn-luttes-fr",
+      "source": "🇫🇷 Luttes sociales · France",
+      "pays": "FR",
+      "langue": "fr",
+      "bord": "neutre",
+      "themes": [
+        "luttes-sociales",
+        "international"
+      ]
+    },
+    {
       "title": "Cornell’s President Grilled by Faculty Senate Over Handling of Crisis",
       "link": "https://www.nytimes.com/2026/10/14/nyregion/cornell-president-faculty-senate-lawsuit-response.html",
       "description": "Ahead of a vote on a resolution of no confidence in Michael I. Kotlikoff, some faculty members said they were not swayed by steps he announced on Tuesday, including banning fraternity parties.",
@@ -4345,6 +4448,20 @@
       ]
     },
     {
+      "title": "Madrid. La police réprime violemment des étudiants en soutien à la grève dans l'éducation - Revolution Permanente",
+      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxONkQ5QWVHSl9VbGVFODktY29uelpmZWUzQjVCRnBlSU9OLS03Zlp2d1dFLWVPd2lhakt1RUk1T3lnSEVRZU5xa0hxdXlyYThiNzc1RS1BZU9Cb1FMV01QTEdzX2VESEJjaXdzLWNpMW8zOTV4cGlQMlBWUUx2TzhzQml0ZnFaYnJSbnlPMlZmWHF4NlFuZnFJb1Z1ZjFPUGxneGktNTgxWmptYWlac3dEczdDT0habDNWV3Y1SXYzMW9nUdIBygFBVV95cUxPV2plZUhHTHVNd0dWT2dTZHJxTUhVNjczUEktNTdQUG5FcXQ2NlREdmg5RHZLVnhnSjdUZktITy1femRFSFpKRWN5cE9tMzNIai1oWFdDc0tITkNLLURJa0ozZUpaWFUtVlRIeE5hcVFwMDcwaDFZY29HZnlhNHB3VVBaaVJpYXlwSGlXbGhrQUsxdHJ0XzdsOXRZVlpuYjVFamxlelNPT0ZLUnRycmFpX0g1czRFQUdUMFp0TzU4MDRvQndodFhBSFRB?oc=5",
+      "description": "<a href=\"https://news.google.com/rss/articles/CBMiwgFBVV95cUxONkQ5QWVHSl9VbGVFODktY29uelpmZWUzQjVCRnBlSU9OLS03Zlp2d1dFLWVPd2lhakt1RUk1T3lnSEVRZU5xa0hxdXlyYThiNzc1RS1BZU9Cb1FMV01QTEdzX2VESEJjaXdzLWNpMW8zOTV4cGlQMlBWUUx2TzhzQml0ZnFaYnJSbnlPMlZmWHF4NlFuZnFJb1Z1ZjFPUGxneGktNTgxWmptYW",
+      "pubDate": 1791994331000,
+      "sourceId": "revpermanente",
+      "source": "Révolution Permanente",
+      "pays": "FR",
+      "langue": "fr",
+      "bord": "gauche-radicale",
+      "themes": [
+        "luttes-sociales"
+      ]
+    },
+    {
       "title": "Québec solidaire réclame l’interdiction des évictions l’hiver",
       "link": "https://www.ledevoir.com/politique/quebec/1016780/quebec-solidaire-allie-potentiel-logement-lutte-itinerance",
       "description": "Le parti a fait ses premières demandes au futur gouvernement péquiste.",
@@ -4901,7 +5018,7 @@
       "title": "Mobilisation lycéenne : que recouvre le chiffre de 900 policiers et gendarmes blessés, annoncé par le ministre de l’Intérieur - Libération",
       "link": "https://news.google.com/rss/articles/CBMinwJBVV95cUxPRzJYWU5YTUp1T21vV0ZmUkVqeG10REtUY05mUkI0SkxmX2VRMVY5OFZmeFg0MzdWaDhaR3Z3Rk5mbGF2ZHFSWkVXVTQtNjYyeElPZWphd0xiOS1sNnowTnFwM3FSV21kajJGYWNJQnBIeU0xZ0dpZ2l1Qk1aR2V4UmxDclFzczlrcWo2eVJPVjVDX1J2M0gtc3J0cVNkNHlVaHpVUGJncGlFRTFZWWpDQnVVbEJzMjJDS09GMzZjeEp2dmJXbjhneFRnMjJib3F2VU1oRllJNEVuX0YzRnJrd0N2V0s5VnBaSXo4OTVKOXVKNzh6RHR0Wm5kRmdvWUJvNGJwcFA1ZVBUVFVoSVI3d19CQlBvUEl0ejdudkFydw?oc=5",
       "description": "<a href=\"https://news.google.com/rss/articles/CBMinwJBVV95cUxPRzJYWU5YTUp1T21vV0ZmUkVqeG10REtUY05mUkI0SkxmX2VRMVY5OFZmeFg0MzdWaDhaR3Z3Rk5mbGF2ZHFSWkVXVTQtNjYyeElPZWphd0xiOS1sNnowTnFwM3FSV21kajJGYWNJQnBIeU0xZ0dpZ2l1Qk1aR2V4UmxDclFzczlrcWo2eVJPVjVDX1J2M0gtc3J0cVNkNHlVaHpVUGJncGlFRT",
-      "pubDate": 1791984303000,
+      "pubDate": 1791984240000,
       "sourceId": "checknews",
       "source": "CheckNews (Libération)",
       "pays": "FR",
@@ -9821,6 +9938,20 @@
       ]
     },
     {
+      "title": "Mobilisation lycéenne : à Paris, des policiers victimes de leur propre grenade explosive - Libération",
+      "link": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxOX1JfUG1KU2dEVUFxTHZ5U3lsV0VpQjdUTHlUaTh5UGhhdjFCMnhVOUxIZXJNR0lDMWlTTGc2SUpERTZva3hsSjZlOHFNZFBYeHVkVFUxazRTYWlLMjRZS09YaEZiZHlONzZrdURCMGRueGNxQXBJQUJ0Y2dWX2gzR3NyV0JPN2ZLNWM1OEhQYWVxdkdUNHVpSWZlemJucG5ZUVlLdDg0Sm1FdXFZWEE2SVV1VXBaS0JhUl9sSmZOWXhfUThyVVp0Y3ZEWVhNaHBENjhUSlV0OUhldHIzMWprVGdzT0FkcGJyNW5XMm5UWQ?oc=5",
+      "description": "<a href=\"https://news.google.com/rss/articles/CBMi7wFBVV95cUxOX1JfUG1KU2dEVUFxTHZ5U3lsV0VpQjdUTHlUaTh5UGhhdjFCMnhVOUxIZXJNR0lDMWlTTGc2SUpERTZva3hsSjZlOHFNZFBYeHVkVFUxazRTYWlLMjRZS09YaEZiZHlONzZrdURCMGRueGNxQXBJQUJ0Y2dWX2gzR3NyV0JPN2ZLNWM1OEhQYWVxdkdUNHVpSWZlemJucG5ZUVlLdDg0Sm1FdX",
+      "pubDate": 1791874800000,
+      "sourceId": "checknews",
+      "source": "CheckNews (Libération)",
+      "pays": "FR",
+      "langue": "fr",
+      "bord": "neutre",
+      "themes": [
+        "luttes-sociales"
+      ]
+    },
+    {
       "title": "Transparence de la vie publique, une exigence démocratique - Lesfrancais.press",
       "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE43dk8wcjZWMTE5emJOcE5wdVpWdWEyRXF6SEJ1UTh5ZEpTQTQtNjVhXzNuSnRFZDhGUW5rNFZpR2liVjIzNGZKRmkzTHdBSnY5aEY1ZHNNSkctYmxFYVpfN2g2MGhvLWFna0d5QVFqVkVwYzZ1T2hxZ1FzNUQ4Q2s?oc=5",
       "description": "<a href=\"https://news.google.com/rss/articles/CBMif0FVX3lxTE43dk8wcjZWMTE5emJOcE5wdVpWdWEyRXF6SEJ1UTh5ZEpTQTQtNjVhXzNuSnRFZDhGUW5rNFZpR2liVjIzNGZKRmkzTHdBSnY5aEY1ZHNNSkctYmxFYVpfN2g2MGhvLWFna0d5QVFqVkVwYzZ1T2hxZ1FzNUQ4Q2s?oc=5\" target=\"_blank\">Transparence de la vie publique, une",
@@ -11060,6 +11191,21 @@
       "bord": "neutre",
       "themes": [
         "luttes-sociales"
+      ]
+    },
+    {
+      "title": "Pouvoir d'achat: le gouvernement wallon prévoit un job bonus entre 50 et 500 euros par an - La Libre.be",
+      "link": "https://news.google.com/rss/articles/CBMihAJBVV95cUxPUTR1R3lzT2w5aXhBZU9PQWhUYkJrdHktTm9JY1NENWVsVDVxNGRJcXVRa1pmMDBDb1JOemNXVUVtSURXMTdYZE5uXzRSMnRUcXVlNDIwWVlaYnRORUtvM1lHbDI0YW1mblIzc0EzZ1dmVXlncTRwQ0dpZ3ZrZzU0TFM1eVpIOHp3RUt0MXNVSDc0NE5XNl9GeXZNaTBXZjhBaklkaTh1bGdIY3lkdnBsZHQza2NpYWFTZ2Vmc1BmVVhjMnlqR0MyazhXX1hrRVoyN0pVVUc4SjVOTEVCYjNqa3diMXBJZ3J5OXlTQnpJUmhNVlZZVUFKNTVsemNDcG9DNTBLTw?oc=5",
+      "description": "<a href=\"https://news.google.com/rss/articles/CBMihAJBVV95cUxPUTR1R3lzT2w5aXhBZU9PQWhUYkJrdHktTm9JY1NENWVsVDVxNGRJcXVRa1pmMDBDb1JOemNXVUVtSURXMTdYZE5uXzRSMnRUcXVlNDIwWVlaYnRORUtvM1lHbDI0YW1mblIzc0EzZ1dmVXlncTRwQ0dpZ3ZrZzU0TFM1eVpIOHp3RUt0MXNVSDc0NE5XNl9GeXZNaTBXZjhBaklkaTh1bGdIY3",
+      "pubDate": 1791825660000,
+      "sourceId": "gn-climat-be",
+      "source": "🇧🇪 Climat & environnement · Belgique",
+      "pays": "BE",
+      "langue": "fr",
+      "bord": "neutre",
+      "themes": [
+        "democratie",
+        "economie"
       ]
     },
     {
@@ -15229,6 +15375,20 @@
       ]
     },
     {
+      "title": "Envoyer et rechercher des demandes d'accès à l'information - transparencia.be",
+      "link": "https://news.google.com/rss/articles/CBMiggFBVV95cUxNQlZ1am9sMnVWcFI2eFozWHNwbGRSNndVVUhrYkp6RDBTMHg4YnZsMHVKQWdLenRaUng5VVFPQlZYQktkaFNFV1Y1RXVQeV9CcHhrQkRLLU5FWHpFTEtGUVRKZnNLRWZjMF9hOWxNendMNS0yZkNfd2NiMUprMlltU3Rn?oc=5",
+      "description": "<a href=\"https://news.google.com/rss/articles/CBMiggFBVV95cUxNQlZ1am9sMnVWcFI2eFozWHNwbGRSNndVVUhrYkp6RDBTMHg4YnZsMHVKQWdLenRaUng5VVFPQlZYQktkaFNFV1Y1RXVQeV9CcHhrQkRLLU5FWHpFTEtGUVRKZnNLRWZjMF9hOWxNendMNS0yZkNfd2NiMUprMlltU3Rn?oc=5\" target=\"_blank\">Envoyer et rechercher des deman",
+      "pubDate": 1791492120000,
+      "sourceId": "transparencia-be",
+      "source": "Transparencia.be",
+      "pays": "BE",
+      "langue": "fr",
+      "bord": "neutre",
+      "themes": [
+        "transparence"
+      ]
+    },
+    {
       "title": "L'intercommunale Humani à Charleroi tente de rassurer ses travailleurs - DHnet",
       "link": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxOVGVpbEYwWG8yR2NoMERXQkl1ZW5NVkRRQl9rbTV4YkZaTGZ2bUVVUGlZWUVzYzV2TFd6U3loSXcwbUNzaHg3YzVxdGtzMHp1ZmxfTXVBckY3YmJ2ektjYndPLTRRMHkzQi16UGNCQVJRWjZyOGJiWHJOZWdtczZvdXRWRV9zU3pnZThadVQyRDJndE5LME5jTUpVdmM0VzJaaHhZT2pKRWFkZVUtOGN0eEdVVzRTLVRlVkRjeVdRYzRuQzVoNnVTdklBTXRER2t3UmNzc0w5anRRYXFpU1hRbnVR?oc=5",
       "description": "<a href=\"https://news.google.com/rss/articles/CBMi4gFBVV95cUxOVGVpbEYwWG8yR2NoMERXQkl1ZW5NVkRRQl9rbTV4YkZaTGZ2bUVVUGlZWUVzYzV2TFd6U3loSXcwbUNzaHg3YzVxdGtzMHp1ZmxfTXVBckY3YmJ2ektjYndPLTRRMHkzQi16UGNCQVJRWjZyOGJiWHJOZWdtczZvdXRWRV9zU3pnZThadVQyRDJndE5LME5jTUpVdmM0VzJaaHhZT2pKRWFkZV",
@@ -16132,20 +16292,6 @@
       ]
     },
     {
-      "title": "Envoyer et rechercher des demandes d'accès à l'information - transparencia.be",
-      "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPUVRpME9Lbm9qYlRMaFQtc3pYd1M0Zkg5dC11QzhDU0hQTGd0eXFUbk9KcXlMcDNET2VxZkxhTkFpUW02QmVMTzhiRmt5S01uUEhjN2s0Z0trR3JaQklVejRLRXMtMWRadHlIcV9IWHVuQ1pMTGV3NHJWcEVuQnRPRlJHTVJHUQ?oc=5",
-      "description": "<a href=\"https://news.google.com/rss/articles/CBMihgFBVV95cUxPUVRpME9Lbm9qYlRMaFQtc3pYd1M0Zkg5dC11QzhDU0hQTGd0eXFUbk9KcXlMcDNET2VxZkxhTkFpUW02QmVMTzhiRmt5S01uUEhjN2s0Z0trR3JaQklVejRLRXMtMWRadHlIcV9IWHVuQ1pMTGV3NHJWcEVuQnRPRlJHTVJHUQ?oc=5\" target=\"_blank\">Envoyer et rechercher des",
-      "pubDate": 1791377858000,
-      "sourceId": "transparencia-be",
-      "source": "Transparencia.be",
-      "pays": "BE",
-      "langue": "fr",
-      "bord": "neutre",
-      "themes": [
-        "transparence"
-      ]
-    },
-    {
       "title": "Octobre Colère ! Questions au Gouvernement",
       "link": "https://auposte.media/emissions/octobre-colere-questions-au-gouvernement",
       "description": "Octobre Colère ! Questions au Gouvernement",
@@ -16333,21 +16479,6 @@
       ]
     },
     {
-      "title": "Pas de \"temps de démocratie interne\" au lycée tant que le climat ne sera pas serein, prévient le SNPDEN - Radio France",
-      "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQSEU1QkRiMTF0WGNFenJPai1tdEZzTVlrZzRRUnAwWUg2RXYzRjVvdHM1RVlNTHc3Qk05d3BjaFhFZV9HR3p2TGZYaGhRZmMyVUJlaGU2RFlYdk5SMklhQVVyeUxjcVFocXJyeW9ja2NYV2FxSkNYNFZjS2h0LTJpVzU2ZGJ5NTNQWFlnenR0TWw0MTZJcXRSRndBbUdIRm1qelJMN3ROZ19PZU92dEI0MQ?oc=5",
-      "description": "<a href=\"https://news.google.com/rss/articles/CBMisAFBVV95cUxQSEU1QkRiMTF0WGNFenJPai1tdEZzTVlrZzRRUnAwWUg2RXYzRjVvdHM1RVlNTHc3Qk05d3BjaFhFZV9HR3p2TGZYaGhRZmMyVUJlaGU2RFlYdk5SMklhQVVyeUxjcVFocXJyeW9ja2NYV2FxSkNYNFZjS2h0LTJpVzU2ZGJ5NTNQWFlnenR0TWw0MTZJcXRSRndBbUdIRm1qelJMN3ROZ19PZU",
-      "pubDate": 1791356400000,
-      "sourceId": "gn-democratie-fr",
-      "source": "🇫🇷 Démocratie · France",
-      "pays": "FR",
-      "langue": "fr",
-      "bord": "neutre",
-      "themes": [
-        "democratie",
-        "climat-environnement"
-      ]
-    },
-    {
       "title": "\"Temps de démocratie interne\" dans les lycées : \"Ni aujourd’hui, ni demain !\", prévient le SNPDEN-Unsa - franceinfo",
       "link": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxQcmk1MTNQNHViNG11RmEwNGgyUFp2OTE3YXJtYmVvUVNPbzQ4UV9zb1ZicmdRRHRiVU5MTHFScmFNSVNJeDJ1cXd4UjhLUlVETHlfak9GSnM5LWkwLXNJOEU3QnFxdlNGOE1lbGRTUndOclU4NTVNTFFocDYyMjh5S1dZTk1xc0wxRzd5OFRPYjM4aHBFTHp2aXpyZTFXVzVBVlJ1MnB2cWFubTBSalh6ZTdhdXI2Nmo3Q01yUEZ6NnJoVjlQUnRBQzJsVW9XY2pBMjlhV3JaeDdHMEhmNUVnUmZaZw?oc=5",
       "description": "<a href=\"https://news.google.com/rss/articles/CBMi4wFBVV95cUxQcmk1MTNQNHViNG11RmEwNGgyUFp2OTE3YXJtYmVvUVNPbzQ4UV9zb1ZicmdRRHRiVU5MTHFScmFNSVNJeDJ1cXd4UjhLUlVETHlfak9GSnM5LWkwLXNJOEU3QnFxdlNGOE1lbGRTUndOclU4NTVNTFFocDYyMjh5S1dZTk1xc0wxRzd5OFRPYjM4aHBFTHp2aXpyZTFXVzVBVlJ1MnB2cWFubT",
@@ -16373,6 +16504,21 @@
       "bord": "neutre",
       "themes": [
         "transparence"
+      ]
+    },
+    {
+      "title": "Pas de \"temps de démocratie interne\" au lycée tant que le climat ne sera pas serein, prévient le SNPDEN - Radio France",
+      "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQSEU1QkRiMTF0WGNFenJPai1tdEZzTVlrZzRRUnAwWUg2RXYzRjVvdHM1RVlNTHc3Qk05d3BjaFhFZV9HR3p2TGZYaGhRZmMyVUJlaGU2RFlYdk5SMklhQVVyeUxjcVFocXJyeW9ja2NYV2FxSkNYNFZjS2h0LTJpVzU2ZGJ5NTNQWFlnenR0TWw0MTZJcXRSRndBbUdIRm1qelJMN3ROZ19PZU92dEI0MQ?oc=5",
+      "description": "<a href=\"https://news.google.com/rss/articles/CBMisAFBVV95cUxQSEU1QkRiMTF0WGNFenJPai1tdEZzTVlrZzRRUnAwWUg2RXYzRjVvdHM1RVlNTHc3Qk05d3BjaFhFZV9HR3p2TGZYaGhRZmMyVUJlaGU2RFlYdk5SMklhQVVyeUxjcVFocXJyeW9ja2NYV2FxSkNYNFZjS2h0LTJpVzU2ZGJ5NTNQWFlnenR0TWw0MTZJcXRSRndBbUdIRm1qelJMN3ROZ19PZU",
+      "pubDate": 1791356400000,
+      "sourceId": "gn-democratie-fr",
+      "source": "🇫🇷 Démocratie · France",
+      "pays": "FR",
+      "langue": "fr",
+      "bord": "neutre",
+      "themes": [
+        "democratie",
+        "climat-environnement"
       ]
     },
     {
@@ -16936,6 +17082,21 @@
       ]
     },
     {
+      "title": "Le gouvernement annonce la suspension des cours dans les lycées sur une demi-journée pour \"un temps de démocratie\" - franceinfo",
+      "link": "https://news.google.com/rss/articles/CBMisgJBVV95cUxNRVNnMlh1M3JIUjkxaTI5NUVBcGtFc0RLaVlXRmcxUlNGdVNrOWk1SDhpb2Z2V00xNHV1TlphSDg1TmpOTlR3MTlEdzJpN250OFNoRXBFcXliNGZWSlNwQjVweEdTN25jNThkNm54R0dKN0pvWVpNSUYyaS1qYWotbEpyYWp2Qjg2bUhDLVVIeHh1RG51TXlBczktbU1xTXNmUExBcUNGYW5nTDNsNlF0NmZJMUkyMUtzN0Y3VVBURFJGczQweFNBSG44NHJOOTZfeUJlanh0S2hnRjhMOEpUNDRDUWpUa1pRZXBRQzg0X2xoT1NBc1FMbGZvX2NQN2hyWi1PWVVSSWFvTFFqNGdVbVNTLWZXWk5vengxdF9FRmMzUmJPRWhtSHRYSDZLMnNBa2c?oc=5",
+      "description": "<a href=\"https://news.google.com/rss/articles/CBMisgJBVV95cUxNRVNnMlh1M3JIUjkxaTI5NUVBcGtFc0RLaVlXRmcxUlNGdVNrOWk1SDhpb2Z2V00xNHV1TlphSDg1TmpOTlR3MTlEdzJpN250OFNoRXBFcXliNGZWSlNwQjVweEdTN25jNThkNm54R0dKN0pvWVpNSUYyaS1qYWotbEpyYWp2Qjg2bUhDLVVIeHh1RG51TXlBczktbU1xTXNmUExBcUNGYW5nTD",
+      "pubDate": 1791270000000,
+      "sourceId": "gn-democratie-fr",
+      "source": "🇫🇷 Démocratie · France",
+      "pays": "FR",
+      "langue": "fr",
+      "bord": "neutre",
+      "themes": [
+        "democratie",
+        "education"
+      ]
+    },
+    {
       "title": "Les États-Unis et l’OMS demandent de la « transparence » à la Russie à propos des soupçons de peste, Trump va parler à Poutine - Le Parisien",
       "link": "https://news.google.com/rss/articles/CBMiqgJBVV95cUxNdF9ZVVlFUDI3a1BUejd4aWpMUzR5amxDY1FlRkxEdnZMNjlUYWNLTHQtU3BOeWFjZUNwb09YQ2tmdW5OUDhld3otNUVMejBaemgyVkY1R2J5bDQzRHVVUmt2ZXZUcDAwdnBrbDR6MURPNlB4NnQzSFFFRmVmWi1lRW1rbmFEdnRCb0FtWVZqZHpKV1laWTVzNUdKeVpkTlo1d2g0b3lhanZ1emM2RDB3ZVNFbVBSZGpsU05BSExycGQ5WWh6VjFWckdscXY2TFR4N1hTRWE3TlZDNHZDMVIyZGhRUlhDMEY2ZGpXbnZiUlFvOVZPNVhEYkt1SGV2QzhVcXo1ZTA5RDAyTVJxOXQ4aThRYW53UkwxMGxQMUowREtpQ20xTmRZdXB3?oc=5",
       "description": "<a href=\"https://news.google.com/rss/articles/CBMiqgJBVV95cUxNdF9ZVVlFUDI3a1BUejd4aWpMUzR5amxDY1FlRkxEdnZMNjlUYWNLTHQtU3BOeWFjZUNwb09YQ2tmdW5OUDhld3otNUVMejBaemgyVkY1R2J5bDQzRHVVUmt2ZXZUcDAwdnBrbDR6MURPNlB4NnQzSFFFRmVmWi1lRW1rbmFEdnRCb0FtWVZqZHpKV1laWTVzNUdKeVpkTlo1d2g0b3lhanZ1em",
@@ -17037,21 +17198,6 @@
       "themes": [
         "luttes-sociales",
         "democratie"
-      ]
-    },
-    {
-      "title": "Le gouvernement annonce la suspension des cours dans les lycées sur une demi-journée pour \"un temps de démocratie\" - franceinfo",
-      "link": "https://news.google.com/rss/articles/CBMisgJBVV95cUxNRVNnMlh1M3JIUjkxaTI5NUVBcGtFc0RLaVlXRmcxUlNGdVNrOWk1SDhpb2Z2V00xNHV1TlphSDg1TmpOTlR3MTlEdzJpN250OFNoRXBFcXliNGZWSlNwQjVweEdTN25jNThkNm54R0dKN0pvWVpNSUYyaS1qYWotbEpyYWp2Qjg2bUhDLVVIeHh1RG51TXlBczktbU1xTXNmUExBcUNGYW5nTDNsNlF0NmZJMUkyMUtzN0Y3VVBURFJGczQweFNBSG44NHJOOTZfeUJlanh0S2hnRjhMOEpUNDRDUWpUa1pRZXBRQzg0X2xoT1NBc1FMbGZvX2NQN2hyWi1PWVVSSWFvTFFqNGdVbVNTLWZXWk5vengxdF9FRmMzUmJPRWhtSHRYSDZLMnNBa2c?oc=5",
-      "description": "<a href=\"https://news.google.com/rss/articles/CBMisgJBVV95cUxNRVNnMlh1M3JIUjkxaTI5NUVBcGtFc0RLaVlXRmcxUlNGdVNrOWk1SDhpb2Z2V00xNHV1TlphSDg1TmpOTlR3MTlEdzJpN250OFNoRXBFcXliNGZWSlNwQjVweEdTN25jNThkNm54R0dKN0pvWVpNSUYyaS1qYWotbEpyYWp2Qjg2bUhDLVVIeHh1RG51TXlBczktbU1xTXNmUExBcUNGYW5nTD",
-      "pubDate": 1791270000000,
-      "sourceId": "gn-democratie-fr",
-      "source": "🇫🇷 Démocratie · France",
-      "pays": "FR",
-      "langue": "fr",
-      "bord": "neutre",
-      "themes": [
-        "democratie",
-        "education"
       ]
     },
     {
@@ -17855,283 +18001,283 @@
     "le-soir": {
       "status": "ok",
       "items": 2,
-      "ms": 926,
+      "ms": 872,
       "nom": "Le Soir"
     },
     "rtbf-info": {
       "status": "ok",
-      "items": 2,
-      "ms": 949,
+      "items": 3,
+      "ms": 1044,
       "nom": "RTBF Info"
     },
     "rtbf-belgique": {
       "status": "ok",
-      "items": 3,
-      "ms": 7535,
+      "items": 4,
+      "ms": 8697,
       "nom": "RTBF Belgique"
     },
     "rtbf-monde": {
       "status": "ok",
       "items": 4,
-      "ms": 7403,
+      "ms": 8977,
       "nom": "RTBF Monde"
     },
     "rtbf-investig": {
       "status": "ok",
       "items": 1,
-      "ms": 1773,
+      "ms": 2812,
       "nom": "RTBF Investigation"
     },
     "rtbf-factcheck": {
       "status": "ok",
       "items": 5,
-      "ms": 2111,
+      "ms": 2054,
       "nom": "RTBF Fact-checking"
     },
     "rtbf-eco": {
       "status": "ok",
-      "items": 5,
-      "ms": 1595,
+      "items": 6,
+      "ms": 1785,
       "nom": "RTBF Économie"
     },
     "levif": {
       "status": "ok",
       "items": 8,
-      "ms": 1855,
+      "ms": 2797,
       "nom": "Le Vif"
     },
     "medor": {
       "status": "ok",
       "items": 9,
-      "ms": 1181,
+      "ms": 1207,
       "nom": "Médor"
     },
     "alterechos": {
       "status": "ok",
       "items": 6,
-      "ms": 7796,
+      "ms": 8321,
       "nom": "Alter Échos"
     },
     "axelle": {
       "status": "ok",
       "items": 2,
-      "ms": 968,
+      "ms": 992,
       "nom": "Axelle Magazine"
     },
     "imagine": {
       "status": "ok",
       "items": 1,
-      "ms": 881,
+      "ms": 931,
       "nom": "Imagine Demain le monde"
     },
     "tchak": {
       "status": "ok",
       "items": 2,
-      "ms": 2231,
+      "ms": 2122,
       "nom": "Tchak"
     },
     "wilfried": {
       "status": "ok",
       "items": 0,
-      "ms": 1485,
+      "ms": 2209,
       "nom": "Wilfried"
     },
     "stuut": {
       "status": "ok",
       "items": 1,
-      "ms": 1269,
+      "ms": 1230,
       "nom": "Le Stuut"
     },
     "chronik": {
       "status": "ok",
       "items": 0,
-      "ms": 994,
+      "ms": 1002,
       "nom": "Chronik.be"
     },
     "agirparculture": {
       "status": "ok",
       "items": 0,
-      "ms": 1230,
+      "ms": 1238,
       "nom": "Agir par la Culture"
     },
     "rcf": {
       "status": "ok",
       "items": 1,
-      "ms": 8262,
+      "ms": 9452,
       "nom": "RCF"
     },
     "matribune": {
       "status": "ok",
       "items": 1,
-      "ms": 2861,
+      "ms": 2820,
       "nom": "Ma Tribune"
     },
     "pourpress": {
       "status": "ok",
       "items": 5,
-      "ms": 4295,
+      "ms": 4046,
       "nom": "Pour.press"
     },
     "solidaire": {
       "status": "ok",
-      "items": 1,
-      "ms": 1698,
+      "items": 2,
+      "ms": 1670,
       "nom": "Solidaire (PTB)"
     },
     "pan-be": {
       "status": "ok",
       "items": 0,
-      "ms": 1485,
+      "ms": 1459,
       "nom": "PAN.be (satirique)"
     },
     "kairos": {
       "status": "ok",
       "items": 0,
-      "ms": 1647,
+      "ms": 1530,
       "nom": "Kairos Presse"
     },
     "bruxelles-devie": {
       "status": "ok",
       "items": 3,
-      "ms": 1602,
+      "ms": 1563,
       "nom": "Bruxelles Dévie"
     },
     "gauche-anticapitaliste": {
       "status": "ok",
       "items": 0,
-      "ms": 1658,
+      "ms": 1657,
       "nom": "Gauche Anticapitaliste"
     },
     "radio-air-libre": {
       "status": "ok",
       "items": 1,
-      "ms": 1471,
+      "ms": 1407,
       "nom": "Radio Air Libre"
     },
     "xr-belgique": {
       "status": "ok",
       "items": 0,
-      "ms": 1543,
+      "ms": 1423,
       "nom": "Extinction Rebellion BE"
     },
     "telesambre": {
       "status": "ok",
       "items": 0,
-      "ms": 1901,
+      "ms": 1779,
       "nom": "Télésambre (Charleroi)"
     },
     "antennecentre": {
       "status": "ok",
       "items": 0,
-      "ms": 1709,
+      "ms": 1586,
       "nom": "Antenne Centre (La Louvière)"
     },
     "notele": {
       "status": "ok",
-      "items": 2,
-      "ms": 1727,
+      "items": 3,
+      "ms": 1550,
       "nom": "Notélé (Tournai)"
     },
     "bx1": {
       "status": "ok",
-      "items": 1,
-      "ms": 1775,
+      "items": 2,
+      "ms": 1727,
       "nom": "BX1 (Bruxelles)"
     },
     "rtc-liege": {
       "status": "ok",
       "items": 1,
-      "ms": 1452,
+      "ms": 1407,
       "nom": "RTC Télé Liège"
     },
     "matele": {
       "status": "ok",
       "items": 0,
-      "ms": 1665,
+      "ms": 1575,
       "nom": "Matele (Namur)"
     },
     "tvlux": {
       "status": "ok",
       "items": 0,
-      "ms": 1675,
+      "ms": 1631,
       "nom": "TV Lux (Luxembourg)"
     },
     "tvcom": {
       "status": "ok",
       "items": 2,
-      "ms": 1734,
+      "ms": 1622,
       "nom": "TVCom (Brabant wallon)"
     },
     "vedia": {
       "status": "ok",
       "items": 0,
-      "ms": 1714,
+      "ms": 1602,
       "nom": "Vedia (Verviers)"
     },
     "dh-liege": {
       "status": "ok",
       "items": 1,
-      "ms": 1815,
+      "ms": 1738,
       "nom": "DH Liège"
     },
     "sudinfo-hainaut": {
       "status": "ok",
       "items": 0,
-      "ms": 1793,
+      "ms": 1850,
       "nom": "Sudinfo Hainaut"
     },
     "lalibre": {
       "status": "ok",
       "items": 1,
-      "ms": 1782,
+      "ms": 1747,
       "nom": "La Libre Belgique"
     },
     "lecho": {
       "status": "ok",
       "items": 1,
-      "ms": 1802,
+      "ms": 1591,
       "nom": "L'Écho"
     },
     "lavenir": {
       "status": "ok",
-      "items": 3,
-      "ms": 1758,
+      "items": 2,
+      "ms": 1608,
       "nom": "L'Avenir"
     },
     "dhnet": {
       "status": "ok",
       "items": 0,
-      "ms": 1821,
+      "ms": 1916,
       "nom": "DH Les Sports+"
     },
     "de-standaard": {
       "status": "ok",
       "items": 0,
-      "ms": 6836,
+      "ms": 7870,
       "nom": "De Standaard"
     },
     "de-morgen": {
       "status": "ok",
       "items": 0,
-      "ms": 1928,
+      "ms": 1956,
       "nom": "De Morgen"
     },
     "knack": {
       "status": "ok",
       "items": 0,
-      "ms": 4070,
+      "ms": 4019,
       "nom": "Knack"
     },
     "vrt-nws": {
       "status": "ok",
       "items": 0,
-      "ms": 1557,
+      "ms": 1672,
       "nom": "VRT NWS"
     },
     "bruzz": {
       "status": "ok",
       "items": 1,
-      "ms": 1867,
+      "ms": 1945,
       "nom": "BRUZZ"
     },
     "apache": {
@@ -18143,913 +18289,926 @@
     "rektoverso": {
       "status": "ok",
       "items": 0,
-      "ms": 2313,
+      "ms": 2479,
       "nom": "Rekto:Verso"
     },
     "hln": {
       "status": "ok",
       "items": 0,
-      "ms": 2622,
+      "ms": 2495,
       "nom": "Het Laatste Nieuws"
     },
     "nieuwsblad": {
       "status": "ok",
       "items": 0,
-      "ms": 6962,
+      "ms": 7886,
       "nom": "Het Nieuwsblad"
     },
     "detijd": {
       "status": "ok",
       "items": 0,
-      "ms": 2631,
+      "ms": 2220,
       "nom": "De Tijd"
     },
     "basta": {
       "status": "ok",
       "items": 6,
-      "ms": 2609,
+      "ms": 2468,
       "nom": "Basta!"
     },
     "acrimed": {
       "status": "ok",
       "items": 1,
-      "ms": 3139,
+      "ms": 2974,
       "nom": "Acrimed"
     },
     "arretsurimages": {
       "status": "ok",
-      "items": 1,
-      "ms": 2567,
+      "items": 2,
+      "ms": 2447,
       "nom": "Arrêt sur images"
     },
     "aoc": {
       "status": "ok",
       "items": 2,
-      "ms": 3444,
+      "ms": 3002,
       "nom": "AOC"
     },
     "ballast": {
       "status": "ok",
       "items": 2,
-      "ms": 3681,
+      "ms": 3666,
       "nom": "Ballast"
     },
     "blast": {
       "status": "ok",
       "items": 4,
-      "ms": 3339,
+      "ms": 3057,
       "nom": "Blast"
     },
     "mediapart": {
       "status": "ok",
       "items": 6,
-      "ms": 2861,
+      "ms": 2711,
       "nom": "Mediapart"
     },
     "reflets": {
       "status": "ok",
       "items": 1,
-      "ms": 7671,
+      "ms": 8598,
       "nom": "Reflets.info"
     },
     "monde-diplo": {
       "status": "ok",
       "items": 4,
-      "ms": 7455,
+      "ms": 8445,
       "nom": "Le Monde diplomatique"
     },
     "reporterre": {
       "status": "ok",
       "items": 6,
-      "ms": 3855,
+      "ms": 3775,
       "nom": "Reporterre"
     },
     "disclose": {
       "status": "ok",
       "items": 3,
-      "ms": 4541,
+      "ms": 4521,
       "nom": "Disclose"
     },
     "lesjours": {
       "status": "ok",
       "items": 3,
-      "ms": 3584,
+      "ms": 3612,
       "nom": "Les Jours"
     },
     "fakir": {
       "status": "ok",
       "items": 1,
-      "ms": 3570,
+      "ms": 3538,
       "nom": "Fakir"
     },
     "lemedia": {
       "status": "ok",
-      "items": 0,
-      "ms": 3607,
+      "items": 3,
+      "ms": 3801,
       "nom": "Le Média"
     },
     "auposte": {
       "status": "ok",
       "items": 3,
-      "ms": 8788,
+      "ms": 9452,
       "nom": "Au Poste"
     },
     "contretemps": {
       "status": "ok",
       "items": 4,
-      "ms": 5705,
+      "ms": 5095,
       "nom": "Contretemps"
     },
     "cqfd": {
       "status": "ok",
       "items": 2,
-      "ms": 5430,
+      "ms": 4915,
       "nom": "CQFD"
     },
     "bondyblog": {
       "status": "ok",
       "items": 6,
-      "ms": 4459,
+      "ms": 4180,
       "nom": "Bondy Blog"
     },
     "labreche": {
       "status": "ok",
       "items": 1,
-      "ms": 5762,
+      "ms": 5520,
       "nom": "La Brèche"
     },
     "lecri": {
       "status": "ok",
       "items": 3,
-      "ms": 4981,
+      "ms": 4781,
       "nom": "Le Cri"
     },
     "fracas": {
       "status": "ok",
       "items": 4,
-      "ms": 7339,
+      "ms": 8415,
       "nom": "Fracas"
     },
     "climax": {
       "status": "ok",
       "items": 0,
-      "ms": 4629,
+      "ms": 4344,
       "nom": "Climax"
     },
     "deferlante": {
       "status": "ok",
       "items": 0,
-      "ms": 4569,
+      "ms": 4363,
       "nom": "La Déferlante"
     },
     "politis": {
       "status": "ok",
       "items": 2,
-      "ms": 4699,
+      "ms": 4538,
       "nom": "Politis"
     },
     "regards": {
       "status": "ok",
       "items": 2,
-      "ms": 5160,
+      "ms": 4958,
       "nom": "Regards"
     },
     "frustration": {
       "status": "ok",
       "items": 4,
-      "ms": 7587,
+      "ms": 8600,
       "nom": "Frustration Magazine"
     },
     "lvsl": {
       "status": "ok",
       "items": 5,
-      "ms": 4795,
+      "ms": 4572,
       "nom": "Le Vent Se Lève"
     },
     "streetpress": {
       "status": "ok",
       "items": 1,
-      "ms": 4809,
+      "ms": 5287,
       "nom": "StreetPress"
     },
     "lutteouvriere": {
       "status": "ok",
       "items": 1,
-      "ms": 4895,
+      "ms": 5047,
       "nom": "Lutte Ouvrière"
     },
     "revpermanente": {
       "status": "ok",
-      "items": 4,
-      "ms": 4906,
+      "items": 5,
+      "ms": 4984,
       "nom": "Révolution Permanente"
     },
     "surligneurs": {
       "status": "ok",
       "items": 5,
-      "ms": 8578,
+      "ms": 9297,
       "nom": "Les Surligneurs"
     },
     "alt-eco": {
       "status": "ok",
       "items": 4,
-      "ms": 5010,
+      "ms": 4978,
       "nom": "Alternatives Économiques"
     },
     "grandcontinent": {
       "status": "ok",
       "items": 2,
-      "ms": 5427,
+      "ms": 5777,
       "nom": "Le Grand Continent"
     },
     "lemonde": {
       "status": "ok",
-      "items": 5,
-      "ms": 4834,
+      "items": 4,
+      "ms": 4796,
       "nom": "Le Monde"
     },
     "francetvinfo": {
       "status": "ok",
       "items": 6,
-      "ms": 7756,
+      "ms": 8442,
       "nom": "France Info"
     },
     "liberation": {
       "status": "ok",
       "items": 4,
-      "ms": 4979,
+      "ms": 5027,
       "nom": "Libération"
     },
     "humanite": {
       "status": "ok",
       "items": 7,
-      "ms": 7572,
+      "ms": 8477,
       "nom": "L'Humanité"
     },
     "france24": {
       "status": "ok",
-      "items": 5,
-      "ms": 4992,
+      "items": 4,
+      "ms": 5010,
       "nom": "France 24"
     },
     "rfi": {
       "status": "ok",
-      "items": 6,
-      "ms": 5065,
+      "items": 4,
+      "ms": 5075,
       "nom": "RFI"
     },
     "nextink": {
       "status": "ok",
       "items": 3,
-      "ms": 6971,
+      "ms": 7249,
       "nom": "Next"
     },
     "korii": {
       "status": "ok",
       "items": 0,
-      "ms": 5285,
+      "ms": 5270,
       "nom": "Korii"
     },
     "marsactu": {
       "status": "ok",
       "items": 1,
-      "ms": 6918,
+      "ms": 6795,
       "nom": "Marsactu"
     },
     "usbek-rica": {
       "status": "ok",
       "items": 2,
-      "ms": 5926,
+      "ms": 5532,
       "nom": "Usbek & Rica"
     },
     "bon-pote": {
       "status": "ok",
       "items": 5,
-      "ms": 6591,
+      "ms": 6124,
       "nom": "Bon Pote"
     },
     "natura-sciences": {
       "status": "ok",
       "items": 0,
-      "ms": 8099,
+      "ms": 8830,
       "nom": "Natura Sciences"
     },
     "orient-xxi": {
       "status": "ok",
       "items": 0,
-      "ms": 6009,
+      "ms": 6019,
       "nom": "Orient XXI"
     },
     "lagedefaire": {
       "status": "ok",
       "items": 0,
-      "ms": 5944,
+      "ms": 6298,
       "nom": "L'Âge de Faire"
     },
     "lefigaro": {
       "status": "ok",
       "items": 3,
-      "ms": 5758,
+      "ms": 5916,
       "nom": "Le Figaro"
     },
     "lesechos": {
       "status": "ok",
       "items": 3,
-      "ms": 5830,
+      "ms": 6196,
       "nom": "Les Échos"
     },
     "ouest-france": {
       "status": "ok",
-      "items": 1,
-      "ms": 7787,
+      "items": 2,
+      "ms": 8832,
       "nom": "Ouest-France"
     },
     "20minutes": {
       "status": "ok",
-      "items": 2,
-      "ms": 5887,
+      "items": 1,
+      "ms": 6130,
       "nom": "20 Minutes"
     },
     "lopinion": {
       "status": "ok",
       "items": 4,
-      "ms": 6234,
+      "ms": 6650,
       "nom": "L'Opinion"
     },
     "challenges": {
       "status": "ok",
       "items": 1,
-      "ms": 6367,
+      "ms": 6557,
       "nom": "Challenges"
     },
     "atlantico": {
       "status": "ok",
       "items": 1,
-      "ms": 6400,
+      "ms": 6518,
       "nom": "Atlantico"
     },
     "agefi": {
       "status": "ok",
       "items": 0,
-      "ms": 6323,
+      "ms": 6618,
       "nom": "L'Agefi"
     },
     "valeursactuelles": {
       "status": "ok",
       "items": 2,
-      "ms": 6475,
+      "ms": 6496,
       "nom": "Valeurs Actuelles"
     },
     "causeur": {
       "status": "ok",
       "items": 0,
-      "ms": 6445,
+      "ms": 6755,
       "nom": "Causeur"
     },
     "frontieres": {
       "status": "ok",
       "items": 1,
-      "ms": 6157,
+      "ms": 6732,
       "nom": "Frontières (ex-Livre Noir)"
     },
     "lincorrect": {
       "status": "ok",
       "items": 1,
-      "ms": 6290,
+      "ms": 6564,
       "nom": "L'Incorrect"
     },
     "bvoltaire": {
       "status": "ok",
       "items": 2,
-      "ms": 6221,
+      "ms": 6487,
       "nom": "Boulevard Voltaire"
     },
     "elements": {
       "status": "ok",
       "items": 0,
-      "ms": 6302,
+      "ms": 6544,
       "nom": "Éléments"
     },
     "breizhinfo": {
       "status": "ok",
       "items": 2,
-      "ms": 6493,
+      "ms": 6424,
       "nom": "Breizh-Info"
     },
     "rts-info": {
       "status": "ok",
       "items": 2,
-      "ms": 5810,
+      "ms": 6950,
       "nom": "RTS Info"
     },
     "letemps": {
       "status": "ok",
       "items": 0,
-      "ms": 6459,
+      "ms": 6661,
       "nom": "Le Temps"
     },
     "radio-canada": {
       "status": "ok",
       "items": 2,
-      "ms": 7577,
+      "ms": 8512,
       "nom": "Radio-Canada"
     },
     "ledevoir": {
       "status": "ok",
       "items": 3,
-      "ms": 5860,
+      "ms": 6378,
       "nom": "Le Devoir"
     },
     "jeuneafrique": {
       "status": "ok",
       "items": 2,
-      "ms": 6551,
+      "ms": 6593,
       "nom": "Jeune Afrique"
     },
     "afriquexxi": {
       "status": "ok",
       "items": 0,
-      "ms": 6428,
+      "ms": 6669,
       "nom": "Afrique XXI"
     },
     "orientlejour": {
       "status": "ok",
-      "items": 0,
-      "ms": 6414,
+      "items": 1,
+      "ms": 6738,
       "nom": "L'Orient-Le Jour"
     },
     "tv5monde": {
       "status": "ok",
       "items": 2,
-      "ms": 7591,
+      "ms": 8498,
       "nom": "TV5MONDE Info"
     },
     "rfi-afrique": {
       "status": "ok",
       "items": 3,
-      "ms": 5902,
+      "ms": 6336,
       "nom": "RFI Afrique"
     },
     "france24-afrique": {
       "status": "ok",
       "items": 2,
-      "ms": 5964,
+      "ms": 6348,
       "nom": "France 24 Afrique"
     },
     "lemonde-afrique": {
       "status": "ok",
       "items": 7,
-      "ms": 6014,
+      "ms": 6470,
       "nom": "Le Monde Afrique"
     },
     "lemonde-international": {
       "status": "ok",
       "items": 5,
-      "ms": 5917,
+      "ms": 6499,
       "nom": "Le Monde International"
     },
     "bbc-news": {
       "status": "ok",
       "items": 1,
-      "ms": 5891,
+      "ms": 6410,
       "nom": "BBC News"
     },
     "guardian": {
       "status": "ok",
       "items": 3,
-      "ms": 5973,
+      "ms": 6573,
       "nom": "The Guardian"
     },
     "nyt": {
       "status": "ok",
-      "items": 3,
-      "ms": 6033,
+      "items": 2,
+      "ms": 6627,
       "nom": "The New York Times"
     },
     "washington-post": {
       "status": "ok",
       "items": 0,
-      "ms": 8139,
+      "ms": 8888,
       "nom": "Washington Post"
     },
     "aljazeera": {
       "status": "ok",
       "items": 1,
-      "ms": 6081,
+      "ms": 6646,
       "nom": "Al Jazeera English"
     },
     "reuters": {
       "status": "ok",
-      "items": 0,
-      "ms": 6578,
+      "items": 2,
+      "ms": 6996,
       "nom": "Reuters"
     },
     "bellingcat": {
       "status": "ok",
       "items": 0,
-      "ms": 6180,
+      "ms": 6761,
       "nom": "Bellingcat"
     },
     "theintercept": {
       "status": "ok",
       "items": 1,
-      "ms": 6168,
+      "ms": 6709,
       "nom": "The Intercept"
     },
     "propublica": {
       "status": "ok",
       "items": 0,
-      "ms": 6365,
+      "ms": 6962,
       "nom": "ProPublica"
     },
     "occrp": {
       "status": "ok",
       "items": 2,
-      "ms": 6251,
+      "ms": 7057,
       "nom": "OCCRP"
     },
     "newhumanitarian": {
       "status": "ok",
       "items": 0,
-      "ms": 6377,
+      "ms": 7181,
       "nom": "The New Humanitarian"
     },
     "forbiddenstories": {
       "status": "ok",
       "items": 0,
-      "ms": 7994,
+      "ms": 8874,
       "nom": "Forbidden Stories"
     },
     "transparency-intl": {
       "status": "ok",
-      "items": 8,
-      "ms": 8086,
+      "items": 9,
+      "ms": 8929,
       "nom": "Transparency International"
     },
     "access-info": {
       "status": "ok",
       "items": 0,
-      "ms": 7924,
+      "ms": 8948,
       "nom": "Access Info Europe"
     },
     "cnn": {
       "status": "ok",
       "items": 2,
-      "ms": 6500,
+      "ms": 7267,
       "nom": "CNN"
     },
     "npr": {
       "status": "ok",
       "items": 2,
-      "ms": 6338,
+      "ms": 7203,
       "nom": "NPR"
     },
     "politico-eu": {
       "status": "ok",
       "items": 0,
-      "ms": 6441,
+      "ms": 7185,
       "nom": "Politico Europe"
     },
     "euractiv": {
       "status": "ok",
       "items": 0,
-      "ms": 7933,
+      "ms": 8729,
       "nom": "Euractiv"
     },
     "opendemocracy": {
       "status": "ok",
       "items": 3,
-      "ms": 7533,
+      "ms": 8472,
       "nom": "openDemocracy"
     },
     "theconversation": {
       "status": "ok",
       "items": 5,
-      "ms": 6552,
+      "ms": 7365,
       "nom": "The Conversation"
     },
     "icij": {
       "status": "ok",
       "items": 0,
-      "ms": 6433,
+      "ms": 7453,
       "nom": "ICIJ"
     },
     "thebureau": {
       "status": "ok",
       "items": 0,
-      "ms": 8058,
+      "ms": 10059,
       "nom": "The Bureau of Investigative Journalism"
     },
     "themarkup": {
       "status": "ok",
       "items": 1,
-      "ms": 7239,
+      "ms": 7943,
       "nom": "The Markup"
     },
     "decodeurs": {
       "status": "ok",
       "items": 5,
-      "ms": 6702,
+      "ms": 7466,
       "nom": "Les Décodeurs (Le Monde)"
     },
     "checknews": {
       "status": "ok",
-      "items": 6,
-      "ms": 7077,
+      "items": 9,
+      "ms": 7925,
       "nom": "CheckNews (Libération)"
     },
     "fullfact": {
       "status": "ok",
       "items": 0,
-      "ms": 6996,
+      "ms": 8122,
       "nom": "Full Fact"
     },
     "politifact": {
       "status": "ok",
       "items": 1,
-      "ms": 8336,
+      "ms": 8887,
       "nom": "PolitiFact"
     },
     "snopes": {
       "status": "ok",
       "items": 13,
-      "ms": 6606,
+      "ms": 7576,
       "nom": "Snopes"
     },
     "rwlp": {
       "status": "ok",
       "items": 6,
-      "ms": 9716,
+      "ms": 10039,
       "nom": "RWLP"
     },
     "liguedh": {
       "status": "ok",
       "items": 20,
-      "ms": 6961,
+      "ms": 8046,
       "nom": "Ligue des Droits Humains"
     },
     "cumuleo": {
       "status": "ok",
       "items": 0,
-      "ms": 7212,
+      "ms": 8249,
       "nom": "Cumuleo"
     },
     "transparencia-be": {
       "status": "ok",
       "items": 20,
-      "ms": 7181,
+      "ms": 8108,
       "nom": "Transparencia.be"
     },
     "attac-be": {
       "status": "ok",
       "items": 0,
-      "ms": 6924,
+      "ms": 7928,
       "nom": "Attac Wallonie-Bruxelles"
     },
     "technopolice": {
       "status": "ok",
       "items": 0,
-      "ms": 6913,
+      "ms": 8121,
       "nom": "Technopolice"
     },
     "barricade": {
       "status": "ok",
       "items": 1,
-      "ms": 7044,
+      "ms": 7999,
       "nom": "Barricade (Liège)"
     },
     "laquadrature": {
       "status": "ok",
       "items": 3,
-      "ms": 7161,
+      "ms": 8126,
       "nom": "La Quadrature du Net"
     },
     "anticor": {
       "status": "ok",
       "items": 0,
-      "ms": 7241,
+      "ms": 8155,
       "nom": "Anticor"
     },
     "yt-viktorovitch": {
-      "status": "ok",
-      "items": 4,
-      "ms": 6799,
+      "status": "error",
+      "items": 0,
+      "ms": 7871,
+      "error": "HTTP 404",
       "nom": "Clément Viktorovitch (YouTube)"
     },
     "yt-hygiene-mentale": {
-      "status": "ok",
-      "items": 1,
-      "ms": 6804,
+      "status": "error",
+      "items": 0,
+      "ms": 7761,
+      "error": "HTTP 404",
       "nom": "Hygiène Mentale (YouTube)"
     },
     "yt-thinkerview": {
-      "status": "ok",
-      "items": 1,
-      "ms": 6829,
+      "status": "error",
+      "items": 0,
+      "ms": 7766,
+      "error": "HTTP 404",
       "nom": "Thinkerview (YouTube)"
     },
     "yt-osons-causer": {
       "status": "ok",
       "items": 0,
-      "ms": 7994,
+      "ms": 8074,
       "nom": "Osons Causer (YouTube)"
     },
     "yt-defakator": {
-      "status": "ok",
+      "status": "error",
       "items": 0,
-      "ms": 6811,
+      "ms": 7760,
+      "error": "HTTP 404",
       "nom": "Defakator (YouTube)"
     },
     "yt-lemedia": {
-      "status": "ok",
-      "items": 1,
-      "ms": 6822,
+      "status": "error",
+      "items": 0,
+      "ms": 7768,
+      "error": "HTTP 404",
       "nom": "Le Média (YouTube)"
     },
     "yt-stupid-eco": {
-      "status": "ok",
+      "status": "error",
       "items": 0,
-      "ms": 6839,
+      "ms": 7847,
+      "error": "HTTP 500",
       "nom": "Stupid Economics (YouTube)"
     },
     "yt-politikon": {
-      "status": "ok",
-      "items": 1,
-      "ms": 6680,
+      "status": "error",
+      "items": 0,
+      "ms": 7758,
+      "error": "HTTP 404",
       "nom": "Politikon (YouTube)"
     },
     "yt-hacking-social": {
-      "status": "ok",
+      "status": "error",
       "items": 0,
-      "ms": 6914,
+      "ms": 7759,
+      "error": "HTTP 404",
       "nom": "Hacking Social (YouTube)"
     },
     "yt-heureka": {
-      "status": "ok",
+      "status": "error",
       "items": 0,
-      "ms": 6865,
+      "ms": 7766,
+      "error": "HTTP 404",
       "nom": "Heu?reka (YouTube)"
     },
     "yt-elucid": {
-      "status": "ok",
+      "status": "error",
       "items": 0,
-      "ms": 6885,
+      "ms": 7841,
+      "error": "HTTP 500",
       "nom": "Élucid (YouTube)"
     },
     "yt-datagueule": {
-      "status": "ok",
+      "status": "error",
       "items": 0,
-      "ms": 6843,
+      "ms": 7841,
+      "error": "HTTP 500",
       "nom": "DataGueule (YouTube)"
     },
     "yt-troublefait": {
-      "status": "ok",
-      "items": 3,
-      "ms": 6731,
+      "status": "error",
+      "items": 0,
+      "ms": 7764,
+      "error": "HTTP 404",
       "nom": "Trouble Fait (YouTube)"
     },
     "yt-blast": {
-      "status": "ok",
-      "items": 2,
-      "ms": 6697,
+      "status": "error",
+      "items": 0,
+      "ms": 7760,
+      "error": "HTTP 404",
       "nom": "Blast (YouTube)"
     },
     "yt-monsieur-bidouille": {
       "status": "ok",
       "items": 0,
-      "ms": 7690,
+      "ms": 8345,
       "nom": "Monsieur Bidouille (YouTube)"
     },
     "yt-canard-refractaire": {
       "status": "ok",
       "items": 0,
-      "ms": 7764,
+      "ms": 8353,
       "nom": "Le Canard Réfractaire (YouTube)"
     },
     "gn-corruption-be": {
       "status": "ok",
-      "items": 16,
-      "ms": 7212,
+      "items": 17,
+      "ms": 8182,
       "nom": "🇧🇪 Corruption · Belgique"
     },
     "gn-transparence-be": {
       "status": "ok",
       "items": 9,
-      "ms": 7091,
+      "ms": 8023,
       "nom": "🇧🇪 Transparence · Belgique"
     },
     "gn-marches-publics-be": {
       "status": "ok",
       "items": 5,
-      "ms": 7081,
+      "ms": 8058,
       "nom": "🇧🇪 Marchés publics · Belgique"
     },
     "gn-lobbying-be": {
       "status": "ok",
-      "items": 12,
-      "ms": 7108,
+      "items": 11,
+      "ms": 8086,
       "nom": "🇧🇪 Lobbying · Belgique"
     },
     "gn-justice-be": {
       "status": "ok",
       "items": 0,
-      "ms": 7003,
+      "ms": 7980,
       "nom": "🇧🇪 Justice · Belgique"
     },
     "gn-politique-be": {
       "status": "ok",
-      "items": 11,
-      "ms": 7270,
+      "items": 12,
+      "ms": 8246,
       "nom": "🇧🇪 Politique · Belgique"
     },
     "gn-luttes-be": {
       "status": "ok",
       "items": 20,
-      "ms": 7289,
+      "ms": 8332,
       "nom": "🇧🇪 Luttes sociales · Belgique"
     },
     "gn-democratie-be": {
       "status": "ok",
       "items": 5,
-      "ms": 7046,
+      "ms": 8042,
       "nom": "🇧🇪 Démocratie · Belgique"
     },
     "gn-communes-be": {
       "status": "ok",
       "items": 3,
-      "ms": 7068,
+      "ms": 8129,
       "nom": "🇧🇪 Vie communale · Belgique"
     },
     "gn-charleroi-hainaut": {
       "status": "ok",
       "items": 1,
-      "ms": 7116,
+      "ms": 8288,
       "nom": "🇧🇪 Charleroi · Hainaut"
     },
     "gn-climat-be": {
       "status": "ok",
-      "items": 3,
-      "ms": 7126,
+      "items": 4,
+      "ms": 8190,
       "nom": "🇧🇪 Climat & environnement · Belgique"
     },
     "gn-corruption-fr": {
       "status": "ok",
       "items": 17,
-      "ms": 7342,
+      "ms": 8213,
       "nom": "🇫🇷 Corruption · France"
     },
     "gn-transparence-fr": {
       "status": "ok",
       "items": 19,
-      "ms": 7185,
+      "ms": 8261,
       "nom": "🇫🇷 Transparence · France"
     },
     "gn-marches-publics-fr": {
       "status": "ok",
       "items": 4,
-      "ms": 7234,
+      "ms": 8307,
       "nom": "🇫🇷 Marchés publics · France"
     },
     "gn-justice-fr": {
       "status": "ok",
       "items": 4,
-      "ms": 7255,
+      "ms": 8272,
       "nom": "🇫🇷 Justice · France"
     },
     "gn-luttes-fr": {
       "status": "ok",
       "items": 17,
-      "ms": 7331,
+      "ms": 8368,
       "nom": "🇫🇷 Luttes sociales · France"
     },
     "gn-democratie-fr": {
       "status": "ok",
       "items": 17,
-      "ms": 7321,
+      "ms": 8294,
       "nom": "🇫🇷 Démocratie · France"
     },
     "gn-corruption-int": {
       "status": "ok",
       "items": 15,
-      "ms": 7132,
+      "ms": 8157,
       "nom": "🌍 Corruption · International"
     },
     "gn-transparence-int": {
       "status": "ok",
       "items": 18,
-      "ms": 7242,
+      "ms": 8199,
       "nom": "🌍 Transparence · International"
     },
     "gn-democratie-int": {
       "status": "ok",
       "items": 15,
-      "ms": 7311,
+      "ms": 8249,
       "nom": "🌍 Démocratie · International"
     },
     "gn-luttes-int": {
       "status": "ok",
-      "items": 12,
-      "ms": 7300,
+      "items": 13,
+      "ms": 8315,
       "nom": "🌍 Luttes sociales · International"
     }
   }
