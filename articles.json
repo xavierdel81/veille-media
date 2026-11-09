@@ -1,27 +1,114 @@
 {
-  "generatedAt": "2026-11-08T21:04:09.508Z",
+  "generatedAt": "2026-11-09T01:33:31.264Z",
   "totalSources": 200,
-  "okSources": 141,
-  "koSources": 59,
-  "totalArticles": 3226,
+  "okSources": 86,
+  "koSources": 114,
+  "totalArticles": 3208,
   "themeCounts": {
-    "democratie": 2028,
+    "democratie": 2011,
+    "justice": 223,
+    "luttes-sociales": 1069,
+    "international": 654,
     "economie": 230,
     "tech-numerique": 112,
-    "auto-defense": 105,
-    "international": 657,
-    "luttes-sociales": 1067,
-    "education": 136,
+    "auto-defense": 103,
+    "education": 135,
     "sante": 34,
     "feminisme": 38,
-    "corruption": 191,
+    "corruption": 190,
     "immigration": 63,
-    "justice": 225,
     "culture": 56,
     "climat-environnement": 62,
     "transparence": 47
   },
   "articles": [
+    {
+      "title": "Essonne : Une députée LFI blessée par un tir de mortier dans un salon de coiffure",
+      "link": "https://www.20minutes.fr/societe/4261366-20261109-essonne-deputee-lfi-blessee-tir-mortier-salon-coiffure?at_medium=display&amp;at_campaign=149",
+      "description": "La députée de l’Essonne Farida Amrani dénonce une « attaque d’une extrême gravité ». Le parquet ne sait pas encore si l’élue était « personnellement visée »",
+      "pubDate": 1794183327000,
+      "sourceId": "20minutes",
+      "source": "20 Minutes",
+      "pays": "FR",
+      "langue": "fr",
+      "bord": "centre",
+      "themes": [
+        "democratie",
+        "justice"
+      ]
+    },
+    {
+      "title": "CNews : une pétition pour fermer la chaîne dépasse le million de signatures, les députés doivent décider mardi d’un éventuel débat à l’Assemblée",
+      "link": "https://www.lemonde.fr/actualite-medias/article/2026/11/08/cnews-une-petition-pour-fermer-la-chaine-depasse-le-million-de-signatures-les-deputes-doivent-decider-mardi-d-un-eventuel-debat-a-l-assemblee_6808472_3236.html",
+      "description": "La commission des affaires culturelles de l’Assemblée doit décider mardi de classer la pétition ou d’organiser un débat dans l’hémicycle, tandis qu’un syndicat du groupe Canal+ dénonce « les dérives » de la chaîne.",
+      "pubDate": 1794174201000,
+      "sourceId": "lemonde",
+      "source": "Le Monde",
+      "pays": "FR",
+      "langue": "fr",
+      "bord": "centre-gauche",
+      "themes": [
+        "democratie",
+        "luttes-sociales"
+      ]
+    },
+    {
+      "title": "Au Mississippi, l'élection du premier sénateur noir en près de 150 ans se fait encore attendre",
+      "link": "https://information.tv5monde.com/international/au-mississippi-lelection-du-premier-senateur-noir-en-pres-de-150-ans-se-fait-encore-attendre-2845108",
+      "description": "<p>Par AFP Par John FALCHETTO © 2026 AFP</p> <img src=\"https://information.tv5monde.com/sites/tv5-info/files/styles/rss/public/2026-11/field_media_image-3068587-f4809007dec116f38c4d11e5d3ca6f420383d4ba.jpg?h=9b8bd6ff\" width=\"752\" height=\"423\" alt=\"Combinaison de photos des deux c",
+      "pubDate": 1794174043000,
+      "sourceId": "tv5monde",
+      "source": "TV5MONDE Info",
+      "pays": "INT",
+      "langue": "fr",
+      "bord": "neutre",
+      "themes": [
+        "democratie",
+        "international"
+      ]
+    },
+    {
+      "title": "Une pétition appelant à fermer CNews atteint un million de signatures sur le site de l'Assemblée nationale",
+      "link": "https://www.lefigaro.fr/medias/une-petition-appelant-a-fermer-cnews-atteint-un-million-de-signatures-sur-le-site-de-l-assemblee-nationale-20261108",
+      "description": "La pétition sera examinée mardi en commission à l’Assemblée nationale. Les députés décideront alors de la classer sans suite ou d’organiser un débat sur le sujet.",
+      "pubDate": 1794172562000,
+      "sourceId": "lefigaro",
+      "source": "Le Figaro",
+      "pays": "FR",
+      "langue": "fr",
+      "bord": "droite",
+      "themes": [
+        "democratie"
+      ]
+    },
+    {
+      "title": "CNews : la pétition appelant à la fermeture de la chaîne dépasse le million de signatures",
+      "link": "https://www.france24.com/fr/france/20261108-cnews-la-p%C3%A9tition-appelant-%C3%A0-la-fermeture-de-la-cha%C3%AEne-d%C3%A9passe-le-million-de-signatures",
+      "description": "Lancée pour réclamer la suppression de CNews de l'audiovisuel français, une pétition a dépassé dimanche le million de signatures. Mardi, les députés doivent se prononcer sur la suite à donner à cette initiative : classement sans suite ou examen de la demande.",
+      "pubDate": 1794172321000,
+      "sourceId": "france24",
+      "source": "France 24",
+      "pays": "FR",
+      "langue": "fr",
+      "bord": "neutre",
+      "themes": [
+        "democratie"
+      ]
+    },
+    {
+      "title": "Présidentielle 2027 : Fabien Roussel ira « jusqu’au bout », malgré le ralliement de députés communistes à Mélenchon",
+      "link": "https://www.lemonde.fr/election-presidentielle-2027/article/2026/11/08/presidentielle-2027-fabien-roussel-ira-jusqu-au-bout-malgre-le-ralliement-de-deputes-communistes-a-melenchon_6808471_6205049.html",
+      "description": "Crédité de 2 % à 3 % des intentions de vote, le patron du Parti communiste français « regrette » le choix de neuf députés de son groupe et assure que le chef de file de La France Insoumise « ne gagnera jamais ».",
+      "pubDate": 1794171653000,
+      "sourceId": "lemonde",
+      "source": "Le Monde",
+      "pays": "FR",
+      "langue": "fr",
+      "bord": "centre-gauche",
+      "themes": [
+        "democratie"
+      ]
+    },
     {
       "title": "La pétition appelant à fermer la chaîne CNews a recueilli plus d'un million de signatures sur le site de l'Assemblée nationale",
       "link": "https://www.franceinfo.fr/economie/medias/la-petition-appelant-a-fermer-la-chaine-cnews-a-recueilli-plus-d-un-million-de-signatures-sur-le-site-de-l-assemblee-nationale_8273738.html#xtor=RSS-3-[lestitres]",
@@ -52,6 +139,20 @@
         "auto-defense",
         "democratie",
         "tech-numerique"
+      ]
+    },
+    {
+      "title": "Saint-Denis : rassemblement contre la « répression » au lycée Paul-Eluard, épicentre de la mobilisation lycéenne",
+      "link": "https://www.lemonde.fr/societe/article/2026/11/08/saint-denis-rassemblement-contre-la-repression-au-lycee-paul-eluard-epicentre-de-la-mobilisation-lyceenne_6808470_3224.html",
+      "description": "Soutenus par le maire LFI, Bally Bagayoko, quelques centaines de manifestants réclament le départ du proviseur, critiqué pour avoir fait intervenir la police dans l’établissement, et l’arrêt d’une enquête administrative visant des enseignants.",
+      "pubDate": 1794170954000,
+      "sourceId": "lemonde",
+      "source": "Le Monde",
+      "pays": "FR",
+      "langue": "fr",
+      "bord": "centre-gauche",
+      "themes": [
+        "luttes-sociales"
       ]
     },
     {
@@ -129,6 +230,20 @@
         "sante",
         "luttes-sociales",
         "feminisme"
+      ]
+    },
+    {
+      "title": "Le Mississippi pourrait élire son premier sénateur noir depuis la Reconstruction il y a 150 ans - Le Temps",
+      "link": "https://news.google.com/rss/articles/CBMizwFBVV95cUxPM21nQ0FFYjdyTDJBY2oyZlN1dnhEdEdBakJYSGszMHRrYU5rS2V3WTd0Q04tc1VNbVNoQkc1Q05KcXhKMnhPdWk5VzJYMUpOVmphR0h6akhXemthSjltekpsNjhFeUM5bUJlRVZZcmowMnc1Wm1qcjJVQTBHU1Z4T0N4elA5c1M2VFV5N3VvT2RNMU9tN2hnUkhkakdVSmtLQXZWRC1JaHRfc3l5WVpaTGNua1JIQ250cktQVUU4QkJyVGxqclNTWHR6eWFhdTA?oc=5",
+      "description": "<a href=\"https://news.google.com/rss/articles/CBMizwFBVV95cUxPM21nQ0FFYjdyTDJBY2oyZlN1dnhEdEdBakJYSGszMHRrYU5rS2V3WTd0Q04tc1VNbVNoQkc1Q05KcXhKMnhPdWk5VzJYMUpOVmphR0h6akhXemthSjltekpsNjhFeUM5bUJlRVZZcmowMnc1Wm1qcjJVQTBHU1Z4T0N4elA5c1M2VFV5N3VvT2RNMU9tN2hnUkhkakdVSmtLQXZWRC1JaHRfc3",
+      "pubDate": 1794163760000,
+      "sourceId": "letemps",
+      "source": "Le Temps",
+      "pays": "INT",
+      "langue": "fr",
+      "bord": "neutre",
+      "themes": [
+        "democratie"
       ]
     },
     {
@@ -367,6 +482,20 @@
       ]
     },
     {
+      "title": "«En résistant, j’ai réveillé les consciences»: aux Etats-Unis, les expulsions ont bouleversé le vote hispanique - Le Temps",
+      "link": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxQNnFVRjhyV2tRTlhOTzJiU09Ybm9vZ0hINllwaTVLeEs0S1Q4Z0ZvMHdSN1hONlRkX2h6Z0FMZ3VTcTY1Ml83WHZiZWRGLXhKeGI3UXFlRGE0alBlVDhpZzBnSGlSN3UwYTJta1N6WFlnU1BYR3VkLTNVSVNBSTBuSzc4MGFHMWFWSllLZWtLNTlVNmUzUmV6MjI2NS1JWlpGWVhSNS0tLWZHUXo3SGN1dzQyclRsVmM3bDdGbVI4SkI4OHMzeEREblN2dmlHLWNqdTMtdjc1S2p5MmVzcWc?oc=5",
+      "description": "<a href=\"https://news.google.com/rss/articles/CBMi3gFBVV95cUxQNnFVRjhyV2tRTlhOTzJiU09Ybm9vZ0hINllwaTVLeEs0S1Q4Z0ZvMHdSN1hONlRkX2h6Z0FMZ3VTcTY1Ml83WHZiZWRGLXhKeGI3UXFlRGE0alBlVDhpZzBnSGlSN3UwYTJta1N6WFlnU1BYR3VkLTNVSVNBSTBuSzc4MGFHMWFWSllLZWtLNTlVNmUzUmV6MjI2NS1JWlpGWVhSNS0tLWZHUX",
+      "pubDate": 1794159065000,
+      "sourceId": "letemps",
+      "source": "Le Temps",
+      "pays": "INT",
+      "langue": "fr",
+      "bord": "neutre",
+      "themes": [
+        "democratie"
+      ]
+    },
+    {
       "title": "Conférence sociale du 9 novembre : tout comprendre aux enjeux des discussions sur le Smic et le pouvoir d’achat",
       "link": "https://www.humanite.fr/social-et-economie/cfdt/conference-sociale-du-9-novembre-tout-comprendre-aux-enjeux-des-discussions-sur-le-smic-et-le-pouvoir-dachat",
       "description": "L’exécutif réunit syndicats et patronat ce lundi 9 novembre pour discuter Smic et pouvoir d’achat, quatre jours après la plus importante journée de mobilisation contre la vie chère. En cas d’absence d’avancée concrète, la colère populaire pourrait redoubler, alors que l’intersynd",
@@ -531,9 +660,9 @@
       "link": "https://www.lemonde.fr/international/article/2026/11/08/pays-bas-a-amsterdam-des-dizaines-de-milliers-de-personnes-manifestent-en-soutien-aux-palestiniens_6808452_3210.html",
       "description": "Selon les organisateurs de la manifestation, environ 200 000 personnes ont défilé pour réclamer des actions du gouvernement néerlandais à l’encontre d’Israël.",
       "pubDate": 1794155964000,
-      "sourceId": "lemonde",
-      "source": "Le Monde",
-      "pays": "FR",
+      "sourceId": "lemonde-international",
+      "source": "Le Monde International",
+      "pays": "INT",
       "langue": "fr",
       "bord": "centre-gauche",
       "themes": [
@@ -754,9 +883,9 @@
       "link": "https://www.lemonde.fr/international/article/2026/11/08/israel-gadi-eisenkot-officiellement-charge-de-former-un-nouveau-gouvernement-invite-le-likoud-de-benyamin-netanyahou-a-participer-a-une-coalition_6808446_3210.html",
       "description": "« Si les membres du Likoud et du Parti sioniste religieux [du ministre des finances sortant, Bezalel Smotrich] estiment sincèrement que l’heure est à l’unité (…), je ne vois aucune raison pour laquelle ils ne soutiendraient pas un gouvernement dirigé par moi et fondé sur les prin",
       "pubDate": 1794153289000,
-      "sourceId": "lemonde",
-      "source": "Le Monde",
-      "pays": "FR",
+      "sourceId": "lemonde-international",
+      "source": "Le Monde International",
+      "pays": "INT",
       "langue": "fr",
       "bord": "centre-gauche",
       "themes": [
@@ -46623,1594 +46752,1274 @@
       "themes": [
         "democratie"
       ]
-    },
-    {
-      "title": "Trump’s Election Attacks Enter New Pre-emptive Phase",
-      "link": "https://www.nytimes.com/2026/10/25/us/politics/trumps-election-alaska.html",
-      "description": "A lawsuit by the Justice Department challenging a potential narrow loss by the GOP Senate incumbent in Alaska reflects a new tactic by the president to try to shape the election results.",
-      "pubDate": 1792977141000,
-      "sourceId": "nyt",
-      "source": "The New York Times",
-      "pays": "INT",
-      "langue": "en",
-      "bord": "centre-gauche",
-      "themes": [
-        "democratie",
-        "justice"
-      ]
-    },
-    {
-      "title": "Netanyahu rival Eisenkot holds final rally before Israeli election",
-      "link": "https://www.aljazeera.com/video/newsfeed/2026/10/26/netanyahu-rival-eisenkot-holds-final-rally-before-israeli-election?traffic_source=rss",
-      "description": "Gadi Eisenkot, Benjamin Netanyahu’s rival in Israel’s upcoming election, held his final campaign rally on Sunday.",
-      "pubDate": 1792976577000,
-      "sourceId": "aljazeera",
-      "source": "Al Jazeera English",
-      "pays": "INT",
-      "langue": "en",
-      "bord": "neutre",
-      "themes": [
-        "democratie"
-      ]
-    },
-    {
-      "title": "Xi Jinping’s corruption crackdown in the spotlight as China prepares for meeting of top leaders",
-      "link": "https://www.theguardian.com/world/2026/oct/26/xi-jinping-corruption-crackdown-china-fifth-plenum",
-      "description": "<p>The fifth plenum comes against a backdrop of years of purges that have had some analysts wondering if the issue is corruption or a lack of loyalty</p><p>When Xi Jinping came to power in 2012, he pledged to stamp out corruption all through the ranks of the Communist party. More",
-      "pubDate": 1792976305000,
-      "sourceId": "guardian",
-      "source": "The Guardian",
-      "pays": "INT",
-      "langue": "en",
-      "bord": "centre-gauche",
-      "themes": [
-        "corruption"
-      ]
-    },
-    {
-      "title": "Serbia celebrates historic election win for student-backed movement",
-      "link": "https://www.aljazeera.com/video/newsfeed/2026/10/26/serbia-celebrates-historic-election-win-for-student-backed-movement?traffic_source=rss",
-      "description": "Celebrations erupted across Belgrade as Serbia's student-backed movement claimed a major election victory",
-      "pubDate": 1792976301000,
-      "sourceId": "aljazeera",
-      "source": "Al Jazeera English",
-      "pays": "INT",
-      "langue": "en",
-      "bord": "neutre",
-      "themes": [
-        "democratie"
-      ]
-    },
-    {
-      "title": "Brazil's left-wing President Lula elected for fourth term",
-      "link": "https://www.npr.org/2026/10/25/nx-s1-6016299/brazil-lula-bolsonaro-election",
-      "description": "Brazil's 80-year-old left-wing leader President Lula defeats Flávio Bolsonaro in a bitterly contested runoff.",
-      "pubDate": 1792974900000,
-      "sourceId": "npr",
-      "source": "NPR",
-      "pays": "INT",
-      "langue": "en",
-      "bord": "centre-gauche",
-      "themes": [
-        "democratie"
-      ]
-    },
-    {
-      "title": "Lula wins historic fourth term as Brazilian president in defeat of far-right Flávio Bolsonaro",
-      "link": "https://www.theguardian.com/world/2026/oct/26/lula-wins-brazil-election",
-      "description": "<p>Leftist incumbent Lula says unprecedented comeback was a ‘defeat for denialism’ as Bolsonaro refuses to accept election result</p><ul><li><p><a href=\"https://www.theguardian.com/world/live/2026/oct/25/brazil-election-runoff-live-updates-flavio-bolsonaro-lula\">Lula wins electio",
-      "pubDate": 1792973945000,
-      "sourceId": "guardian",
-      "source": "The Guardian",
-      "pays": "INT",
-      "langue": "en",
-      "bord": "centre-gauche",
-      "themes": [
-        "democratie"
-      ]
-    },
-    {
-      "title": "Lula holds off far right with victory in Brazil presidential election",
-      "link": "https://www.aljazeera.com/news/2026/10/26/lula-holds-off-far-right-with-victory-in-brazil-presidential-election?traffic_source=rss",
-      "description": "Leftist president mounts stunning comeback after unexpected first-round loss galvanised supporters of Flavio Bolsonaro.",
-      "pubDate": 1792973789000,
-      "sourceId": "aljazeera",
-      "source": "Al Jazeera English",
-      "pays": "INT",
-      "langue": "en",
-      "bord": "neutre",
-      "themes": [
-        "democratie"
-      ]
-    },
-    {
-      "title": "Brazil election 2026: Full second round results as Lula wins comeback against Flávio Bolsonaro",
-      "link": "https://www.theguardian.com/world/ng-interactive/2026/oct/25/brazil-election-2026-live-second-round-results",
-      "description": "<p>After a shock defeat in the first round, the incumbent Brazilian president, Luiz Inácio Lula da Silva,<strong> </strong>has turned the election around to win the runoff.</p><p><a href=\"https://www.theguardian.com/world/live/2026/oct/25/brazil-election-runoff-live-updates-flavi",
-      "pubDate": 1792973736000,
-      "sourceId": "guardian",
-      "source": "The Guardian",
-      "pays": "INT",
-      "langue": "en",
-      "bord": "centre-gauche",
-      "themes": [
-        "democratie"
-      ]
-    },
-    {
-      "title": "Brazil's Lula reelected president in runoff vote - Reuters",
-      "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQejBZNU9pVW5mLWs3YVoyWE1CZm9YdVhFUld3WHZSaWJrWlJ1SVFJNDFnRG5FRVNnVEVkOGZVMmY2RHdlcU45bGluZFpTZ3FlcXdqZGtmYW5oajNpTnhpVWZlN2tIWnRBdWFBcW9CbjdEREFnLVQ3YnV5WDgxdE0xNlR2SExJWWkyZzIxSWtCa1ZwRmdFMHhlYUp5Yw?oc=5",
-      "description": "<a href=\"https://news.google.com/rss/articles/CBMimwFBVV95cUxQejBZNU9pVW5mLWs3YVoyWE1CZm9YdVhFUld3WHZSaWJrWlJ1SVFJNDFnRG5FRVNnVEVkOGZVMmY2RHdlcU45bGluZFpTZ3FlcXdqZGtmYW5oajNpTnhpVWZlN2tIWnRBdWFBcW9CbjdEREFnLVQ3YnV5WDgxdE0xNlR2SExJWWkyZzIxSWtCa1ZwRmdFMHhlYUp5Yw?oc=5\" target=\"_blan",
-      "pubDate": 1792973580000,
-      "sourceId": "reuters",
-      "source": "Reuters",
-      "pays": "INT",
-      "langue": "en",
-      "bord": "neutre",
-      "themes": [
-        "democratie"
-      ]
-    },
-    {
-      "title": "Brésil: Lula réélu président contre toute attente, Flavio Bolsonaro veut l'annulation du scrutin",
-      "link": "https://www.rfi.fr/fr/am%C3%A9riques/20261026-lula-bat-flavio-bolsonaro-et-est-r%C3%A9%C3%A9lu-pr%C3%A9sident-du-br%C3%A9sil",
-      "description": "Luiz Inácio Lula da Silva a été réélu président du Brésil pour quatre ans ce dimanche 25 octobre. Dans un vote très serré, le candidat de gauche, qui briguait un quatrième mandat non consécutif, bat son adversaire d’extrême droite Flavio Bolsonaro. Avec 51,79 % des voix contre 48",
-      "pubDate": 1792973483000,
-      "sourceId": "rfi",
-      "source": "RFI",
-      "pays": "FR",
-      "langue": "fr",
-      "bord": "neutre",
-      "themes": [
-        "democratie"
-      ]
-    },
-    {
-      "title": "Présidentielle au Brésil : reprise du dépouillement, duel serré entre Lula et Bolsonaro",
-      "link": "https://ici.radio-canada.ca/nouvelle/2295667/elections-bresil-lula-flavio-bolsonaro-presidentielle",
-      "description": "La Cour suprême avait ordonné, plus tôt, le prolongement de deux heures de l'ouverture des bureaux de vote.",
-      "pubDate": 1792972516000,
-      "sourceId": "radio-canada",
-      "source": "Radio-Canada",
-      "pays": "INT",
-      "langue": "fr",
-      "bord": "neutre",
-      "themes": [
-        "democratie"
-      ]
-    },
-    {
-      "title": "Reactions to election victory of Serbia's Student List - Reuters",
-      "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxNZFFtSkZDaktTdnFfWEY2d3JHRlVJbU1GT2cyN054TmtlWXd0VmNha1B6NHp4M2l4Wjd5T2hTaVFuNGxJZllacHFKbkR1THpqYktzYUZkQ3VENDNCdjRjSHVoUUZrOHBkbUM3dVc1NGZaR2ZJTWtlU0ZjREV0QkJ3cENMc2ZONXp5Qng1NzRsdzEwMlk?oc=5",
-      "description": "<a href=\"https://news.google.com/rss/articles/CBMikwFBVV95cUxNZFFtSkZDaktTdnFfWEY2d3JHRlVJbU1GT2cyN054TmtlWXd0VmNha1B6NHp4M2l4Wjd5T2hTaVFuNGxJZllacHFKbkR1THpqYktzYUZkQ3VENDNCdjRjSHVoUUZrOHBkbUM3dVc1NGZaR2ZJTWtlU0ZjREV0QkJ3cENMc2ZONXp5Qng1NzRsdzEwMlk?oc=5\" target=\"_blank\">Reaction",
-      "pubDate": 1792972318000,
-      "sourceId": "reuters",
-      "source": "Reuters",
-      "pays": "INT",
-      "langue": "en",
-      "bord": "neutre",
-      "themes": [
-        "democratie"
-      ]
-    },
-    {
-      "title": "Référendum en Alberta : le dépouillement est terminé, la vérification est en cours",
-      "link": "https://ici.radio-canada.ca/nouvelle/2295730/referendum-alberta-resultat-verification",
-      "description": "Les résultats officiels du scrutin albertain seront publiés le jeudi 29 octobre.",
-      "pubDate": 1792971975000,
-      "sourceId": "radio-canada",
-      "source": "Radio-Canada",
-      "pays": "INT",
-      "langue": "fr",
-      "bord": "neutre",
-      "themes": [
-        "democratie",
-        "auto-defense",
-        "education"
-      ]
-    },
-    {
-      "title": "RD Congo : la proposition de loi fixant les conditions d’organisation du référendum adoptée",
-      "link": "https://www.france24.com/fr/%C3%A9missions/journal-de-l-afrique/20261025-rd-congo-la-proposition-de-loi-fixant-les-conditions-d-organisation-du-r%C3%A9f%C3%A9rendum-adopt%C3%A9e",
-      "description": "En RD Congo, l’Assemblée nationale adopte à nouveau la proposition de loi fixant les conditions d’organisation du référendum. Un texte qui encadre notamment la possibilité de réviser la Constitution ou d’en adopter une nouvelle. L’opposition dénonce une manœuvre qui pourrait ouvr",
-      "pubDate": 1792969751000,
-      "sourceId": "france24-afrique",
-      "source": "France 24 Afrique",
-      "pays": "INT",
-      "langue": "fr",
-      "bord": "neutre",
-      "themes": [
-        "democratie"
-      ]
-    },
-    {
-      "title": "Élections législatives en Israël: le vote des colons israéliens en Cisjordanie occupée",
-      "link": "https://www.rfi.fr/fr/podcasts/reportage-international/20261025-elections-l%C3%A9gislatives-en-israel-le-vote-des-colons-isra%C3%A9liens-en-cisjordanie-occup%C3%A9e",
-      "description": "Mardi 27 octobre, des élections législatives se tiendront en Israël. En Cisjordanie occupée, où vivent plus d’un demi-million d’Israéliens installés dans des colonies illégales au regard du droit international, beaucoup se définissent comme « sionistes religieux ». Les partis qui",
-      "pubDate": 1792969669000,
-      "sourceId": "rfi",
-      "source": "RFI",
-      "pays": "FR",
-      "langue": "fr",
-      "bord": "neutre",
-      "themes": [
-        "international",
-        "democratie"
-      ]
-    },
-    {
-      "title": "Belgrade in rapture as Serbian students topple Vucic in historic election - Reuters",
-      "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNaDU5OF9aQ3E2dTNHOFJTREhlbTdKc2pnSkx6Smd0eC1OYzVYc293MVpLNzBrYWZfcnd2VG9rZW9RQVVSQktWNlpYOEdmSEFSS2l0dzBsSHNtLWxBTnZHeThBdWJNOVZwUy1HY1RGRGU5WVZmTzExSklDNkVJb3JYdDAtSF9LX3V6Y1BQOHVwb1l0WXJHdlRqelVubTdrdTZBN1QxZWNXUThwZw?oc=5",
-      "description": "<a href=\"https://news.google.com/rss/articles/CBMiqgFBVV95cUxNaDU5OF9aQ3E2dTNHOFJTREhlbTdKc2pnSkx6Smd0eC1OYzVYc293MVpLNzBrYWZfcnd2VG9rZW9RQVVSQktWNlpYOEdmSEFSS2l0dzBsSHNtLWxBTnZHeThBdWJNOVZwUy1HY1RGRGU5WVZmTzExSklDNkVJb3JYdDAtSF9LX3V6Y1BQOHVwb1l0WXJHdlRqelVubTdrdTZBN1QxZWNXUThwZw",
-      "pubDate": 1792969304000,
-      "sourceId": "reuters",
-      "source": "Reuters",
-      "pays": "INT",
-      "langue": "en",
-      "bord": "neutre",
-      "themes": [
-        "democratie"
-      ]
-    },
-    {
-      "title": "Does Poland allow border guards to shoot at migrants? Here's what the law says",
-      "link": "https://www.snopes.com/fact-check/poland-border-guards-migrants/",
-      "description": "A headline about Polish legislation passed in 2024 recently resurfaced online.",
-      "pubDate": 1792969200000,
-      "sourceId": "snopes",
-      "source": "Snopes",
-      "pays": "INT",
-      "langue": "en",
-      "bord": "neutre",
-      "themes": [
-        "auto-defense"
-      ]
-    },
-    {
-      "title": "Sénégal: un nouveau bras de fer annoncé à l’Assemblée nationale entre le gouvernement et le Pastef",
-      "link": "https://www.rfi.fr/fr/afrique/20261025-s%C3%A9n%C3%A9gal-un-nouveau-bras-de-fer-annonc%C3%A9-%C3%A0-l-assembl%C3%A9e-nationale-entre-le-gouvernement-et-le-pastef",
-      "description": "Au Sénégal, à la veille de la plénière sur la loi de finances rectificative, le gouvernement sénégalais et le parti d’opposition Pastef, qui détient la majorité des sièges, campent sur leurs positions. Rejeté ce vendredi 23 octobre en commission, le texte risque de l’être à nouve",
-      "pubDate": 1792969087000,
-      "sourceId": "rfi-afrique",
-      "source": "RFI Afrique",
-      "pays": "INT",
-      "langue": "fr",
-      "bord": "neutre",
-      "themes": [
-        "democratie"
-      ]
-    },
-    {
-      "title": "Bulgaria election heads to a run-off amid low voter turnout",
-      "link": "https://www.aljazeera.com/news/2026/10/25/bulgaria-election-heads-to-a-run-off-amid-low-voter-turnout?traffic_source=rss",
-      "description": "Bulgarians will now choose between President Iliana Yotova and former caretaker Prime Minister Andrey Gyurov next week.",
-      "pubDate": 1792969037000,
-      "sourceId": "aljazeera",
-      "source": "Al Jazeera English",
-      "pays": "INT",
-      "langue": "en",
-      "bord": "neutre",
-      "themes": [
-        "democratie"
-      ]
-    },
-    {
-      "title": "Anthropic's Claude accessed Georgia state vote count data behind paywall - Reuters",
-      "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxNX1p1a2NSeGhUY0p3Q2JMNzRPTmN6SjNWRFRNNlE0bXlnYzFxYWFWdTlfM2xPX0FTZlNWUlF6TUVOakxlMEhSUzhsQi0xWG9TVUhaWlVvbDVkbWVXOV9vLTZ1d2xGRFNWTWQtNi13MzhqTDBYSlVjb2pZQVJCS1hUTUZTR1U4U0JSUGctdGlsR21XVHlYaWxLWThLa19QQ3BGSTlYZGR1c3l1aldIbjE0M1IzY1NZeXNSazRR?oc=5",
-      "description": "<a href=\"https://news.google.com/rss/articles/CBMiuwFBVV95cUxNX1p1a2NSeGhUY0p3Q2JMNzRPTmN6SjNWRFRNNlE0bXlnYzFxYWFWdTlfM2xPX0FTZlNWUlF6TUVOakxlMEhSUzhsQi0xWG9TVUhaWlVvbDVkbWVXOV9vLTZ1d2xGRFNWTWQtNi13MzhqTDBYSlVjb2pZQVJCS1hUTUZTR1U4U0JSUGctdGlsR21XVHlYaWxLWThLa19QQ3BGSTlYZGR1c3l1al",
-      "pubDate": 1792968480000,
-      "sourceId": "reuters",
-      "source": "Reuters",
-      "pays": "INT",
-      "langue": "en",
-      "bord": "neutre",
-      "themes": [
-        "democratie"
-      ]
-    },
-    {
-      "title": "C.-B. : le nouveau premier ministre conservateur dévoile ses priorités pour ses 100 premiers jours",
-      "link": "https://ici.radio-canada.ca/nouvelle/2295715/lornedoerkson-conservateur-colombiebritannique-gouvernement-mandat",
-      "description": "Le premier ministre désigné de la Colombie-Britannique table sur la santé et l’économie de la province.",
-      "pubDate": 1792968167000,
-      "sourceId": "radio-canada",
-      "source": "Radio-Canada",
-      "pays": "INT",
-      "langue": "fr",
-      "bord": "neutre",
-      "themes": [
-        "democratie"
-      ]
-    },
-    {
-      "title": "Deeply divided Israel braces for pivotal election",
-      "link": "https://www.bbc.co.uk/news/articles/ckpdgy6pl7xlo?at_medium=RSS&amp;at_campaign=rss",
-      "description": "After three years of regional war, this is a battle Israel always knew was coming, writes Lucy Williamson.",
-      "pubDate": 1792966273000,
-      "sourceId": "bbc-news",
-      "source": "BBC News",
-      "pays": "INT",
-      "langue": "en",
-      "bord": "neutre",
-      "themes": [
-        "international",
-        "democratie"
-      ]
-    },
-    {
-      "title": "En Serbie, le nationaliste Aleksandar Vucic reconnaît sa défaite aux législatives",
-      "link": "https://ici.radio-canada.ca/nouvelle/2295657/serbie-elections-etudiants-vucic",
-      "description": "Après avoir organisé des manifestations pendant deux ans, le mouvement étudiant a remporté le scrutin.",
-      "pubDate": 1792966201000,
-      "sourceId": "radio-canada",
-      "source": "Radio-Canada",
-      "pays": "INT",
-      "langue": "fr",
-      "bord": "neutre",
-      "themes": [
-        "democratie"
-      ]
-    },
-    {
-      "title": "Why Israel's election is one of the most important in its history",
-      "link": "https://www.bbc.co.uk/news/videos/c64g1wje3jjwo?at_medium=RSS&amp;at_campaign=rss",
-      "description": "Security and democracy emerge as central issues in Israel's highly anticipated general election, as Middle East correspondent Lucy Williamson reports.",
-      "pubDate": 1792965930000,
-      "sourceId": "bbc-news",
-      "source": "BBC News",
-      "pays": "INT",
-      "langue": "en",
-      "bord": "neutre",
-      "themes": [
-        "democratie",
-        "international"
-      ]
-    },
-    {
-      "title": "US Attorney General Todd Blanche defends Alaska Senate election lawsuit",
-      "link": "https://www.aljazeera.com/news/2026/10/25/us-attorney-general-todd-blanche-defends-alaska-senate-election-lawsuit?traffic_source=rss",
-      "description": "The Department of Justice has faced criticism that its lawsuit is aimed at blocking a Democratic victory in a key race.",
-      "pubDate": 1792964470000,
-      "sourceId": "aljazeera",
-      "source": "Al Jazeera English",
-      "pays": "INT",
-      "langue": "en",
-      "bord": "neutre",
-      "themes": [
-        "democratie",
-        "justice"
-      ]
-    },
-    {
-      "title": "Brésil: la justice prolonge le vote au second tour entre Lula et Bolsonaro",
-      "link": "https://www.lefigaro.fr/international/des-electeurs-sont-empeches-de-voter-faute-de-bus-dans-plusieurs-villes-du-bresil-denonce-lula-20261025",
-      "description": "Lula a accusé plusieurs autorités locales de limiter l’accès aux urnes en réduisant les transports en commun. Le camp Bolsonaro a lui aussi saisi la justice, invoquant les fortes pluies qui touchaient certaines régions.",
-      "pubDate": 1792962620000,
-      "sourceId": "lefigaro",
-      "source": "Le Figaro",
-      "pays": "FR",
-      "langue": "fr",
-      "bord": "droite",
-      "themes": [
-        "justice",
-        "democratie",
-        "international"
-      ]
-    },
-    {
-      "title": "Présidentielle au Brésil : après des problèmes de transport public, le vote est prolongé de deux heures",
-      "link": "https://www.ouest-france.fr/monde/bresil/presidentielle-au-bresil-apres-des-problemes-de-transport-public-le-vote-est-prolonge-de-deux-heures-45a80584-d0b0-11f1-95ba-26d2045f6620?utm_source=fluxpublicactu&amp;utm_medium=fluxrss&amp;utm_campaign=banquedecontenu",
-      "description": "Les deux candidats à l’élection présidentielle du Brésil ont tous deux émis des requêtes pour demander la prolongation de l’ouverture des bureaux de vote. Le dépouillement ne débutera qu’à 23 h, heure française.",
-      "pubDate": 1792962584000,
-      "sourceId": "ouest-france",
-      "source": "Ouest-France",
-      "pays": "FR",
-      "langue": "fr",
-      "bord": "centre",
-      "themes": [
-        "democratie"
-      ]
     }
   ],
   "feedStatus": {
     "le-soir": {
       "status": "ok",
       "items": 1,
-      "ms": 667,
+      "ms": 639,
       "nom": "Le Soir"
     },
     "rtbf-info": {
       "status": "ok",
       "items": 4,
-      "ms": 938,
+      "ms": 904,
       "nom": "RTBF Info"
     },
     "rtbf-belgique": {
-      "status": "ok",
-      "items": 3,
-      "ms": 7158,
+      "status": "error",
+      "items": 0,
+      "ms": 10491,
+      "error": "fetch failed: fetch failed",
       "nom": "RTBF Belgique"
     },
     "rtbf-monde": {
-      "status": "ok",
-      "items": 4,
-      "ms": 7029,
+      "status": "error",
+      "items": 0,
+      "ms": 10490,
+      "error": "fetch failed: fetch failed",
       "nom": "RTBF Monde"
     },
     "rtbf-investig": {
       "status": "ok",
       "items": 1,
-      "ms": 2209,
+      "ms": 2252,
       "nom": "RTBF Investigation"
     },
     "rtbf-factcheck": {
       "status": "ok",
       "items": 4,
-      "ms": 2040,
+      "ms": 1575,
       "nom": "RTBF Fact-checking"
     },
     "rtbf-eco": {
       "status": "ok",
       "items": 1,
-      "ms": 2151,
+      "ms": 1811,
       "nom": "RTBF Économie"
     },
     "levif": {
       "status": "ok",
       "items": 3,
-      "ms": 1746,
+      "ms": 3099,
       "nom": "Le Vif"
     },
     "medor": {
       "status": "ok",
       "items": 9,
-      "ms": 1191,
+      "ms": 1081,
       "nom": "Médor"
     },
     "alterechos": {
       "status": "ok",
       "items": 5,
-      "ms": 6754,
+      "ms": 11283,
       "nom": "Alter Échos"
     },
     "axelle": {
       "status": "ok",
       "items": 0,
-      "ms": 837,
+      "ms": 1039,
       "nom": "Axelle Magazine"
     },
     "imagine": {
       "status": "ok",
       "items": 0,
-      "ms": 822,
+      "ms": 1091,
       "nom": "Imagine Demain le monde"
     },
     "tchak": {
       "status": "ok",
       "items": 2,
-      "ms": 2283,
+      "ms": 3104,
       "nom": "Tchak"
     },
     "wilfried": {
       "status": "ok",
       "items": 0,
-      "ms": 1381,
+      "ms": 2687,
       "nom": "Wilfried"
     },
     "stuut": {
       "status": "ok",
       "items": 1,
-      "ms": 1087,
+      "ms": 1576,
       "nom": "Le Stuut"
     },
     "chronik": {
       "status": "ok",
       "items": 0,
-      "ms": 1144,
+      "ms": 1514,
       "nom": "Chronik.be"
     },
     "agirparculture": {
       "status": "ok",
       "items": 1,
-      "ms": 1157,
+      "ms": 1561,
       "nom": "Agir par la Culture"
     },
     "rcf": {
       "status": "ok",
       "items": 1,
-      "ms": 7362,
+      "ms": 12763,
       "nom": "RCF"
     },
     "matribune": {
       "status": "ok",
       "items": 2,
-      "ms": 2507,
+      "ms": 2433,
       "nom": "Ma Tribune"
     },
     "pourpress": {
       "status": "ok",
       "items": 6,
-      "ms": 5144,
+      "ms": 4678,
       "nom": "Pour.press"
     },
     "solidaire": {
       "status": "ok",
       "items": 0,
-      "ms": 1367,
+      "ms": 1878,
       "nom": "Solidaire (PTB)"
     },
     "pan-be": {
       "status": "ok",
       "items": 0,
-      "ms": 1417,
+      "ms": 1865,
       "nom": "PAN.be (satirique)"
     },
     "kairos": {
       "status": "ok",
       "items": 1,
-      "ms": 1445,
+      "ms": 1904,
       "nom": "Kairos Presse"
     },
     "bruxelles-devie": {
       "status": "ok",
       "items": 4,
-      "ms": 1453,
+      "ms": 1997,
       "nom": "Bruxelles Dévie"
     },
     "gauche-anticapitaliste": {
       "status": "ok",
       "items": 0,
-      "ms": 1433,
+      "ms": 1890,
       "nom": "Gauche Anticapitaliste"
     },
     "radio-air-libre": {
       "status": "ok",
       "items": 0,
-      "ms": 1304,
+      "ms": 1858,
       "nom": "Radio Air Libre"
     },
     "xr-belgique": {
       "status": "ok",
       "items": 0,
-      "ms": 1628,
+      "ms": 1957,
       "nom": "Extinction Rebellion BE"
     },
     "telesambre": {
       "status": "ok",
       "items": 0,
-      "ms": 1401,
+      "ms": 1929,
       "nom": "Télésambre (Charleroi)"
     },
     "antennecentre": {
       "status": "ok",
       "items": 0,
-      "ms": 1333,
+      "ms": 1882,
       "nom": "Antenne Centre (La Louvière)"
     },
     "notele": {
       "status": "ok",
-      "items": 1,
-      "ms": 1493,
+      "items": 0,
+      "ms": 2110,
       "nom": "Notélé (Tournai)"
     },
     "bx1": {
       "status": "ok",
       "items": 1,
-      "ms": 1472,
+      "ms": 1968,
       "nom": "BX1 (Bruxelles)"
     },
     "rtc-liege": {
       "status": "ok",
       "items": 0,
-      "ms": 1273,
+      "ms": 1838,
       "nom": "RTC Télé Liège"
     },
     "matele": {
       "status": "ok",
       "items": 0,
-      "ms": 1375,
+      "ms": 1911,
       "nom": "Matele (Namur)"
     },
     "tvlux": {
       "status": "ok",
       "items": 0,
-      "ms": 1481,
+      "ms": 1946,
       "nom": "TV Lux (Luxembourg)"
     },
     "tvcom": {
       "status": "ok",
       "items": 0,
-      "ms": 1419,
+      "ms": 1988,
       "nom": "TVCom (Brabant wallon)"
     },
     "vedia": {
       "status": "ok",
       "items": 0,
-      "ms": 1457,
+      "ms": 1961,
       "nom": "Vedia (Verviers)"
     },
     "dh-liege": {
       "status": "ok",
       "items": 0,
-      "ms": 1546,
+      "ms": 2055,
       "nom": "DH Liège"
     },
     "sudinfo-hainaut": {
       "status": "ok",
-      "items": 1,
-      "ms": 1605,
+      "items": 2,
+      "ms": 2188,
       "nom": "Sudinfo Hainaut"
     },
     "lalibre": {
       "status": "ok",
       "items": 0,
-      "ms": 1533,
+      "ms": 2021,
       "nom": "La Libre Belgique"
     },
     "lecho": {
       "status": "ok",
       "items": 1,
-      "ms": 1654,
+      "ms": 2156,
       "nom": "L'Écho"
     },
     "lavenir": {
       "status": "ok",
       "items": 0,
-      "ms": 1582,
+      "ms": 2003,
       "nom": "L'Avenir"
     },
     "dhnet": {
       "status": "ok",
       "items": 1,
-      "ms": 1513,
+      "ms": 2083,
       "nom": "DH Les Sports+"
     },
     "de-standaard": {
       "status": "ok",
       "items": 0,
-      "ms": 6460,
+      "ms": 11577,
       "nom": "De Standaard"
     },
     "de-morgen": {
       "status": "ok",
       "items": 0,
-      "ms": 1502,
+      "ms": 2474,
       "nom": "De Morgen"
     },
     "knack": {
       "status": "ok",
       "items": 0,
-      "ms": 4372,
+      "ms": 5780,
       "nom": "Knack"
     },
     "vrt-nws": {
       "status": "ok",
       "items": 0,
-      "ms": 1550,
+      "ms": 2111,
       "nom": "VRT NWS"
     },
     "bruzz": {
       "status": "ok",
       "items": 0,
-      "ms": 2005,
+      "ms": 2361,
       "nom": "BRUZZ"
     },
     "apache": {
       "status": "ok",
       "items": 0,
-      "ms": 2211,
+      "ms": 2764,
       "nom": "Apache"
     },
     "rektoverso": {
       "status": "ok",
       "items": 0,
-      "ms": 2221,
+      "ms": 2632,
       "nom": "Rekto:Verso"
     },
     "hln": {
       "status": "ok",
-      "items": 0,
-      "ms": 2321,
+      "items": 1,
+      "ms": 2874,
       "nom": "Het Laatste Nieuws"
     },
     "nieuwsblad": {
       "status": "ok",
       "items": 0,
-      "ms": 6867,
+      "ms": 11651,
       "nom": "Het Nieuwsblad"
     },
     "detijd": {
       "status": "ok",
       "items": 0,
-      "ms": 2282,
+      "ms": 2912,
       "nom": "De Tijd"
     },
     "basta": {
       "status": "ok",
       "items": 3,
-      "ms": 2533,
+      "ms": 3105,
       "nom": "Basta!"
     },
     "acrimed": {
       "status": "ok",
       "items": 3,
-      "ms": 3078,
+      "ms": 3142,
       "nom": "Acrimed"
     },
     "arretsurimages": {
       "status": "ok",
       "items": 1,
-      "ms": 2504,
+      "ms": 2895,
       "nom": "Arrêt sur images"
     },
     "aoc": {
       "status": "ok",
       "items": 3,
-      "ms": 3126,
+      "ms": 3448,
       "nom": "AOC"
     },
     "ballast": {
       "status": "ok",
       "items": 2,
-      "ms": 3792,
+      "ms": 3794,
       "nom": "Ballast"
     },
     "blast": {
       "status": "ok",
       "items": 3,
-      "ms": 3167,
+      "ms": 3391,
       "nom": "Blast"
     },
     "mediapart": {
       "status": "ok",
       "items": 2,
-      "ms": 2930,
+      "ms": 3401,
       "nom": "Mediapart"
     },
     "reflets": {
       "status": "ok",
       "items": 2,
-      "ms": 7308,
+      "ms": 12069,
       "nom": "Reflets.info"
     },
     "monde-diplo": {
       "status": "ok",
-      "items": 2,
-      "ms": 7072,
+      "items": 1,
+      "ms": 11752,
       "nom": "Le Monde diplomatique"
     },
     "reporterre": {
       "status": "ok",
       "items": 2,
-      "ms": 3741,
+      "ms": 3917,
       "nom": "Reporterre"
     },
     "disclose": {
       "status": "ok",
       "items": 4,
-      "ms": 5151,
+      "ms": 4669,
       "nom": "Disclose"
     },
     "lesjours": {
       "status": "ok",
       "items": 1,
-      "ms": 4071,
+      "ms": 3771,
       "nom": "Les Jours"
     },
     "fakir": {
       "status": "ok",
       "items": 0,
-      "ms": 3589,
+      "ms": 3879,
       "nom": "Fakir"
     },
     "lemedia": {
       "status": "ok",
-      "items": 3,
-      "ms": 3846,
+      "items": 2,
+      "ms": 3932,
       "nom": "Le Média"
     },
     "auposte": {
       "status": "ok",
       "items": 2,
-      "ms": 8442,
+      "ms": 12926,
       "nom": "Au Poste"
     },
     "contretemps": {
       "status": "ok",
       "items": 3,
-      "ms": 5648,
+      "ms": 6222,
       "nom": "Contretemps"
     },
     "cqfd": {
       "status": "ok",
       "items": 0,
-      "ms": 5173,
+      "ms": 14021,
       "nom": "CQFD"
     },
     "bondyblog": {
       "status": "ok",
       "items": 2,
-      "ms": 4433,
+      "ms": 4384,
       "nom": "Bondy Blog"
     },
     "labreche": {
       "status": "ok",
       "items": 0,
-      "ms": 5638,
+      "ms": 5089,
       "nom": "La Brèche"
     },
     "lecri": {
       "status": "ok",
       "items": 2,
-      "ms": 4974,
+      "ms": 4778,
       "nom": "Le Cri"
     },
     "fracas": {
       "status": "ok",
       "items": 4,
-      "ms": 6978,
+      "ms": 11911,
       "nom": "Fracas"
     },
     "climax": {
       "status": "ok",
       "items": 0,
-      "ms": 4552,
+      "ms": 4575,
       "nom": "Climax"
     },
     "deferlante": {
       "status": "ok",
       "items": 0,
-      "ms": 4512,
+      "ms": 4528,
       "nom": "La Déferlante"
     },
     "politis": {
       "status": "ok",
       "items": 5,
-      "ms": 4822,
+      "ms": 4650,
       "nom": "Politis"
     },
     "regards": {
       "status": "ok",
       "items": 5,
-      "ms": 5029,
+      "ms": 5004,
       "nom": "Regards"
     },
     "frustration": {
       "status": "ok",
       "items": 3,
-      "ms": 7039,
+      "ms": 12074,
       "nom": "Frustration Magazine"
     },
     "lvsl": {
       "status": "ok",
       "items": 5,
-      "ms": 4407,
+      "ms": 4618,
       "nom": "Le Vent Se Lève"
     },
     "streetpress": {
       "status": "ok",
       "items": 0,
-      "ms": 4894,
+      "ms": 5045,
       "nom": "StreetPress"
     },
     "lutteouvriere": {
       "status": "ok",
       "items": 3,
-      "ms": 4884,
+      "ms": 4965,
       "nom": "Lutte Ouvrière"
     },
     "revpermanente": {
       "status": "ok",
       "items": 14,
-      "ms": 4762,
+      "ms": 5010,
       "nom": "Révolution Permanente"
     },
     "surligneurs": {
       "status": "ok",
       "items": 5,
-      "ms": 7681,
+      "ms": 12612,
       "nom": "Les Surligneurs"
     },
     "alt-eco": {
       "status": "ok",
       "items": 4,
-      "ms": 4909,
+      "ms": 4892,
       "nom": "Alternatives Économiques"
     },
     "grandcontinent": {
       "status": "ok",
       "items": 1,
-      "ms": 4704,
+      "ms": 4932,
       "nom": "Le Grand Continent"
     },
     "lemonde": {
       "status": "ok",
       "items": 4,
-      "ms": 4537,
+      "ms": 4832,
       "nom": "Le Monde"
     },
     "francetvinfo": {
       "status": "ok",
       "items": 5,
-      "ms": 7018,
+      "ms": 11835,
       "nom": "France Info"
     },
     "liberation": {
       "status": "ok",
       "items": 7,
-      "ms": 5014,
+      "ms": 5158,
       "nom": "Libération"
     },
     "humanite": {
       "status": "ok",
       "items": 13,
-      "ms": 7719,
+      "ms": 12465,
       "nom": "L'Humanité"
     },
     "france24": {
       "status": "ok",
-      "items": 5,
-      "ms": 4898,
+      "items": 6,
+      "ms": 10047,
       "nom": "France 24"
     },
     "rfi": {
       "status": "ok",
-      "items": 5,
-      "ms": 4858,
+      "items": 3,
+      "ms": 5286,
       "nom": "RFI"
     },
     "nextink": {
       "status": "ok",
       "items": 1,
-      "ms": 6826,
+      "ms": 6919,
       "nom": "Next"
     },
     "korii": {
       "status": "ok",
       "items": 0,
-      "ms": 4867,
+      "ms": 5830,
       "nom": "Korii"
     },
     "marsactu": {
       "status": "ok",
       "items": 3,
-      "ms": 6666,
+      "ms": 7333,
       "nom": "Marsactu"
     },
     "usbek-rica": {
       "status": "ok",
       "items": 7,
-      "ms": 5113,
+      "ms": 5998,
       "nom": "Usbek & Rica"
     },
     "bon-pote": {
       "status": "ok",
       "items": 4,
-      "ms": 5815,
+      "ms": 6621,
       "nom": "Bon Pote"
     },
     "natura-sciences": {
       "status": "ok",
       "items": 1,
-      "ms": 7170,
+      "ms": 12173,
       "nom": "Natura Sciences"
     },
     "orient-xxi": {
       "status": "ok",
       "items": 0,
-      "ms": 5422,
+      "ms": 6697,
       "nom": "Orient XXI"
     },
     "lagedefaire": {
       "status": "ok",
       "items": 0,
-      "ms": 5490,
+      "ms": 6603,
       "nom": "L'Âge de Faire"
     },
     "lefigaro": {
       "status": "ok",
-      "items": 2,
-      "ms": 5613,
+      "items": 3,
+      "ms": 6488,
       "nom": "Le Figaro"
     },
     "lesechos": {
       "status": "ok",
-      "items": 2,
-      "ms": 5820,
+      "items": 1,
+      "ms": 6876,
       "nom": "Les Échos"
     },
     "ouest-france": {
       "status": "ok",
-      "items": 1,
-      "ms": 7310,
+      "items": 0,
+      "ms": 12122,
       "nom": "Ouest-France"
     },
     "20minutes": {
       "status": "ok",
-      "items": 1,
-      "ms": 5360,
+      "items": 2,
+      "ms": 6836,
       "nom": "20 Minutes"
     },
     "lopinion": {
       "status": "ok",
-      "items": 1,
-      "ms": 5894,
+      "items": 0,
+      "ms": 7109,
       "nom": "L'Opinion"
     },
     "challenges": {
       "status": "ok",
       "items": 2,
-      "ms": 5880,
+      "ms": 7316,
       "nom": "Challenges"
     },
     "atlantico": {
       "status": "ok",
-      "items": 3,
-      "ms": 5751,
+      "items": 2,
+      "ms": 7265,
       "nom": "Atlantico"
     },
     "agefi": {
       "status": "ok",
       "items": 2,
-      "ms": 5854,
+      "ms": 7204,
       "nom": "L'Agefi"
     },
     "valeursactuelles": {
       "status": "ok",
       "items": 1,
-      "ms": 5726,
+      "ms": 7174,
       "nom": "Valeurs Actuelles"
     },
     "causeur": {
       "status": "ok",
       "items": 0,
-      "ms": 5784,
+      "ms": 7298,
       "nom": "Causeur"
     },
     "frontieres": {
       "status": "ok",
       "items": 2,
-      "ms": 5711,
+      "ms": 7053,
       "nom": "Frontières (ex-Livre Noir)"
     },
     "lincorrect": {
       "status": "ok",
       "items": 1,
-      "ms": 5795,
+      "ms": 7121,
       "nom": "L'Incorrect"
     },
     "bvoltaire": {
       "status": "ok",
       "items": 0,
-      "ms": 5680,
+      "ms": 7114,
       "nom": "Boulevard Voltaire"
     },
     "elements": {
       "status": "ok",
       "items": 0,
-      "ms": 5656,
+      "ms": 7023,
       "nom": "Éléments"
     },
     "breizhinfo": {
       "status": "ok",
       "items": 5,
-      "ms": 5643,
+      "ms": 6902,
       "nom": "Breizh-Info"
     },
     "rts-info": {
       "status": "ok",
       "items": 5,
-      "ms": 5596,
+      "ms": 7269,
       "nom": "RTS Info"
     },
     "letemps": {
       "status": "ok",
-      "items": 1,
-      "ms": 5824,
+      "items": 3,
+      "ms": 7305,
       "nom": "Le Temps"
     },
     "radio-canada": {
       "status": "ok",
       "items": 1,
-      "ms": 7067,
+      "ms": 12015,
       "nom": "Radio-Canada"
     },
     "ledevoir": {
       "status": "ok",
-      "items": 5,
-      "ms": 5434,
+      "items": 4,
+      "ms": 7147,
       "nom": "Le Devoir"
     },
     "jeuneafrique": {
       "status": "ok",
       "items": 1,
-      "ms": 5961,
+      "ms": 7602,
       "nom": "Jeune Afrique"
     },
     "afriquexxi": {
       "status": "ok",
       "items": 0,
-      "ms": 5757,
+      "ms": 7410,
       "nom": "Afrique XXI"
     },
     "orientlejour": {
       "status": "ok",
       "items": 2,
-      "ms": 5896,
+      "ms": 7576,
       "nom": "L'Orient-Le Jour"
     },
     "tv5monde": {
       "status": "ok",
       "items": 3,
-      "ms": 7053,
+      "ms": 11974,
       "nom": "TV5MONDE Info"
     },
     "rfi-afrique": {
       "status": "ok",
-      "items": 4,
-      "ms": 5580,
+      "items": 3,
+      "ms": 7317,
       "nom": "RFI Afrique"
     },
     "france24-afrique": {
       "status": "ok",
       "items": 3,
-      "ms": 6522,
+      "ms": 10060,
       "nom": "France 24 Afrique"
     },
     "lemonde-afrique": {
       "status": "ok",
       "items": 2,
-      "ms": 5570,
+      "ms": 10045,
       "nom": "Le Monde Afrique"
     },
     "lemonde-international": {
       "status": "ok",
-      "items": 6,
-      "ms": 5562,
+      "items": 5,
+      "ms": 10052,
       "nom": "Le Monde International"
     },
     "bbc-news": {
       "status": "ok",
       "items": 2,
-      "ms": 5553,
+      "ms": 10102,
       "nom": "BBC News"
     },
     "guardian": {
       "status": "ok",
       "items": 4,
-      "ms": 5684,
+      "ms": 10093,
       "nom": "The Guardian"
     },
     "nyt": {
       "status": "ok",
-      "items": 2,
-      "ms": 5627,
+      "items": 1,
+      "ms": 10339,
       "nom": "The New York Times"
     },
     "washington-post": {
       "status": "ok",
-      "items": 2,
-      "ms": 7445,
+      "items": 1,
+      "ms": 12427,
       "nom": "Washington Post"
     },
     "aljazeera": {
       "status": "ok",
-      "items": 1,
-      "ms": 5723,
+      "items": 0,
+      "ms": 10238,
       "nom": "Al Jazeera English"
     },
     "reuters": {
       "status": "ok",
-      "items": 1,
-      "ms": 5659,
+      "items": 0,
+      "ms": 10648,
       "nom": "Reuters"
     },
     "bellingcat": {
       "status": "ok",
       "items": 0,
-      "ms": 5904,
+      "ms": 10433,
       "nom": "Bellingcat"
     },
     "theintercept": {
       "status": "ok",
       "items": 4,
-      "ms": 5916,
+      "ms": 10422,
       "nom": "The Intercept"
     },
     "propublica": {
       "status": "ok",
       "items": 3,
-      "ms": 5925,
+      "ms": 10475,
       "nom": "ProPublica"
     },
     "occrp": {
-      "status": "ok",
-      "items": 4,
-      "ms": 5941,
+      "status": "error",
+      "items": 0,
+      "ms": 10444,
+      "error": "fetch failed: fetch failed",
       "nom": "OCCRP"
     },
     "newhumanitarian": {
-      "status": "ok",
+      "status": "error",
       "items": 0,
-      "ms": 5828,
+      "ms": 10443,
+      "error": "fetch failed: fetch failed",
       "nom": "The New Humanitarian"
     },
     "forbiddenstories": {
-      "status": "ok",
-      "items": 1,
-      "ms": 7258,
+      "status": "error",
+      "items": 0,
+      "ms": 10443,
+      "error": "fetch failed: fetch failed",
       "nom": "Forbidden Stories"
     },
     "transparency-intl": {
-      "status": "ok",
-      "items": 7,
-      "ms": 7227,
+      "status": "error",
+      "items": 0,
+      "ms": 10443,
+      "error": "fetch failed: fetch failed",
       "nom": "Transparency International"
     },
     "access-info": {
-      "status": "ok",
+      "status": "error",
       "items": 0,
-      "ms": 7218,
+      "ms": 10442,
+      "error": "fetch failed: fetch failed",
       "nom": "Access Info Europe"
     },
     "cnn": {
-      "status": "ok",
-      "items": 2,
-      "ms": 5984,
+      "status": "error",
+      "items": 0,
+      "ms": 10442,
+      "error": "fetch failed: fetch failed",
       "nom": "CNN"
     },
     "npr": {
-      "status": "ok",
-      "items": 1,
-      "ms": 5851,
+      "status": "error",
+      "items": 0,
+      "ms": 10442,
+      "error": "fetch failed: fetch failed",
       "nom": "NPR"
     },
     "politico-eu": {
-      "status": "ok",
+      "status": "error",
       "items": 0,
-      "ms": 5905,
+      "ms": 10441,
+      "error": "fetch failed: fetch failed",
       "nom": "Politico Europe"
     },
     "euractiv": {
-      "status": "ok",
-      "items": 1,
-      "ms": 7180,
+      "status": "error",
+      "items": 0,
+      "ms": 10441,
+      "error": "fetch failed: fetch failed",
       "nom": "Euractiv"
     },
     "opendemocracy": {
-      "status": "ok",
-      "items": 3,
-      "ms": 6998,
+      "status": "error",
+      "items": 0,
+      "ms": 10441,
+      "error": "fetch failed: fetch failed",
       "nom": "openDemocracy"
     },
     "theconversation": {
-      "status": "ok",
-      "items": 4,
-      "ms": 5964,
+      "status": "error",
+      "items": 0,
+      "ms": 10440,
+      "error": "fetch failed: fetch failed",
       "nom": "The Conversation"
     },
     "icij": {
-      "status": "ok",
-      "items": 3,
-      "ms": 6026,
+      "status": "error",
+      "items": 0,
+      "ms": 10440,
+      "error": "fetch failed: fetch failed",
       "nom": "ICIJ"
     },
     "thebureau": {
-      "status": "ok",
-      "items": 1,
-      "ms": 7277,
+      "status": "error",
+      "items": 0,
+      "ms": 10440,
+      "error": "fetch failed: fetch failed",
       "nom": "The Bureau of Investigative Journalism"
     },
     "themarkup": {
-      "status": "ok",
-      "items": 1,
-      "ms": 6725,
+      "status": "error",
+      "items": 0,
+      "ms": 10438,
+      "error": "fetch failed: fetch failed",
       "nom": "The Markup"
     },
     "decodeurs": {
-      "status": "ok",
-      "items": 5,
-      "ms": 6031,
+      "status": "error",
+      "items": 0,
+      "ms": 10438,
+      "error": "fetch failed: fetch failed",
       "nom": "Les Décodeurs (Le Monde)"
     },
     "checknews": {
-      "status": "ok",
-      "items": 6,
-      "ms": 6484,
+      "status": "error",
+      "items": 0,
+      "ms": 10437,
+      "error": "fetch failed: fetch failed",
       "nom": "CheckNews (Libération)"
     },
     "fullfact": {
-      "status": "ok",
-      "items": 1,
-      "ms": 6640,
+      "status": "error",
+      "items": 0,
+      "ms": 10437,
+      "error": "fetch failed: fetch failed",
       "nom": "Full Fact"
     },
     "politifact": {
-      "status": "ok",
-      "items": 4,
-      "ms": 7236,
+      "status": "error",
+      "items": 0,
+      "ms": 10436,
+      "error": "fetch failed: fetch failed",
       "nom": "PolitiFact"
     },
     "snopes": {
-      "status": "ok",
-      "items": 16,
-      "ms": 6136,
+      "status": "error",
+      "items": 0,
+      "ms": 10436,
+      "error": "fetch failed: fetch failed",
       "nom": "Snopes"
     },
     "rwlp": {
-      "status": "ok",
-      "items": 6,
-      "ms": 9515,
+      "status": "error",
+      "items": 0,
+      "ms": 10435,
+      "error": "fetch failed: fetch failed",
       "nom": "RWLP"
     },
     "liguedh": {
-      "status": "ok",
-      "items": 20,
-      "ms": 6702,
+      "status": "error",
+      "items": 0,
+      "ms": 10436,
+      "error": "fetch failed: fetch failed",
       "nom": "Ligue des Droits Humains"
     },
     "cumuleo": {
-      "status": "ok",
+      "status": "error",
       "items": 0,
-      "ms": 6490,
+      "ms": 10435,
+      "error": "fetch failed: fetch failed",
       "nom": "Cumuleo"
     },
     "transparencia-be": {
-      "status": "ok",
-      "items": 20,
-      "ms": 6448,
+      "status": "error",
+      "items": 0,
+      "ms": 10435,
+      "error": "fetch failed: fetch failed",
       "nom": "Transparencia.be"
     },
     "attac-be": {
-      "status": "ok",
+      "status": "error",
       "items": 0,
-      "ms": 6434,
+      "ms": 10435,
+      "error": "fetch failed: fetch failed",
       "nom": "Attac Wallonie-Bruxelles"
     },
     "technopolice": {
-      "status": "ok",
+      "status": "error",
       "items": 0,
-      "ms": 6457,
+      "ms": 10434,
+      "error": "fetch failed: fetch failed",
       "nom": "Technopolice"
     },
     "barricade": {
-      "status": "ok",
-      "items": 1,
-      "ms": 6622,
+      "status": "error",
+      "items": 0,
+      "ms": 10435,
+      "error": "fetch failed: fetch failed",
       "nom": "Barricade (Liège)"
     },
     "laquadrature": {
-      "status": "ok",
-      "items": 2,
-      "ms": 6577,
+      "status": "error",
+      "items": 0,
+      "ms": 10432,
+      "error": "fetch failed: fetch failed",
       "nom": "La Quadrature du Net"
     },
     "anticor": {
-      "status": "ok",
-      "items": 3,
-      "ms": 6532,
+      "status": "error",
+      "items": 0,
+      "ms": 10432,
+      "error": "fetch failed: fetch failed",
       "nom": "Anticor"
     },
     "yt-viktorovitch": {
-      "status": "ok",
-      "items": 1,
-      "ms": 6376,
+      "status": "error",
+      "items": 0,
+      "ms": 10433,
+      "error": "fetch failed: fetch failed",
       "nom": "Clément Viktorovitch (YouTube)"
     },
     "yt-hygiene-mentale": {
-      "status": "ok",
-      "items": 1,
-      "ms": 6338,
+      "status": "error",
+      "items": 0,
+      "ms": 10433,
+      "error": "fetch failed: fetch failed",
       "nom": "Hygiène Mentale (YouTube)"
     },
     "yt-thinkerview": {
-      "status": "ok",
-      "items": 1,
-      "ms": 6300,
+      "status": "error",
+      "items": 0,
+      "ms": 10433,
+      "error": "fetch failed: fetch failed",
       "nom": "Thinkerview (YouTube)"
     },
     "yt-osons-causer": {
-      "status": "ok",
+      "status": "error",
       "items": 0,
-      "ms": 6520,
+      "ms": 10433,
+      "error": "fetch failed: fetch failed",
       "nom": "Osons Causer (YouTube)"
     },
     "yt-defakator": {
-      "status": "ok",
-      "items": 1,
-      "ms": 6320,
+      "status": "error",
+      "items": 0,
+      "ms": 10432,
+      "error": "fetch failed: fetch failed",
       "nom": "Defakator (YouTube)"
     },
     "yt-lemedia": {
-      "status": "ok",
-      "items": 1,
-      "ms": 6369,
+      "status": "error",
+      "items": 0,
+      "ms": 10432,
+      "error": "fetch failed: fetch failed",
       "nom": "Le Média (YouTube)"
     },
     "yt-stupid-eco": {
-      "status": "ok",
+      "status": "error",
       "items": 0,
-      "ms": 6362,
+      "ms": 10432,
+      "error": "fetch failed: fetch failed",
       "nom": "Stupid Economics (YouTube)"
     },
     "yt-politikon": {
-      "status": "ok",
-      "items": 1,
-      "ms": 6290,
+      "status": "error",
+      "items": 0,
+      "ms": 10431,
+      "error": "fetch failed: fetch failed",
       "nom": "Politikon (YouTube)"
     },
     "yt-hacking-social": {
-      "status": "ok",
+      "status": "error",
       "items": 0,
-      "ms": 6308,
+      "ms": 10432,
+      "error": "fetch failed: fetch failed",
       "nom": "Hacking Social (YouTube)"
     },
     "yt-heureka": {
-      "status": "ok",
+      "status": "error",
       "items": 0,
-      "ms": 6354,
+      "ms": 10432,
+      "error": "fetch failed: fetch failed",
       "nom": "Heu?reka (YouTube)"
     },
     "yt-elucid": {
-      "status": "ok",
+      "status": "error",
       "items": 0,
-      "ms": 6435,
+      "ms": 10431,
+      "error": "fetch failed: fetch failed",
       "nom": "Élucid (YouTube)"
     },
     "yt-datagueule": {
-      "status": "ok",
+      "status": "error",
       "items": 0,
-      "ms": 6283,
+      "ms": 10431,
+      "error": "fetch failed: fetch failed",
       "nom": "DataGueule (YouTube)"
     },
     "yt-troublefait": {
-      "status": "ok",
+      "status": "error",
       "items": 0,
-      "ms": 6400,
+      "ms": 10429,
+      "error": "fetch failed: fetch failed",
       "nom": "Trouble Fait (YouTube)"
     },
     "yt-blast": {
-      "status": "ok",
-      "items": 1,
-      "ms": 6310,
+      "status": "error",
+      "items": 0,
+      "ms": 10429,
+      "error": "fetch failed: fetch failed",
       "nom": "Blast (YouTube)"
     },
     "yt-monsieur-bidouille": {
-      "status": "ok",
+      "status": "error",
       "items": 0,
-      "ms": 6548,
+      "ms": 10429,
+      "error": "fetch failed: fetch failed",
       "nom": "Monsieur Bidouille (YouTube)"
     },
     "yt-canard-refractaire": {
-      "status": "ok",
+      "status": "error",
       "items": 0,
-      "ms": 6635,
+      "ms": 10429,
+      "error": "fetch failed: fetch failed",
       "nom": "Le Canard Réfractaire (YouTube)"
     },
     "gn-corruption-be": {
-      "status": "ok",
-      "items": 9,
-      "ms": 6579,
+      "status": "error",
+      "items": 0,
+      "ms": 10429,
+      "error": "fetch failed: fetch failed",
       "nom": "🇧🇪 Corruption · Belgique"
     },
     "gn-transparence-be": {
-      "status": "ok",
-      "items": 7,
-      "ms": 6532,
+      "status": "error",
+      "items": 0,
+      "ms": 10429,
+      "error": "fetch failed: fetch failed",
       "nom": "🇧🇪 Transparence · Belgique"
     },
     "gn-marches-publics-be": {
-      "status": "ok",
+      "status": "error",
       "items": 0,
-      "ms": 6589,
+      "ms": 10428,
+      "error": "fetch failed: fetch failed",
       "nom": "🇧🇪 Marchés publics · Belgique"
     },
     "gn-lobbying-be": {
-      "status": "ok",
-      "items": 11,
-      "ms": 6504,
+      "status": "error",
+      "items": 0,
+      "ms": 10428,
+      "error": "fetch failed: fetch failed",
       "nom": "🇧🇪 Lobbying · Belgique"
     },
     "gn-justice-be": {
-      "status": "ok",
-      "items": 1,
-      "ms": 6628,
+      "status": "error",
+      "items": 0,
+      "ms": 10428,
+      "error": "fetch failed: fetch failed",
       "nom": "🇧🇪 Justice · Belgique"
     },
     "gn-politique-be": {
-      "status": "ok",
-      "items": 10,
-      "ms": 6788,
+      "status": "error",
+      "items": 0,
+      "ms": 10428,
+      "error": "fetch failed: fetch failed",
       "nom": "🇧🇪 Politique · Belgique"
     },
     "gn-luttes-be": {
-      "status": "ok",
-      "items": 18,
-      "ms": 6651,
+      "status": "error",
+      "items": 0,
+      "ms": 10427,
+      "error": "fetch failed: fetch failed",
       "nom": "🇧🇪 Luttes sociales · Belgique"
     },
     "gn-democratie-be": {
-      "status": "ok",
-      "items": 10,
-      "ms": 6737,
+      "status": "error",
+      "items": 0,
+      "ms": 10427,
+      "error": "fetch failed: fetch failed",
       "nom": "🇧🇪 Démocratie · Belgique"
     },
     "gn-communes-be": {
-      "status": "ok",
-      "items": 1,
-      "ms": 6641,
+      "status": "error",
+      "items": 0,
+      "ms": 10427,
+      "error": "fetch failed: fetch failed",
       "nom": "🇧🇪 Vie communale · Belgique"
     },
     "gn-charleroi-hainaut": {
-      "status": "ok",
-      "items": 3,
-      "ms": 6718,
+      "status": "error",
+      "items": 0,
+      "ms": 10427,
+      "error": "fetch failed: fetch failed",
       "nom": "🇧🇪 Charleroi · Hainaut"
     },
     "gn-climat-be": {
-      "status": "ok",
-      "items": 1,
-      "ms": 6696,
+      "status": "error",
+      "items": 0,
+      "ms": 10426,
+      "error": "fetch failed: fetch failed",
       "nom": "🇧🇪 Climat & environnement · Belgique"
     },
     "gn-corruption-fr": {
-      "status": "ok",
-      "items": 20,
-      "ms": 6677,
+      "status": "error",
+      "items": 0,
+      "ms": 10426,
+      "error": "fetch failed: fetch failed",
       "nom": "🇫🇷 Corruption · France"
     },
     "gn-transparence-fr": {
-      "status": "ok",
-      "items": 19,
-      "ms": 6755,
+      "status": "error",
+      "items": 0,
+      "ms": 10426,
+      "error": "fetch failed: fetch failed",
       "nom": "🇫🇷 Transparence · France"
     },
     "gn-marches-publics-fr": {
-      "status": "ok",
-      "items": 5,
-      "ms": 6742,
+      "status": "error",
+      "items": 0,
+      "ms": 10425,
+      "error": "fetch failed: fetch failed",
       "nom": "🇫🇷 Marchés publics · France"
     },
     "gn-justice-fr": {
-      "status": "ok",
-      "items": 1,
-      "ms": 6593,
+      "status": "error",
+      "items": 0,
+      "ms": 10425,
+      "error": "fetch failed: fetch failed",
       "nom": "🇫🇷 Justice · France"
     },
     "gn-luttes-fr": {
-      "status": "ok",
-      "items": 19,
-      "ms": 6812,
+      "status": "error",
+      "items": 0,
+      "ms": 10426,
+      "error": "fetch failed: fetch failed",
       "nom": "🇫🇷 Luttes sociales · France"
     },
     "gn-democratie-fr": {
-      "status": "ok",
-      "items": 17,
-      "ms": 6763,
+      "status": "error",
+      "items": 0,
+      "ms": 10424,
+      "error": "fetch failed: fetch failed",
       "nom": "🇫🇷 Démocratie · France"
     },
     "gn-corruption-int": {
-      "status": "ok",
-      "items": 20,
-      "ms": 6665,
+      "status": "error",
+      "items": 0,
+      "ms": 10423,
+      "error": "fetch failed: fetch failed",
       "nom": "🌍 Corruption · International"
     },
     "gn-transparence-int": {
-      "status": "ok",
-      "items": 16,
-      "ms": 6723,
+      "status": "error",
+      "items": 0,
+      "ms": 10422,
+      "error": "fetch failed: fetch failed",
       "nom": "🌍 Transparence · International"
     },
     "gn-democratie-int": {
-      "status": "ok",
-      "items": 18,
-      "ms": 6550,
+      "status": "error",
+      "items": 0,
+      "ms": 10422,
+      "error": "fetch failed: fetch failed",
       "nom": "🌍 Démocratie · International"
     },
     "gn-luttes-int": {
-      "status": "ok",
-      "items": 20,
-      "ms": 6799,
+      "status": "error",
+      "items": 0,
+      "ms": 10422,
+      "error": "fetch failed: fetch failed",
       "nom": "🌍 Luttes sociales · International"
     }
   }
